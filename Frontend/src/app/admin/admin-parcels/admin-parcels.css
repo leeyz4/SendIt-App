@@ -1,0 +1,77 @@
+.container{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+.parcel{
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    padding: 10px;
+    width: 60%;
+    height: auto;
+}
+.top-parcel p{
+    color: #4c4b4b;
+    font-size: 13px;
+    margin-top: -10px;
+}
+input{
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid #b2b0b0;
+    width: 50%;
+}
+.nav ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 95%;
+    background-color: #dedcdc;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+.nav ul button{
+    color: #4c4b4b;
+    font-size: 13px;
+    border: none;
+    background-color: #dedcdc;
+}
+.nav ul button:hover{
+    background-color: #2067a1;
+    color: white;
+    /* padding: 5px 10px; */
+}
+.head{
+    display: flex;
+    justify-content: space-around;
+    margin-right: 20%;
+    margin-left: 20px;
+}
+.parcel-detail{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+.parcel-detail h6{
+    font-size: 13px;
+    margin-top: 17px;
+    background-color: #2067a1;
+    color: white;
+    border-radius: 50px;
+    border: 0.5px solid #b2b0b0;
+    padding: 5px 10px;
+}
+.graph{
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    width: 40%;
+    height: 60vh;
+}
+.graph p{
+    color: #4c4b4b;
+    font-size: 13px;
+}

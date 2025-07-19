@@ -1,0 +1,138 @@
+.user-container{
+    padding: 20px;
+}
+h2{
+    margin-left: 60px;
+}
+.stat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+.stat-cards{
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    padding: 10px;
+    width: 20%;
+    height: 13vh;
+    /* box-shadow: 0 0 3px #2067a1; */
+}
+.top-stat{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.top-stat p{
+    color: #4c4b4b;
+    font-size: 13px;
+}
+span{
+    font-weight: bold;
+}
+.pi{
+    color: rgb(14, 174, 107);
+    font-size: 13px;
+}
+.main-cont{
+    display: flex;
+    gap: 20px;
+}
+.recent-cont{
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    width: 70%;
+}
+.recent{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-top: -20px;
+}
+.recent .right p{
+    color: #2067a1;
+    font-size: 13px;
+    margin-bottom: -5px;
+}
+.recent-cont{
+    margin-left: 60px;
+}
+.rec-cards{
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: -15px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 3px #2067a1;
+}
+.id{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.id .left{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.left img{
+    width: 20px;
+    height: 20px;
+}
+.id .right h6{
+    border: 1px solid #b2b0b0;
+    padding: 5px 10px;
+    border-radius: 50px;
+    background-color: #2067a1;
+}
+.name{
+    display: flex;
+    gap: 40%;
+    margin-top: -40px;
+}
+.name p{
+    color: #4c4b4b;
+    font-size: 12px;
+    margin-top: -20px;
+}
+.btn button{
+    margin-left: 80%;
+    border: none;
+    border: 1px solid #b2b0b0;
+    background-color: white;
+    color: #2067a1;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.btn button:hover{
+    background-color: #2067a1;
+    color: white;
+}
+.quick-cont{
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    border-radius: 10px;
+    width: 30%;
+    height: 23vh;
+}
+.quick h3{
+    margin-top: 5px;
+}
+.user-btn{
+    display: flex;
+    flex-direction: column;
+}
+.quick button{
+    margin-bottom: 10px;
+    background-color: #2067a1;
+    color: white;
+    border: none;
+    border: 1px solid #b2b0b0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 15px;
+}

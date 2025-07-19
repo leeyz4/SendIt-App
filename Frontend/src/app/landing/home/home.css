@@ -1,0 +1,202 @@
+/* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+.top{
+    background-image: url(../../../assets/images/back.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+.top::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+.top h1{
+    color: white;
+    position: relative;
+    z-index: 3;
+}
+.top p{
+    position: relative;
+    z-index: 3;
+    color: #bdbbbb;
+}
+.track{
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+}
+input{
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    width: 300px;
+    border: 2px solid #2067a1;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+/* input:hover{
+    border-color: #28f321;
+} */
+input:focus{
+    border-color: #2067a1;
+    box-shadow: 0 0 4px #2067a1;
+}
+button{
+    padding: 17px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2067a1;
+    color: white;
+    cursor: pointer;
+    margin-left: -108px;
+}
+button:hover{
+    background-color: #2a70a5;
+}
+/* 2nd */
+.whhy{
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.why{
+    text-align: center;
+    margin-top: 50px;
+}
+p{
+    color: #4c4b4b;
+    font-size: 15px;
+}
+.why-cards{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 20px;
+}
+.whyy{
+    border: 1px solid #2196f3;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    padding: 10px;
+}
+.howy{
+    background-color: #e3e0e0;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.how{
+    text-align: center;
+}
+.how-cards{
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.howw{
+    background-color: white;
+    border: 1px solid #2196f3;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    padding: 10px;
+}
+.whaty{
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.what{
+    text-align: center;
+}
+.what-cards{
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.whatt{
+    background-color: white;
+    border: 1px solid #2196f3;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    padding: 10px;
+}
+.whatt img{
+    width: 20px;
+    height: 20px;
+}
+.oury{
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e3e0e0;
+}
+.our{
+    text-align: center;
+}
+.our-cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.ourr{
+    background-color: white;
+    border: 1px solid #2196f3;
+    border-radius: 10px;
+    width: 40%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+.ready{
+    background-color: #2067a1;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    margin-top: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.ready p{
+    color: rgb(224, 222, 222);
+}
+.ready button{
+    border-radius: 10px;
+    background-color: white;
+    color: #2196f3;
+    padding: 10px 15px;
+    margin-right: -100px;
+    border: 3px solid #065ba0;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+.ready button:hover{
+    border-color: #2067a1;
+    box-shadow: 0 0 4px #20a124;
+}

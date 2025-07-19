@@ -1,0 +1,5 @@
+<app-landing-navbar *ngIf="isLandingPage"></app-landing-navbar>
+<app-user-navbar *ngIf="!isLandingPage && role === 'user'"></app-user-navbar>
+<app-admin-navbar *ngIf="!isLandingPage && role === 'admin'"></app-admin-navbar>
+<router-outlet></router-outlet>
+<app-landing-footer *ngIf="showLandingFooter"></app-landing-footer>

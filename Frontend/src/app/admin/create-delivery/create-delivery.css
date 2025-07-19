@@ -1,0 +1,133 @@
+h2{
+    padding: 20px;
+}
+.create-cont{
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+.create{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+.sender, .pckg, .opt{
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+input, textarea, select{
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    border: 1px solid #b2b0b0;
+    margin-bottom: 15px;
+}
+label{
+    color: #232222;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+.name, .street, .weight{
+    display: flex;
+    gap: 20px;
+}
+.left, .middle, .right, .kg, .cm{
+    display: flex;
+    flex-direction: column;
+}
+.lwh{
+    display: flex;
+    gap: 20px;
+}
+.opt-card{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    border: 1px solid #b2b0b0;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+.left{
+    margin-top: -15px;
+}
+.days p{
+    margin-top: -20px;
+    font-size: 12px;
+    color: #4c4b4b;
+}
+.right p{
+    font-size: 12px;
+    color: #4c4b4b;
+    font-weight: bold;
+}
+.add{
+    display: flex;
+}
+.add {
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 8px;
+}
+.add .left p{
+    margin-top: -15px;
+    font-size: 13px;
+    color: #4c4b4b;
+}
+.dev{
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    padding: 20px;
+    padding-top: 10px;
+    width: 30%;
+    height: 40vh;
+    margin-top: -50px;
+}
+.cost{
+    display: flex;
+    justify-content: space-between;
+}
+.left{
+    font-size: 15px;
+    color: #4c4b4b;
+}
+.est{
+    margin-top: -5px;
+}
+.cost .right{
+    margin-top: -10px;
+}
+.estt{
+    margin-top: 2px;
+}
+.total{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.total h4{
+    color: #2067a1;
+}
+button{
+    background-color: #2067a1;
+    color: white;
+    border: none;
+    border: 1px solid #b2b0b0;
+    border-radius: 5px;
+    padding: 10px 20px;
+    width: 90%;
+    margin-left: 30px;
+}
+.all{
+    font-size: 13px;
+    color: #4c4b4b;
+    text-align: center;
+    margin-top: 10px;
+}

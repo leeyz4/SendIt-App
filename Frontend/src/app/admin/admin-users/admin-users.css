@@ -1,0 +1,121 @@
+.user{
+    /* display: flex;
+    justify-content: space-between; */
+    margin-left: 60px;
+    padding: 20px;
+}
+/* button{
+    padding: 10px 10px;
+} */
+.stat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    padding: 20px;
+}
+.stat-cards{
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    padding: 10px;
+    width: 20%;
+    height: 13vh;
+}
+.top-stat{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.top-stat p{
+    color: #4c4b4b;
+    font-size: 13px;
+}
+span{
+    font-weight: bold;
+}
+.pi{
+    color: rgb(14, 174, 107);
+    font-size: 13px;
+}
+.user-container{
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+.users{
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #b2b0b0;
+    width: 70%;
+    height: auto;
+}
+input{
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid #b2b0b0;
+    width: 50%;
+}
+.nav ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 95%;
+    background-color: #dedcdc;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+.nav ul button{
+    color: #4c4b4b;
+    font-size: 13px;
+    border: none;
+    background-color: #dedcdc;
+}
+.nav ul button:hover{
+    background-color: #2067a1;
+    color: white;
+    /* padding: 5px 10px; */
+}
+.head{
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 20%;
+    margin-left: 20px;
+}
+.user-detail{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+.user-detail h6{
+    font-size: 13px;
+    margin-top: 17px;
+    background-color: #2067a1;
+    color: white;
+    border-radius: 50px;
+    border: 0.5px solid #b2b0b0;
+    padding: 5px 10px;
+}
+.action button{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    border: none;
+    border: 1px solid #b2b0b0;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.graph{
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    width: 30%;
+    height: 60vh;
+}
+.graph p{
+    color: #4c4b4b;
+    font-size: 13px;
+}

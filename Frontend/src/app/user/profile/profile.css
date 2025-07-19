@@ -1,0 +1,77 @@
+.prof-container{
+    padding: 20px;
+    margin-left: 20%;
+}
+.prof-card{
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 82%;
+    height: 30vh;
+}
+.btn{
+    display: flex;
+    gap: 10px;
+}
+.btn button{
+    border: none;
+    border: 1px solid #b2b0b0;
+    background-color: #2067a1;
+    color: white;
+    border-radius: 5px;
+    padding: 3px 8px;
+}
+.info-card{
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+}
+.person{
+    display: flex;
+    justify-content: space-between;
+    margin-top: -10px;
+}
+.person-det{
+    display: flex;
+    gap: 40%;
+    margin-top: -30px;
+}
+.person-det p{
+    font-size: 13px;
+    color: #4c4b4b;
+    margin-top: -20px;
+}
+.not{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -10px;
+}
+.not-details{
+    display: flex;
+    justify-content: space-between;
+}
+.pref{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -20px;
+}
+.right{
+    display: flex;
+    flex-direction: column;
+}
+.pref img, .right img{
+    width: 20px;
+    height: 20px;
+}
+.left p{
+    margin-top: -10px;
+    font-size: 13px;
+    color: #4c4b4b;
+}

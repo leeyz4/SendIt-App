@@ -1,0 +1,151 @@
+.parcel{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+.parcel h3{
+    color: #2067a1;
+}
+.parcel-cont{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+.one{
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 70vw;
+}
+.top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+.top-left{
+    display: flex;
+    align-items: center;
+}
+.top-right h6{
+    border: 1px solid #b2b0b0;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #126b4dfc;
+    color: white;
+}
+.number{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -30px;
+}
+.number p{
+    color: #4c4b4b;
+    font-size: 13px;
+}
+.del{
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+}
+.Timeline{
+    display: flex;
+    flex-direction: column;
+    margin-top: -15px;
+}
+.Timeline p{
+    color: #4c4b4b;
+    font-size: 13px;
+    margin-top: -10px;
+}
+.Timeline h5{
+    margin-bottom: -px;
+}
+.item{
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+}
+.item-cont{
+    display: flex;
+    align-items: center;
+}
+.item-cont img{
+    width: 50%;
+    height: 50%;
+}
+.item-det{
+    display: flex;
+    flex-direction: column;
+}
+.item-det p{
+    margin-top: -15px;
+    font-size: 13px;
+    color: #4c4b4b;
+}
+.item-kg{
+    margin-top: -20px;
+}
+.dim, .dim1{
+    display: flex;
+    align-items: center;
+}
+.dim p, .dim1 p{
+    margin-bottom: -15px;
+}
+.dim1{
+    margin-top: -40px;
+}
+.two{
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 20vw;
+}
+.contact{
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+}
+.send, .send1{
+    margin-top: -10px;
+}
+.send h5, .send1 h5{
+    margin-bottom: 5px;
+}
+.send div, .send1 div{
+    margin-top: -30px;
+    font-size: 12px;
+    color: #4c4b4b;
+}
+.send1{
+    margin-top: 15px;
+}
+.address div{
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+    margin-bottom: -15px;
+}
+.address p{
+    color: #4c4b4b;
+    font-size: 12px;
+    margin-top: -5px;
+}
+.two button{
+    border: none;
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.btn{
+    display: flex;
+    flex-direction: column;
+}

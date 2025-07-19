@@ -1,0 +1,101 @@
+.admin-cont{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    padding: 20px;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left-header{
+    margin-left: 60px;
+    font-weight: bold;
+}
+.right-header{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-right: 60px;
+}
+button{
+    padding: 7px 15px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid #b2b0b0;
+    background-color: white;
+}
+button:hover{
+    background-color: #2067a1;
+    color: white;
+}
+button:active{
+    background-color: #1e5683;
+}
+.stat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+.stat-cards{
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    padding: 10px;
+    width: 20%;
+    height: 13vh;
+}
+.top-stat{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.top-stat p{
+    color: #4c4b4b;
+    font-size: 13px;
+}
+span{
+    font-weight: bold;
+}
+.pi{
+    color: rgb(14, 174, 107);
+    font-size: 13px;
+}
+.activities{
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+.activities p{
+    color: #4c4b4b;
+    font-size: 14px;
+}
+.activity-details{
+    display: flex;
+    flex-direction: column;
+}
+.par{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 15px;
+    color: #4c4b4b;
+}
+.par h5{
+    color: #191919;
+}
+.par h6{
+    color: #2067a1;
+    font-size: 13px;
+}
+.activity-details p{
+    margin-top: -15px;
+    font-size: 13px;
+}

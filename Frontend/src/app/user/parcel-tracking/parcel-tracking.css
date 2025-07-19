@@ -1,0 +1,75 @@
+h2{
+    text-align: center;
+}
+.track-cont{
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+} 
+.map{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    width: 75%;
+    height: 70vh;
+    border-radius: 5px;
+}
+.map img{
+    width: 50%;
+    height: 50%;
+}
+.det{
+    display: flex;
+    justify-content: space-between;
+}
+/* .det .left, .det .right{
+    display: flex;
+    align-items: center;
+} */
+.upd{
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #4c4b4b;
+}
+.upd p{
+    color: #2067a1;
+    font-size: 12px;
+}
+.det img{
+    width: 20%;
+    height: 20%;
+}
+.parc, .trac{
+    border: 1px solid #b2b0b0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 25vw;
+}
+.parc h3{
+    margin-top: 10px;
+}
+.dets, .hist{
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+.one{
+    display: flex;
+    align-items: center;
+}
+.parc button{
+    padding: 5px 10px;
+    width: 80%;
+    margin-left: 30px;
+    border-radius: 5px;
+    background-color: white;
+    border: none;
+    border: 1px solid #b2b0b0;
+}
+.parc button:hover{
+    background-color: #2067a1;
+    color: white;
+}
