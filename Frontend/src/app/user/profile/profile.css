@@ -19,10 +19,23 @@
 .btn button{
     border: none;
     border: 1px solid #b2b0b0;
-    background-color: #2067a1;
-    color: white;
+    background-color: white;
+    color: #2067a1;
     border-radius: 5px;
     padding: 3px 8px;
+}
+.btn button i{
+    margin-right: 5px;
+}
+.btn button:hover{
+    background-color: #2067a1;
+    color: white;
+}
+.btn button:hover i{
+    color: white;
+}
+i{
+    color: #2067a1;
 }
 .info-card{
     border: 1px solid #b2b0b0;
@@ -34,7 +47,12 @@
 .person{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: -10px;
+}
+.ions{
+    display: flex;
+    gap: 10px;
 }
 .person-det{
     display: flex;

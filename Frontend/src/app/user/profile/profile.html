@@ -2,42 +2,42 @@
 <h2>Your Profile & Settings</h2>
 <div class="prof-card">
     <img src="" alt="">
-    <h4>Letsy Lizz</h4>
-    <p>letsy&#64;gmail.com</p>
+    <h4>{{ user.firstName }} {{ user.lastName }}</h4>
+    <p>{{ user.email }}</p>
     <div class="btn">
-    <button>Edit Profile</button>
-    <button>View All Details</button>
+    <button><i class="fa-solid fa-pen"></i>Edit Profile</button>
+    <button><i class="fa-solid fa-eye"></i>View All Details</button>
     </div>
 </div>
 <div class="info-card">
     <div class="person">
        <h4>Personal Information</h4>
-       <div>
-          <img src="" alt="">
-          <img src="" alt="">
+       <div class="ions">
+          <i class="fa-solid fa-pen"></i>
+          <i class="fa-solid fa-eye"></i>
       </div>
     </div>
     <div class="person-det">
         <div class="left">
             <h6>First Name</h6>
-            <p>Letsy</p>
+            <p>{{ user.firstName }}</p>
             <h6>Date of Birth</h6>
-            <p>2002-04-03</p>
+            <p>{{ user.dob || '-' }}</p>
         </div>
         <div class="right">
             <h6>Last Name</h6>
-            <p>Lizz</p>
+            <p>{{ user.lastName }}</p>
             <h6>Phone</h6>
-            <p>+254798785678</p>
+            <p>{{ user.phone || '-' }}</p>
         </div>
     </div>
 </div>
 <div class="info-card">
     <div class="person">
        <h4>Personal Address</h4>
-       <div>
-          <img src="" alt="">
-          <img src="" alt="">
+       <div class="ions">
+        <i class="fa-solid fa-pen"></i>
+        <i class="fa-solid fa-eye"></i>
       </div>
     </div>
     <div class="person-det">
@@ -65,21 +65,21 @@
     <div class="not-details">
         <div class="left">
             <div class="pref">
-              <img src="" alt="">
+                <i class="fa-solid fa-envelope"></i>
               <h6>Email Delivery Updates</h6>
             </div>
             <div class="pref">
-              <img src="" alt="">
+                <i class="fa-solid fa-phone"></i>
               <h6>SMS Promotions</h6>
             </div>
             <div class="pref">
-              <img src="" alt="">
+                <i class="fa-solid fa-bell"></i>
               <h6>In-App-Notifications</h6>
             </div>
              <p>Manage how Sendly communicates important updates and offers.</p> 
         </div>
         <div class="right">
-            <img src="" alt="">
+            <img src="" alt="">  <!--toggle-->
             <img src="" alt="">
             <img src="" alt="">
         </div>

@@ -1,0 +1,49 @@
+.dev{
+    background-color: white;
+    border: 1px solid #b2b0b0;
+    border-radius: 10px;
+    padding: 20px;
+    width: 30%;
+    height: 40vh;
+}
+.cost{
+    display: flex;
+    justify-content: space-between;
+}
+.left{
+    font-size: 15px;
+    color: #4c4b4b;
+}
+.est{
+    margin-top: -5px;
+}
+.cost .right{
+    margin-top: -10px;
+}
+.estt{
+    margin-top: 2px;
+}
+.total{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.total h4{
+    color: #2067a1;
+}
+button{
+    background-color: #2067a1;
+    color: white;
+    border: none;
+    border: 1px solid #b2b0b0;
+    border-radius: 5px;
+    padding: 10px 20px;
+    width: 90%;
+    margin-left: 30px;
+}
+.all{
+    font-size: 13px;
+    color: #4c4b4b;
+    text-align: center;
+    margin-top: 10px;
+}

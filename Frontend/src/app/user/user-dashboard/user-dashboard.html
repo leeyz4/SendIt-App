@@ -1,10 +1,11 @@
+<!-- <app-landing-navbar></app-landing-navbar> -->
 <div class="user-container">
 <h2>Welcome, Letsy</h2>
 <div class="stat">
     <div class="stat-cards">
         <div class="top-stat">
             <p>Total Parcels Sent</p>
-            <img src="" alt="">
+            <i class="fa-solid fa-box"></i>
         </div>
         <span>1,765</span>
         <p class="pi">12% increase this Month</p>
@@ -12,7 +13,7 @@
     <div class="stat-cards">
         <div class="top-stat">
             <p>Parcels delivered</p>
-            <img src="" alt="">
+            <i class="fa-solid fa-square-check"></i>
         </div>
         <span>1,565</span>
         <p class="pi">12% increase this Month</p>
@@ -20,7 +21,7 @@
     <div class="stat-cards">
         <div class="top-stat">
             <p>Parcels in Transit</p>
-            <img src="" alt="">
+            <i class="fa-solid fa-truck"></i>
         </div>
         <span>65</span>
         <p class="pi">5% change this Month</p>
@@ -28,7 +29,7 @@
     <div class="stat-cards">
         <div class="top-stat">
             <p>Failed Deliveries</p>
-            <img src="" alt="">
+            <i class="fa-solid fa-circle-exclamation"></i>
         </div>
         <span>5</span>
         <p class="pi">2% decrease this Month</p>
@@ -43,14 +44,14 @@
           </div>
           <div class="right">
               <p>View All Parcels</p>
-              <img src="" alt="">
+              <!-- <img src="" alt=""> -->
           </div>
       </div>
       <div class="rec-cont">
         <div class="rec-cards">
             <div class="id">
                 <div class="left">
-                    <img src="" alt="">
+                    <i class="fa-solid fa-box"></i>
                     <h4>SNDIT7890</h4>
                 </div>
                 <div class="right">
@@ -77,7 +78,7 @@
         <div class="rec-cards">
             <div class="id">
                 <div class="left">
-                    <img src="" alt="">
+                    <i class="fa-solid fa-box"></i>
                     <h4>SNDIT7890</h4>
                 </div>
                 <div class="right">
@@ -106,11 +107,12 @@
      <div class="quick">
          <h3>Quick Actions</h3>
          <div class="user-btn">
-         <button>Create New Delivery</button>
-         <button>Track a Parcel</button>
-         <button>Manage Profile</button>
+         <button [routerLink]="'/delivery-history'">Delivery History</button>
+         <button [routerLink]="'/parcelTracking'">Track a Parcel</button>
+         <button [routerLink]="'/profile'">Manage Profile</button>
          </div>
      </div>
   </div>
 </div>
+<!-- <app-landing-footer></app-landing-footer> -->
 </div>

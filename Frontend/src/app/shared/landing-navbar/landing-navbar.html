@@ -1,24 +1,24 @@
 <header>
     <div class="left">
-      <div class="title">
-          <!-- <img src="assets/images/image1.jpg" alt=""> -->
-          <h3>SendIT</h3>
-      </div>
+      <a (click)="navigate('/home')" class="title" style="cursor: pointer;">
+          <img src="assets/images/image1.jpg" alt="">
+          <h3>Sendly</h3>
+      </a>
 
       <div class="list">
           <ul>
-              <li>Home</li>
-              <li>Services</li>
-              <li>Track</li>
-              <li>About Us</li>
-              <li>Contact</li>
+              <li routerLink="/home">Home</li>
+              <li routerLink="/services">Services</li>
+              <li routerLink="/track">Track</li>
+              <li routerLink="/about-us">About Us</li>
+              <li routerLink="/contact">Contact</li>
           </ul>
       </div>
    </div>
 
    <div class="right">
-      <button>Get Started</button>
-      <button>Login</button>
+    <a routerLink="/register" class="nav-btn">Get Started</a>
+    <a routerLink="/login" class="nav-btn">Login</a>
    </div>
 </header>
 

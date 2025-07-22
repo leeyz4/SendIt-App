@@ -1,0 +1,72 @@
+<div class="admin-drivers-container">
+  <h2>All Drivers</h2>
+  <div *ngIf="drivers.length === 0">
+    <p>No drivers found.</p>
+  </div>
+  <div *ngFor="let driver of drivers" class="driver-section">
+    <h3>{{ driver.firstName || '' }} {{ driver.lastName || '' }} ({{ driver.email }})
+      <span class="driver-status" [ngClass]="{'active': driver.status !== 'Deactivated', 'deactivated': driver.status === 'Deactivated'}">
+        {{ driver.status || 'Active' }}
+      </span>
+      <button (click)="toggleDriverStatus(driver)">
+        {{ driver.status === 'Deactivated' ? 'Activate' : 'Deactivate' }}
+      </button>
+    </h3>
+    <table *ngIf="getDriverParcels(driver.email).length > 0" class="deliveries-table">
+      <thead>
+        <tr>
+          <th>Tracking ID</th>
+          <th>Sender</th>
+          <th>Recipient</th>
+          <th>Status</th>
+          <th>Delivery Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of getDriverParcels(driver.email)">
+          <td>{{ p.trackingId }}</td>
+          <td>{{ p.sender }}</td>
+          <td>{{ p.recipient }}</td>
+          <td>{{ p.status }}</td>
+          <td>{{ p.deliveryDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="getDriverParcels(driver.email).length === 0" class="no-deliveries">
+      <p>No deliveries assigned to this driver.</p>
+    </div>
+    <hr />
+  </div>
+
+  <h2>Assign Deliveries</h2>
+  <div *ngIf="unassignedParcels.length === 0">
+    <p>All parcels are assigned.</p>
+  </div>
+  <table *ngIf="unassignedParcels.length > 0" class="deliveries-table">
+    <thead>
+      <tr>
+        <th>Tracking ID</th>
+        <th>Sender</th>
+        <th>Recipient</th>
+        <th>Assign to Driver</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of unassignedParcels">
+        <td>{{ p.trackingId }}</td>
+        <td>{{ p.sender }}</td>
+        <td>{{ p.recipient }}</td>
+        <td>
+          <select [(ngModel)]="selectedDriverEmail[p.trackingId]">
+            <option value="">Select Driver</option>
+            <option *ngFor="let d of drivers" [value]="d.email">{{ d.firstName || '' }} {{ d.lastName || '' }} ({{ d.email }})</option>
+          </select>
+        </td>
+        <td>
+          <button (click)="assignParcel(p, selectedDriverEmail[p.trackingId])" [disabled]="!selectedDriverEmail[p.trackingId]">Assign</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

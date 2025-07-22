@@ -74,6 +74,9 @@ button{
 button:hover{
     background-color: #2a70a5;
 }
+i{
+    color: #2067a1;
+}
 /* 2nd */
 .whhy{
     padding: 20px;
@@ -147,8 +150,8 @@ p{
     padding: 10px;
 }
 .whatt img{
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
 }
 .oury{
     padding: 20px;
@@ -173,7 +176,15 @@ p{
     width: 40%;
     padding: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+.ourr p{
+    margin-top: -10px;
+}
+.our-details{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .ready{
     background-color: #2067a1;

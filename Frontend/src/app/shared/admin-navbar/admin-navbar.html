@@ -1,15 +1,16 @@
 <header>
     <div class="left">
-      <div class="title">
+      <div class="title" routerLink="/home" style="cursor: pointer;">
           <!-- <img src="assets/images/image1.jpg" alt=""> -->
-          <h3>SendIT</h3>
+          <h3>Sendly</h3>
       </div>
 
       <div class="list">
           <ul>
-              <li>Dashboard</li>
-              <li>Parcels</li>
-              <li>Users</li>
+              <li routerLink="/admin-dashboard">Dashboard</li>
+              <li routerLink="/admin-parcels">Parcels</li>
+              <li routerLink="/admin-users">Users</li>
+              <li routerLink="/admin-drivers">Drivers</li>
               <li>Settings</li>
           </ul>
       </div>
@@ -17,7 +18,7 @@
 
    <div class="right">
       <input type="text" id="search" placeholder="Search parcels and users">
-      <img src="" alt="">  <!--profile-->
+      <!-- <img src="assets/images/prof.jpg" alt="profile">  -->
    </div>
 </header>
 

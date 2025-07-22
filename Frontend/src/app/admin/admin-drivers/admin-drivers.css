@@ -1,0 +1,87 @@
+.admin-drivers-container {
+  max-width: 1100px;
+  /* margin: 0 auto; */
+  padding: 20px;
+}
+.driver-section {
+  margin-bottom: 32px;
+}
+.driver-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.2rem;
+}
+.driver-status {
+  padding: 3px 12px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin-left: 8px;
+}
+.driver-status.active {
+  background: #e6f9ed;
+  color: #1a7f37;
+  border: 1px solid #1a7f37;
+}
+.driver-status.deactivated {
+  background: #fdeaea;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+}
+.driver-section button {
+  margin-left: 8px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #2067a1;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+.driver-section button:hover {
+  background: #2a9d8f;
+}
+.deliveries-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(32,103,161,0.04);
+}
+.deliveries-table th, .deliveries-table td {
+  border: 1px solid #e0e0e0;
+  padding: 8px 10px;
+  text-align: center;
+}
+.deliveries-table th {
+  background: #f7fafd;
+  color: #2067a1;
+}
+.no-deliveries {
+  color: #c0392b;
+  font-size: 0.98rem;
+  margin: 8px 0 16px 0;
+}
+select {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #b2b0b0;
+  font-size: 0.98rem;
+}
+select:focus {
+  outline: none;
+  border: 1px solid #2067a1;
+}
+.admin-drivers-container h2 {
+  margin-top: 32px;
+  color: #2067a1;
+}
+.admin-drivers-container h2:first-child {
+  margin-top: 0;
+}
+.admin-drivers-container hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 24px 0;
+}

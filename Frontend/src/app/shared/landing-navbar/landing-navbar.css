@@ -12,6 +12,14 @@ header{
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
 }
+.title{
+    display: flex;
+    align-items: center;
+}
+.title img{
+    width: 30px;
+    height: 30px;
+}
 .left{
     display: flex;
     align-items: center;
@@ -19,7 +27,7 @@ header{
 .list ul{
     list-style: none;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     font-size: 15px;
     color: #4c4b4b;
 }
@@ -33,14 +41,16 @@ header{
     align-items: center;
     gap: 10px;
 }
-.right button{
+.nav-btn{
     border: none;
     border: 1px solid #b2b0b0;
     background-color: white;
+    color: #2067a1;
     border-radius: 5px;
     padding: 5px 10px;
+    text-decoration: none;
 }
-.right button:hover{
+.nav-btn:hover{
     background-color: #2067a1;
     color: white;
     cursor: pointer;

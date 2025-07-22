@@ -4,15 +4,15 @@
         <h2>Welcome,Elizabeth</h2>
     </div>
     <div class="right-header">
-        <button>Create Delivery</button>
-        <button>Add New User</button>
+        <button [routerLink]="'/create-delivery'"><i class="fa-solid fa-circle-plus"></i>Create Delivery</button>
+        <button><i class="fa-regular fa-user"></i>Add New User</button>
     </div>
 </header>
 <div class="stat">
     <div class="stat-cards">
         <div class="top-stat">
             <p>Total Parcels</p>
-            <img src="" alt="">
+            <i class="fa-solid fa-box"></i>
         </div>
         <span>8,765</span>
         <p class="pi">+12% vs Last Month</p>
@@ -20,7 +20,7 @@
     <div class="stat-cards">
         <div class="top-stat">
             <p>Active Users</p>
-            <img src="" alt="">
+            <i class="fa-regular fa-user"></i>
         </div>
         <span>8,765</span>
         <p class="pi">+12% vs Last Month</p>
@@ -28,7 +28,7 @@
     <div class="stat-cards">
         <div class="top-stat">
             <p>Deliveries Completed</p>
-            <img src="" alt="">
+            <i class="fa-solid fa-square-check"></i>
         </div>
         <span>8,765</span>
         <p class="pi">+12% vs Last Month</p>
@@ -36,29 +36,37 @@
     <div class="stat-cards">
         <div class="top-stat">
             <p>Pending Deliveries</p>
-            <img src="" alt="">
+           <i class="fa-solid fa-circle-exclamation"></i>
         </div>
         <span>8,765</span>
         <p class="pi">+12% vs Last Month</p>
     </div>
 </div>
 <div class="activities">
-    <h3>Recent System Activities</h3>
-    <p>Important events and updates across the platform.</p>
-    <div class="activity-details">
-        <img src="" alt="">
-        <div class="par">Parcel<h5>SND-OO1-A1B2</h5>updated to<h6>In Transit.</h6></div>
-        <p>10 mins ago</p>
+    <div class="rec">
+     <h3>Recent System Activities</h3>
+     <p>Important events and updates across the platform.</p>
     </div>
     <div class="activity-details">
-        <img src="" alt="">
-        <div class="par">New user<h5>Joy Lynne</h5>registered.</div>
-        <p>1 hour ago</p>
+         <i class="fas fa-truck"></i>
+         <div class="icon">
+           <div class="par">Parcel<h5>SND-OO1-A1B2</h5>updated to<h6>In Transit.</h6></div>
+           <p>10 mins ago</p>
+         </div>
     </div>
     <div class="activity-details">
-        <img src="" alt="">
-        <div class="par">Parcel<h5>SND-OO1-A1B2</h5>marked as<h6>Delivered.</h6></div>
-        <p>Yesterday</p>
+         <i class="fa-regular fa-user"></i>
+         <div class="icon">
+           <div class="par">New user<h5>Joy Lynne</h5>registered.</div>
+           <p>1 hour ago</p>
+         </div>
+    </div>
+    <div class="activity-details">
+         <i class="fa-solid fa-square-check"></i>
+         <div class="icon">
+           <div class="par">Parcel<h5>SND-OO1-A1B2</h5>marked as<h6>Delivered.</h6></div>
+           <p>Yesterday</p>
+         </div>
     </div>
 </div>
 </div>

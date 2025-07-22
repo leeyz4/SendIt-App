@@ -1,7 +1,7 @@
 .user{
     /* display: flex;
     justify-content: space-between; */
-    margin-left: 60px;
+    /* margin-left: 60px; */
     padding: 20px;
 }
 /* button{
@@ -9,7 +9,7 @@
 } */
 .stat{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     gap: 30px;
     margin-bottom: 50px;
@@ -78,25 +78,32 @@ input{
     color: white;
     /* padding: 5px 10px; */
 }
-.head{
-    display: flex;
-    justify-content: space-evenly;
-    margin-right: 20%;
-    margin-left: 20px;
+.head, .user-detail {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  gap: 0;
 }
-.user-detail{
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
+.head h4, .user-detail > * {
+  flex: 1 1 0;
+  text-align: center;
+  margin: 0;
+  padding: 8px 0;
 }
-.user-detail h6{
-    font-size: 13px;
-    margin-top: 17px;
-    background-color: #2067a1;
-    color: white;
-    border-radius: 50px;
-    border: 0.5px solid #b2b0b0;
-    padding: 5px 10px;
+.head {
+  background: #f7fafd;
+  font-weight: bold;
+  border-bottom: 1px solid #b2b0b0;
+}
+.user-detail {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+}
+.user-detail:last-child {
+  border-bottom: none;
+}
+.user-detail:hover {
+  background: #f5faff;
 }
 .action button{
     display: flex;

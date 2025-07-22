@@ -1,80 +1,83 @@
+<div *ngIf="message" [ngClass]="{'alert-success': messageType === 'success', 'alert-error': messageType === 'error'}" class="custom-alert">
+  {{ message }}
+</div>
 <h2>Create New Delivery</h2>
 <div class="create-cont">
 <div class="create">
     <div class="sender">
         <h3>Sender Information</h3>
         <label for="email">Email</label>
-        <input type="email" id="email" placeholder="example&#64;gmail.com" required>
+        <input type="email" id="email" placeholder="example@gmail.com" required [(ngModel)]="senderEmail" name="senderEmail">
         <label for="Country">Country/Region</label>
-        <input type="text" id="country" placeholder="Kenya" required>
+        <input type="text" id="country" placeholder="Kenya" required [(ngModel)]="senderCountry" name="senderCountry">
         <div class="name">
             <div class="left">
                 <label for="name">First Name</label>
-                <input type="text" placeholder="Liz">
+                <input type="text" placeholder="Liz" [(ngModel)]="senderFirstName" name="senderFirstName">
             </div>
             <div class="right">
                 <label for="name">Last Name</label>
-                <input type="text" placeholder="Beth">
+                <input type="text" placeholder="Beth" [(ngModel)]="senderLastName" name="senderLastName">
             </div>
         </div>
         <label for="address">Street Address</label>
-        <input type="text" placeholder="423 Elm Street">
+        <input type="text" placeholder="423 Elm Street" [(ngModel)]="senderAddress" name="senderAddress">
         <div class="street">
             <div class="left">
                 <label for="name">City</label>
-                <input type="text" placeholder="Nairobi">
+                <input type="text" placeholder="Nairobi" [(ngModel)]="senderCity" name="senderCity">
             </div>
             <div class="middle">
                 <label for="name">State/Province</label>
-                <input type="text" placeholder="Nairobi">
+                <input type="text" placeholder="Nairobi" [(ngModel)]="senderState" name="senderState">
             </div>
             <div class="right">
                 <label for="name">Zip/Postal Code</label>
-                <input type="text" placeholder="00200">
+                <input type="text" placeholder="00200" [(ngModel)]="senderZip" name="senderZip">
             </div>
         </div>
         <label for="">Phone</label>
-        <input type="number" placeholder="+254765345891">
+        <input type="number" placeholder="+254765345891" [(ngModel)]="senderPhone" name="senderPhone">
     </div>
 
     <div class="sender">
         <h3>Recipient Information</h3>
         <label for="Country">Country/Region</label>
-        <input type="text" id="country" placeholder="Kenya" required>
+        <input type="text" id="country" placeholder="Kenya" required [(ngModel)]="recipientCountry" name="recipientCountry">
         <div class="name">
             <div class="left">
                 <label for="name">First Name</label>
-                <input type="text" placeholder="Liz">
+                <input type="text" placeholder="Liz" [(ngModel)]="recipientFirstName" name="recipientFirstName">
             </div>
             <div class="right">
                 <label for="name">Last Name</label>
-                <input type="text" placeholder="Beth">
+                <input type="text" placeholder="Beth" [(ngModel)]="recipientLastName" name="recipientLastName">
             </div>
         </div>
         <label for="address">Street Address</label>
-        <input type="text" placeholder="423 Elm Street">
+        <input type="text" placeholder="423 Elm Street" [(ngModel)]="recipientAddress" name="recipientAddress">
         <div class="street">
             <div class="left">
                 <label for="name">City</label>
-                <input type="text" placeholder="Nairobi">
+                <input type="text" placeholder="Nairobi" [(ngModel)]="recipientCity" name="recipientCity">
             </div>
             <div class="middle">
                 <label for="name">State/Province</label>
-                <input type="text" placeholder="Nairobi">
+                <input type="text" placeholder="Nairobi" [(ngModel)]="recipientState" name="recipientState">
             </div>
             <div class="right">
                 <label for="name">Zip/Postal Code</label>
-                <input type="text" placeholder="00200">
+                <input type="text" placeholder="00200" [(ngModel)]="recipientZip" name="recipientZip">
             </div>
         </div>
         <label for="">Phone</label>
-        <input type="number" placeholder="+254765345891">
+        <input type="number" placeholder="+254765345891" [(ngModel)]="recipientPhone" name="recipientPhone">
     </div>
 
     <div class="pckg">
         <h3>Package Details</h3>
         <label for="">Package Type</label>
-        <select name="pckg-type" id="">
+        <select name="pckg-type" id="" [(ngModel)]="packageType">
             <option value="">Choose Type</option>
             <option>Small Parcel</option>
             <option>Medium Parcel</option>
@@ -83,19 +86,19 @@
         <div class="weight">
             <div class="kg">
                 <label for="kg">Weight (kg)</label>
-                <input type="number" placeholder="2.5" required>
+                <input type="number" placeholder="2.5" required [(ngModel)]="weight" name="weight">
             </div>
             <div class="cm">
                 <label for="cm">Dimensions (cm) L * W * H</label>
                 <div class="lwh">
-                <input type="text" placeholder="30">
-                <input type="text" placeholder="20">
-                <input type="text" placeholder="10">
+                <input type="text" placeholder="30" [(ngModel)]="length" name="length">
+                <input type="text" placeholder="20" [(ngModel)]="width" name="width">
+                <input type="text" placeholder="10" [(ngModel)]="height" name="height">
                 </div>
             </div>
         </div>
         <label for="">Special Instructions (optional)</label>
-        <textarea name="" id=""></textarea>
+        <textarea name="specialInstructions" id="" [(ngModel)]="specialInstructions"></textarea>
     </div>
 
     <div class="opt">
@@ -137,7 +140,7 @@
             </div>
         </div>
         <label for="">Preferred Delivery Date</label>
-        <input type="date" placeholder="date">
+        <input type="date" placeholder="date" [(ngModel)]="deliveryDate" name="deliveryDate">
         <div class="add">
             <div class="left">
                 <h5>Add Delivery Insurance</h5>
@@ -148,27 +151,6 @@
             </div>
         </div>
     </div>
+    <button type="button" (click)="createParcel()">Create</button>
 </div>
-
-    <div class="dev">
-        <h3>Delivery Cost Estimate</h3>
-        <div class="cost">
-            <div class="left">
-                <p>Shipping</p>
-                <p class="est">Tax</p>
-                <p class="est">Insurance</p>
-            </div>
-            <div class="right">
-                <p>kes 500</p>
-                <p class="estt">kes 20</p>
-                <p class="estt">kes 50</p>
-            </div>
-        </div>
-        <div class="total">
-            <h5>Total</h5>
-            <h4>kes 570</h4>
-        </div>
-        <button>Confirm Delivery & Pay</button>
-        <p class="all">All Transactions are Secure and Encrypted.</p>
-    </div>
 </div>

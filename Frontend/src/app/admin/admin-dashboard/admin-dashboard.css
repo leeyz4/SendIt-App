@@ -4,6 +4,7 @@
     /* justify-content: center;
     align-items: center; */
     padding: 20px;
+    padding-top: 10px;
 }
 header{
     display: flex;
@@ -11,7 +12,7 @@ header{
     align-items: center;
 }
 .left-header{
-    margin-left: 60px;
+    /* margin-left: 60px; */
     font-weight: bold;
 }
 .right-header{
@@ -34,9 +35,18 @@ button:hover{
 button:active{
     background-color: #1e5683;
 }
+.right-header button i{
+    margin-right: 10px;
+}
+i{
+    color: #2067a1;
+}
+.right-header button:hover i{
+    color: white;
+}
 .stat{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     gap: 30px;
     margin-bottom: 50px;
@@ -62,7 +72,7 @@ span{
     font-weight: bold;
 }
 .pi{
-    color: rgb(14, 174, 107);
+    color: #2a9d8f;
     font-size: 13px;
 }
 .activities{
@@ -70,8 +80,11 @@ span{
     border: 1px solid #b2b0b0;
     padding: 10px;
     border-radius: 10px;
-    margin-left: 60px;
+    /* margin-left: 60px; */
     margin-right: 60px;
+}
+.rec{
+    border-bottom: 1px solid #b2b0b0;
 }
 .activities p{
     color: #4c4b4b;
@@ -79,7 +92,16 @@ span{
 }
 .activity-details{
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #b2b0b0;
+}
+.activity-details:last-child{
+    border-bottom: none;
+}
+.icon{
+    display: flex;
+   flex-direction: column;
 }
 .par{
     display: flex;

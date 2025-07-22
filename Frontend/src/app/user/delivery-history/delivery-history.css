@@ -22,39 +22,67 @@ input:focus, select:focus{
 option{
     color: #2067a1;
 }
-.del-cont{
+.del-cont {
     border: 1px solid #b2b0b0;
-    padding: 10px;
+    padding: 0px;
     border-radius: 10px;
     width: 70%;
+    /* max-width: 900px; */
+    /* margin: 0 auto; */
+    background: #fff;
+    overflow-x: auto;
 }
-.head{
+.head, .del-cards {
     display: flex;
-    justify-content: space-around;
-    margin-left: -50px;
+    justify-content: stretch;
+    align-items: center;
+    gap: 0;
 }
-.del-cards{
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
-    margin-left: -40px;
+.head h4, .del-cards > * {
+    flex: 1 1 0;
+    text-align: center;
+    margin: 0;
+    padding: 8px 0;
 }
-.del-cards h6{
+.head {
+    background: #f7fafd;
+    font-weight: bold;
+    border-bottom: 1px solid #b2b0b0;
+}
+.del-cards {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+.del-cards:last-child {
+    border-bottom: none;
+}
+.del-cards:hover {
+    background: #f5faff;
+}
+.del-cards h6 {
+    display: inline-block;
     font-size: 13px;
     margin-top: 17px;
-    background-color: #2067a1;
-    color: white;
+    margin-bottom: 6px;
+    /* background-color: #2a9d8f; */
+    color: #2a9d8f;
     border-radius: 50px;
-    border: 0.5px solid #b2b0b0;
-    padding: 5px 10px;
+    padding: 3px 12px;
+    /* min-width: 60px; */
+    text-align: center;
 }
 .del-cards p{
     font-size: 13px;
     color: #4c4b4b;
 }
-button{
+a{
     background-color: white;
     border: none;
     border-radius: 5px;
-    border: 1px solid #b2b0b0;
+    color: #2067a1;
+    text-decoration: none;
+}
+a:hover{
+    cursor: pointer;
 }

@@ -3,8 +3,8 @@ h2{
 }
 .create-cont{
     padding: 20px;
-    display: flex;
-    gap: 20px;
+    /* display: flex;
+    gap: 20px; */
 }
 .create{
     display: flex;
@@ -25,18 +25,34 @@ input, textarea, select{
     border-radius: 8px;
     border: none;
     border: 1px solid #b2b0b0;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
+/* input:focus, textarea:focus, select:focus{
+    outline: none;
+    box-shadow: 0 0 3px #2067a1;
+} */
 label{
     color: #232222;
     font-size: 15px;
     margin-bottom: 8px;
 }
-.name, .street, .weight{
+.name, .street{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.left, .middle, .right{
+    display: flex;
+    flex-direction: column;
+}
+/* .name .right{
+    margin-top: -15px;
+} */
+.weight{
     display: flex;
     gap: 20px;
 }
-.left, .middle, .right, .kg, .cm{
+.kg, .cm{
     display: flex;
     flex-direction: column;
 }
@@ -80,54 +96,22 @@ label{
     font-size: 13px;
     color: #4c4b4b;
 }
-.dev{
-    background-color: white;
-    border: 1px solid #b2b0b0;
-    border-radius: 10px;
-    padding: 20px;
-    padding-top: 10px;
-    width: 30%;
-    height: 40vh;
-    margin-top: -50px;
+.custom-alert {
+  margin: 16px auto;
+  max-width: 600px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
 }
-.cost{
-    display: flex;
-    justify-content: space-between;
+.alert-success {
+  background: #e6f9ed;
+  color: #1a7f37;
+  border: 1px solid #1a7f37;
 }
-.left{
-    font-size: 15px;
-    color: #4c4b4b;
-}
-.est{
-    margin-top: -5px;
-}
-.cost .right{
-    margin-top: -10px;
-}
-.estt{
-    margin-top: 2px;
-}
-.total{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-.total h4{
-    color: #2067a1;
-}
-button{
-    background-color: #2067a1;
-    color: white;
-    border: none;
-    border: 1px solid #b2b0b0;
-    border-radius: 5px;
-    padding: 10px 20px;
-    width: 90%;
-    margin-left: 30px;
-}
-.all{
-    font-size: 13px;
-    color: #4c4b4b;
-    text-align: center;
-    margin-top: 10px;
+.alert-error {
+  background: #fdeaea;
+  color: #c0392b;
+  border: 1px solid #c0392b;
 }

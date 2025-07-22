@@ -1,8 +1,10 @@
 header{
     padding: 0 20px;
     margin: 0;
-    background-color: white;
-    border-radius: 5px;
+    display: flex;
+    display: flex;
+    background: linear-gradient(to right, #2067a1, #2a9d8f);
+    color: white;
     display: flex;
     justify-content: space-between;
     font-family: Arial, Helvetica, sans-serif;
@@ -12,6 +14,15 @@ header{
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
 }
+.title{
+    display: flex;
+    align-items: center;
+}
+.title img{
+    background-color: #2067a1;
+    width: 30px;
+    height: 30px;
+}
 .left{
     display: flex;
     align-items: center;
@@ -19,13 +30,12 @@ header{
 .list ul{
     list-style: none;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     font-size: 15px;
-    color: #4c4b4b;
+    color: white;
 }
 .list ul li:hover{
-    color: #2067a1;
-    text-decoration: underline;
+    color: #2a9d8f;
     cursor: pointer;
 }
 .right{
@@ -45,6 +55,7 @@ header{
     box-shadow: 0 0 3px #2067a1;
 }
 .right img{
+    background-color: #2a9d8f;
     width: 20px;
     height: 20px;
 }

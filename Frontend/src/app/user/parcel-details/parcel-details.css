@@ -25,10 +25,12 @@
     align-items: center;
     margin-top: -10px;
     margin-bottom: 10px;
+    border-bottom: 1px solid #b2b0b0;
 }
 .top-left{
     display: flex;
     align-items: center;
+    gap: 5px;
 }
 .top-right h6{
     border: 1px solid #b2b0b0;
@@ -41,26 +43,39 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-top: -30px;
+    margin-top: -20px;
 }
 .number p{
     color: #4c4b4b;
     font-size: 13px;
 }
+i{
+    color: #2067a1;
+}
 .del{
     display: flex;
     align-items: center;
     margin-top: -10px;
+    gap: 5px;
+    border-bottom: 1px solid #b2b0b0;
 }
 .Timeline{
     display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -10px;
+}
+.Timeline i{
+    margin-top: -25px;
+}
+.pars{
+    display: flex;
     flex-direction: column;
-    margin-top: -15px;
 }
 .Timeline p{
     color: #4c4b4b;
     font-size: 13px;
-    margin-top: -10px;
+    margin-top: -15px;
 }
 .Timeline h5{
     margin-bottom: -px;
@@ -69,14 +84,17 @@
     display: flex;
     align-items: center;
     margin-top: -10px;
+    gap: 5px;
+    border-bottom: 1px solid #b2b0b0;
 }
 .item-cont{
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 .item-cont img{
-    width: 50%;
-    height: 50%;
+    width: 150px;
+    height:100px;
 }
 .item-det{
     display: flex;
@@ -111,6 +129,8 @@
     display: flex;
     align-items: center;
     margin-top: -10px;
+    gap: 5px;
+    border-bottom: 1px solid #b2b0b0;
 }
 .send, .send1{
     margin-top: -10px;
@@ -119,9 +139,12 @@
     margin-bottom: 5px;
 }
 .send div, .send1 div{
-    margin-top: -30px;
+    margin-top: -10px;
     font-size: 12px;
     color: #4c4b4b;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 .send1{
     margin-top: 15px;
@@ -129,6 +152,7 @@
 .address div{
     display: flex;
     align-items: center;
+    gap: 5px;
     margin-top: -10px;
     margin-bottom: -15px;
 }
@@ -145,7 +169,11 @@
     border-radius: 5px;
     padding: 5px 10px;
 }
+.two button i{
+    margin-right: 5px;
+}
 .btn{
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
 }

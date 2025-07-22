@@ -1,0 +1,38 @@
+.driver-dashboard-container {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 32px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(32,103,161,0.06);
+}
+.driver-dashboard-container h2 {
+  color: #2067a1;
+  margin-bottom: 18px;
+}
+.driver-dashboard-container h4 {
+  margin-top: 24px;
+  color: #2a9d8f;
+}
+.deliveries-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  background: white;
+  box-shadow: 0 2px 8px rgba(32,103,161,0.04);
+}
+.deliveries-table th, .deliveries-table td {
+  border: 1px solid #e0e0e0;
+  padding: 8px 10px;
+  text-align: center;
+}
+.deliveries-table th {
+  background: #f7fafd;
+  color: #2067a1;
+}
+.no-deliveries {
+  color: #c0392b;
+  font-size: 1rem;
+  margin: 12px 0 0 0;
+  text-align: center;
+}

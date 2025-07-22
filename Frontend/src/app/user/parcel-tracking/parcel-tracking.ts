@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-parcel-tracking',
+  standalone: true,
   imports: [],
   templateUrl: './parcel-tracking.html',
-  styleUrl: './parcel-tracking.css'
+  styleUrls: ['./parcel-tracking.css']
 })
 export class ParcelTracking {
 

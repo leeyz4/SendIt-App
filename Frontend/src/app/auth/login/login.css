@@ -11,8 +11,12 @@
     border-radius: 10px;
     height: 70vh;
 }
+.login-cont .left img{
+    width: 20vw;
+    height: 70vh;
+}
 .left{
-    border: 1px solid #b2b0b0;
+    /* border: 1px solid #b2b0b0; */
     width: 50%;
 }
 .right h3{
@@ -57,7 +61,7 @@ label{
     background-color: #2067a1;
     color: white;
 }
-.btn:hover{
+.btn button:hover{
     background-color: #19507c;
 }
 .already{

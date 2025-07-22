@@ -1,0 +1,28 @@
+<app-driver-navbar></app-driver-navbar>
+<div class="driver-dashboard-container">
+  <h2>Welcome, {{ driver.name || driver.email }}</h2>
+  <h4>Your Assigned Deliveries</h4>
+  <table *ngIf="parcels.length > 0" class="deliveries-table">
+    <thead>
+      <tr>
+        <th>Tracking ID</th>
+        <th>Sender</th>
+        <th>Recipient</th>
+        <th>Status</th>
+        <th>Delivery Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of parcels">
+        <td>{{ p.trackingId }}</td>
+        <td>{{ p.sender }}</td>
+        <td>{{ p.recipient }}</td>
+        <td>{{ p.status }}</td>
+        <td>{{ p.deliveryDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="parcels.length === 0" class="no-deliveries">
+    <p>No deliveries assigned to you yet.</p>
+  </div>
+</div>

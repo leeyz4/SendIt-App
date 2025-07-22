@@ -11,8 +11,12 @@
     border-radius: 10px;
     height: 70vh;
 }
+.reg-cont .left img{
+    width: 20vw;
+    height: 70vh;
+}
 .left{
-    border: 1px solid #b2b0b0;
+    /* border: 1px solid #b2b0b0; */
     width: 50%;
 }
 .right p{

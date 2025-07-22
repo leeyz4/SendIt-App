@@ -3,17 +3,18 @@
       <div class="top-parcel">
           <h2>Parcel Management</h2>
           <p>Overview and management of all parcels in the system.</p>
-          <input type="text" id="search" placeholder="Search Parcels...">
+          <input type="text" id="search" placeholder="Search Parcels..." [(ngModel)]="searchTerm">
       </div>
       <div class="nav">
           <ul>
-              <button>All</button>
-              <button>Pending</button>
-              <button>In Transit</button>
-              <button>Delivered</button>
+              <button (click)="selectedStatus = 'All'">All</button>
+              <button (click)="selectedStatus = 'Pending'">Pending</button>
+              <button (click)="selectedStatus = 'In Transit'">In Transit</button>
+              <button (click)="selectedStatus = 'Delivered'">Delivered</button>
           </ul>
       </div>
       <div class="parcel-cont">
+
           <div class="head">
               <h4>Tracking ID</h4>
               <h4>Sender</h4>
@@ -22,25 +23,29 @@
               <h4>Delivery Date</h4>
               <h4>Actions</h4>
           </div>
-          <div class="parcel-detail">
-              <h5>SND-OO1-A1B2</h5>
-              <p>Letsy Lizz</p>
-              <p>Cele Murts</p>
-              <h6>In Transit</h6>
-              <p>2024-03-15</p>
-              <img src="" alt="">
-              <img src="" alt="">
-              <img src="" alt="">
+          <div class="parcel-detail" *ngFor="let p of filteredParcels">
+              <h5>{{ p.trackingId }}</h5>
+              <p>{{ p.sender }}</p>
+              <p>{{ p.recipient }}</p>
+              <h6>{{ p.status }}</h6>
+              <p>{{ p.deliveryDate }}</p>
+              <div class="ion">
+              <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
+              <div class="delete"><i class="fa-solid fa-trash-can"></i></div>
+              </div>
           </div>
-          <div class="parcel-detail">
+          <!-- <div class="parcel-detail">
               <h5>SND-OO1-A1B2</h5>
               <p>Letsy Lizz</p>
               <p>Cele Murts</p>
               <h6>Delivered</h6>
               <p>2024-03-15</p>
-              <img src="" alt="">
-              <img src="" alt="">
-              <img src="" alt="">
+              <div class="ion">
+                <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
+                <div class="delete"><i class="fa-solid fa-trash-can"></i></div>
+                </div>
           </div>
           <div class="parcel-detail">
               <h5>SND-OO1-A1B2</h5>
@@ -48,9 +53,11 @@
               <p>Cele Murts</p>
               <h6>Pending</h6>
               <p>2024-03-15</p>
-              <img src="" alt="">
-              <img src="" alt="">
-              <img src="" alt="">
+              <div class="ion">
+                <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
+                <div class="delete"><i class="fa-solid fa-trash-can"></i></div>
+                </div>
           </div>
           <div class="parcel-detail">
               <h5>SND-OO1-A1B2</h5>
@@ -58,15 +65,26 @@
               <p>Cele Murts</p>
               <h6>Issue</h6>
               <p>2024-03-15</p>
-              <img src="" alt="">
-              <img src="" alt="">
-              <img src="" alt="">
-          </div>
+              <div class="ion">
+                <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
+                <div class="delete"><i class="fa-solid fa-trash-can"></i></div>
+                </div>
+          </div> -->
       </div>
   </div>
 
+  <!--
   <div class="graph">
     <h3>Delivery Trends</h3>
     <p>Completed vs Pending Deliveries over the last 6 months.</p>
+    <canvas baseChart
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [legend]="true"
+      chartType="line">
+    </canvas>
   </div>
+  -->
 </div>

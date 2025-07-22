@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-landing-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './landing-navbar.html',
-  styleUrl: './landing-navbar.css'
+  styleUrls: ['./landing-navbar.css']
 })
 export class LandingNavbar {
+  constructor(private router: Router) {}
 
+  navigate(path: string) {
+    this.router.navigate([path]);
+  }
 }

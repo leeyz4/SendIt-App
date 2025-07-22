@@ -1,9 +1,9 @@
 <div class=del-container>
     <h2>Delivery History</h2>
     <div class="del-nav">
-      <input type="text" id="search" placeholder="Search by track no or Recipient...">
-      <input type="date" id="date" placeholder="pick a date range">
-      <select name="" id="status">
+      <input type="text" id="search" placeholder="Search by track no or Recipient..." [(ngModel)]="searchTerm">
+      <input type="date" id="date" placeholder="pick a date range" [(ngModel)]="selectedDate">
+      <select name="" id="status" [(ngModel)]="selectedStatus">
          <option value="">All Statuses</option>
          <option>Delivered</option>
          <option>Pending</option>
@@ -20,37 +20,13 @@
         <h4>Status</h4>
         <h4>Actions</h4>
     </div>
-    <div class="del-cards">
-        <h5>TRK9876</h5>
-        <p>Letsy Lizz</p>
-        <p>Cele Murts</p>
-        <p>2024-07-03</p>
-        <h6>Delivered</h6>
-        <button>View Details</button>
-    </div>
-    <div class="del-cards">
-        <h5>TRK9876</h5>
-        <p>Letsy Lizz</p>
-        <p>Cele Murts</p>
-        <p>2024-07-03</p>
-        <h6>Pending</h6>
-        <button>View Details</button>
-    </div>
-    <div class="del-cards">
-        <h5>TRK9876</h5>
-        <p>Letsy Lizz</p>
-        <p>Cele Murts</p>
-        <p>2024-07-03</p>
-        <h6>In Transit</h6>
-        <button>View Details</button>
-    </div>
-    <div class="del-cards">
-        <h5>TRK9876</h5>
-        <p>Letsy Lizz</p>
-        <p>Cele Murts</p>
-        <p>2024-07-03</p>
-        <h6>Cancelled</h6>
-        <button>View Details</button>
+    <div class="del-cards" *ngFor="let d of filteredDeliveries">
+        <h5>{{ d.trackingNo }}</h5>
+        <p>{{ d.sender }}</p>
+        <p>{{ d.recipient }}</p>
+        <p>{{ d.date }}</p>
+        <h6>{{ d.status }}</h6>
+        <a routerLink="/parcel-details">View Details</a>
     </div>
 </div>
 </div>
