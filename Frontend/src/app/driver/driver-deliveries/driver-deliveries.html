@@ -1,0 +1,134 @@
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-driver-sidebar></app-driver-sidebar>
+  
+  <div class="driver-deliveries-container" style="margin-left: 250px;">
+    <div class="deliveries-header">
+      <h2>My Deliveries</h2>
+      <p>Manage and update the status of your assigned deliveries.</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading deliveries...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading && !error">
+      <!-- Statistics Cards -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ getDeliveryCount() }}</h3>
+            <p>Total Deliveries</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon active">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ getActiveDeliveries() }}</h3>
+            <p>Active Deliveries</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon completed">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ getCompletedDeliveries() }}</h3>
+            <p>Completed</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <input 
+          type="text" 
+          placeholder="Search deliveries..." 
+          [(ngModel)]="searchTerm"
+          class="search-input">
+        <select [(ngModel)]="selectedStatus" class="status-filter">
+          <option value="">All Statuses</option>
+          <option value="PENDING">Pending</option>
+          <option value="PICKED_UP">Picked Up</option>
+          <option value="IN_TRANSIT">In Transit</option>
+          <option value="DELIVERED">Delivered</option>
+        </select>
+      </div>
+
+      <!-- Deliveries Table -->
+      <div class="deliveries-table-container">
+        <table *ngIf="filteredParcels.length > 0" class="deliveries-table">
+          <thead>
+            <tr>
+              <th>Tracking ID</th>
+              <th>Description</th>
+              <th>Pickup Location</th>
+              <th>Destination</th>
+              <th>Delivery Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let parcel of filteredParcels">
+              <td>{{ parcel.trackingId }}</td>
+              <td>{{ parcel.description }}</td>
+              <td>{{ parcel.pickupLocation }}</td>
+              <td>{{ parcel.destination }}</td>
+              <td>{{ parcel.deliveryDate || 'Not set' }}</td>
+              <td>
+                <div class="action-buttons">
+                  <!-- Pick Up Button - only show for PENDING status -->
+                  <button 
+                    *ngIf="parcel.status === 'PENDING'" 
+                    (click)="pickUpParcel(parcel)" 
+                    class="action-btn pickup-btn">
+                    <i class="fas fa-hand-paper"></i> Pick Up
+                  </button>
+                  
+                  <!-- Start Delivery Button - only show for PICKED_UP status -->
+                  <button 
+                    *ngIf="parcel.status === 'PICKED_UP'" 
+                    (click)="startDelivery(parcel)" 
+                    class="action-btn transit-btn">
+                    <i class="fas fa-truck"></i> Start Delivery
+                  </button>
+                  
+                  <!-- Complete Delivery Button - only show for IN_TRANSIT status -->
+                  <button 
+                    *ngIf="parcel.status === 'IN_TRANSIT'" 
+                    (click)="completeDelivery(parcel)" 
+                    class="action-btn deliver-btn">
+                    <i class="fas fa-check-circle"></i> Mark Delivered
+                  </button>
+                  
+                  <!-- Status Badge - show for all statuses -->
+                  <span [ngClass]="getStatusClass(parcel.status)" class="status-badge">
+                    {{ getStatusDisplayName(parcel.status) }}
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div *ngIf="filteredParcels.length === 0" class="no-deliveries">
+          <i class="fas fa-box-open"></i>
+          <h3>No Deliveries Found</h3>
+          <p *ngIf="searchTerm || selectedStatus">Try adjusting your search criteria.</p>
+          <p *ngIf="!searchTerm && !selectedStatus">No deliveries have been assigned to you yet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

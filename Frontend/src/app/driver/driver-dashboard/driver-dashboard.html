@@ -1,28 +1,59 @@
-<app-driver-navbar></app-driver-navbar>
-<div class="driver-dashboard-container">
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-driver-sidebar></app-driver-sidebar>
+  
+  <div class="driver-dashboard-container" style="margin-left: 250px;">
+
   <h2>Welcome, {{ driver.name || driver.email }}</h2>
   <h4>Your Assigned Deliveries</h4>
-  <table *ngIf="parcels.length > 0" class="deliveries-table">
-    <thead>
-      <tr>
-        <th>Tracking ID</th>
-        <th>Sender</th>
-        <th>Recipient</th>
-        <th>Status</th>
-        <th>Delivery Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of parcels">
-        <td>{{ p.trackingId }}</td>
-        <td>{{ p.sender }}</td>
-        <td>{{ p.recipient }}</td>
-        <td>{{ p.status }}</td>
-        <td>{{ p.deliveryDate }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="parcels.length === 0" class="no-deliveries">
-    <p>No deliveries assigned to you yet.</p>
+  
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading deliveries...</p>
+  </div>
+  
+  <!-- Error State -->
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+  
+  <!-- Content -->
+  <div *ngIf="!loading && !error">
+    <table *ngIf="parcels.length > 0" class="deliveries-table">
+      <thead>
+        <tr>
+          <th>Tracking ID</th>
+          <th>Description</th>
+          <th>Pickup</th>
+          <th>Destination</th>
+          <th>Status</th>
+          <th>Delivery Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of parcels">
+          <td>{{ p.trackingId }}</td>
+          <td>{{ p.description }}</td>
+          <td>{{ p.pickupLocation }}</td>
+          <td>{{ p.destination }}</td>
+          <td>
+            <select [(ngModel)]="p.status" (change)="updateStatus(p)">
+              <option value="PENDING">Pending</option>
+              <option value="PICKED_UP">Picked Up</option>
+              <option value="IN_TRANSIT">In Transit</option>
+              <option value="DELIVERED">Delivered</option>
+            </select>
+            <span [ngClass]="getStatusClass(p.status)">{{ getStatusDisplayName(p.status) }}</span>
+          </td>
+          <td>{{ p.deliveryDate || 'Not set' }}</td>
+          <td>
+            <button (click)="updateStatus(p)">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="parcels.length === 0" class="no-deliveries">
+      <p>No deliveries assigned to you yet.</p>
+    </div>
   </div>
 </div>

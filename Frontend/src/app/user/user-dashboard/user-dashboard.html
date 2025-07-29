@@ -1,6 +1,11 @@
-<!-- <app-landing-navbar></app-landing-navbar> -->
-<div class="user-container">
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-user-sidebar></app-user-sidebar>
+  
+  <div class="user-container" style="margin-left: 250px;">
+
 <h2>Welcome, Letsy</h2>
+
+<!-- Dashboard Statistics - Commented Out
 <div class="stat">
     <div class="stat-cards">
         <div class="top-stat">
@@ -35,8 +40,10 @@
         <p class="pi">2% decrease this Month</p>
     </div>
 </div>
+-->
 
 <div class="main-cont">
+  <!-- Recent Activity - Commented Out
   <div class="recent-cont">
       <div class="recent">
           <div class="left">
@@ -44,7 +51,6 @@
           </div>
           <div class="right">
               <p>View All Parcels</p>
-              <!-- <img src="" alt=""> -->
           </div>
       </div>
       <div class="rec-cont">
@@ -55,7 +61,7 @@
                     <h4>SNDIT7890</h4>
                 </div>
                 <div class="right">
-                    <h6>Delivered</h6>
+                    <span class="status-delivered">Delivered</span>
                 </div>
             </div>
             <div class="name">
@@ -82,7 +88,7 @@
                     <h4>SNDIT7890</h4>
                 </div>
                 <div class="right">
-                    <h6>Delivered</h6>
+                    <span class="status-delivered">Delivered</span>
                 </div>
             </div>
             <div class="name">
@@ -103,16 +109,17 @@
           </div>
       </div>
   </div>
+  -->
   <div class="quick-cont">
      <div class="quick">
          <h3>Quick Actions</h3>
          <div class="user-btn">
          <button [routerLink]="'/delivery-history'">Delivery History</button>
-         <button [routerLink]="'/parcelTracking'">Track a Parcel</button>
+         <button [routerLink]="'/parcel-tracking'">Track a Parcel</button>
          <button [routerLink]="'/profile'">Manage Profile</button>
          </div>
      </div>
   </div>
 </div>
-<!-- <app-landing-footer></app-landing-footer> -->
+</div>
 </div>

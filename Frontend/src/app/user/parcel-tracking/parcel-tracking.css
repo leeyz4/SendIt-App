@@ -5,7 +5,7 @@ h2{
     padding: 20px;
     display: flex;
     gap: 20px;
-} 
+}
 .map{
     display: flex;
     flex-direction: column;
@@ -18,6 +18,16 @@ h2{
 .map img{
     width: 50%;
     height: 50%;
+}
+.left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.right{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .det{
     display: flex;
@@ -89,9 +99,9 @@ h2{
   margin-bottom: 32px;
   font-family: Arial, Helvetica, sans-serif;
 }
-.track-header h1 {
+/* .track-header h1 {
   color: #2067a1;
-}
+} */
 .track-header p {
   color: #4c4b4b;
   font-size: 16px;
@@ -109,6 +119,10 @@ h2{
   width: 300px;
   font-size: 15px;
 }
+.track-input-group input:focus{
+    outline: none;
+    border: 2px solid #2067a1;
+}
 .track-input-group button {
   padding: 12px 24px;
   border: none;
@@ -120,4 +134,166 @@ h2{
 }
 .track-input-group button:hover {
   background-color: #2a9d8f;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 20px;
+}
+
+.tracking-info {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.tracking-info h3 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 18px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.info-item strong {
+  color: #555;
+  font-weight: 600;
+}
+
+.info-item span {
+  color: #333;
+  font-weight: 500;
+}
+
+.map-legend {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.map-legend h4 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.legend-marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.legend-marker.driver-marker {
+  background-color: #007bff;
+}
+
+.legend-marker.parcel-marker {
+  background-color: #28a745;
+  width: 16px;
+  height: 16px;
+}
+
+/* Status colors (reusing from app.css) */
+.status-pending {
+  background-color: #ffc107;
+  color: #000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-delivered {
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-in-transit {
+  background-color: #17a2b8;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-cancelled {
+  background-color: #dc3545;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-picked-up {
+  background-color: #6f42c1;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
 }

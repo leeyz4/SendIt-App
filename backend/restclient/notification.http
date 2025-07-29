@@ -1,0 +1,29 @@
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+### Create a notification
+POST http://localhost:3000/notifications
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "userId": "7784efdb-5639-4375-a1ad-ad9415e6755a", 
+  "parcelId": "780ff91d-a65d-43d7-8db2-657ef5011304",
+  "message": "Your parcel has been dispatched",
+  "toEmail": "letsy799@gmail.com"
+}
+
+### Get notifications for a user
+GET http://localhost:3000/notifications/7784efdb-5639-4375-a1ad-ad9415e6755a
+Authorization: Bearer {{token}}
+
+### Mark notification as read
+PATCH http://localhost:3000/notifications/1f59e68f-444a-4e50-8ade-165682152f08/read
+Authorization: Bearer {{token}}
+
+### Soft delete notification
+PATCH http://localhost:3000/notifications/1f59e68f-444a-4e50-8ade-165682152f08/soft-delete
+Authorization: Bearer {{token}}
+
+### Hard delete notification
+DELETE http://localhost:3000/notifications/1f59e68f-444a-4e50-8ade-165682152f08/hard-delete
+Authorization: Bearer {{token}}

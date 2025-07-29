@@ -1,90 +1,70 @@
-<div class="container">
-  <div class="parcel">
-      <div class="top-parcel">
-          <h2>Parcel Management</h2>
-          <p>Overview and management of all parcels in the system.</p>
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-admin-sidebar></app-admin-sidebar>
+  
+  <div class="admin-parcels-container" style="margin-left: 250px;">
+    <div class="top-parcel">
+      <h2>Parcel Management</h2>
+      <p>Overview and management of all parcels in the system.</p>
+    </div>
+    
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading parcels...</p>
+    </div>
+    
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+    
+    <!-- Content -->
+    <div *ngIf="!loading && !error" class="container">
+      <div class="parcel">
+        <div class="search-container">
           <input type="text" id="search" placeholder="Search Parcels..." [(ngModel)]="searchTerm">
-      </div>
-      <div class="nav">
-          <ul>
-              <button (click)="selectedStatus = 'All'">All</button>
-              <button (click)="selectedStatus = 'Pending'">Pending</button>
-              <button (click)="selectedStatus = 'In Transit'">In Transit</button>
-              <button (click)="selectedStatus = 'Delivered'">Delivered</button>
-          </ul>
-      </div>
-      <div class="parcel-cont">
-
-          <div class="head">
-              <h4>Tracking ID</h4>
-              <h4>Sender</h4>
-              <h4>Recipient</h4>
-              <h4>Status</h4>
-              <h4>Delivery Date</h4>
-              <h4>Actions</h4>
+          <button *ngIf="searchTerm" (click)="clearSearch()" class="clear-search" title="Clear Search">
+            <i class="fa-solid fa-times"></i>
+          </button>
+        </div>
+        <div class="search-info" *ngIf="searchTerm">
+          <p>Showing {{ filteredParcels.length }} of {{ parcels.length }} parcels</p>
+        </div>
+          <div class="nav">
+              <ul>
+                  <button (click)="selectedStatus = 'All'">All</button>
+                  <button (click)="selectedStatus = 'PENDING'">Pending</button>
+                  <button (click)="selectedStatus = 'IN_TRANSIT'">In Transit</button>
+                  <button (click)="selectedStatus = 'DELIVERED'">Delivered</button>
+                  <button (click)="selectedStatus = 'CANCELLED'">Cancelled</button>
+                  <button (click)="selectedStatus = 'PICKED_UP'">Picked Up</button>
+              </ul>
           </div>
-          <div class="parcel-detail" *ngFor="let p of filteredParcels">
-              <h5>{{ p.trackingId }}</h5>
-              <p>{{ p.sender }}</p>
-              <p>{{ p.recipient }}</p>
-              <h6>{{ p.status }}</h6>
-              <p>{{ p.deliveryDate }}</p>
-              <div class="ion">
-              <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
-              <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
-              <div class="delete"><i class="fa-solid fa-trash-can"></i></div>
+          <div class="parcel-cont">
+
+              <div class="head">
+                  <h4>Tracking ID</h4>
+                  <h4>Description</h4>
+                  <h4>Pickup</h4>
+                  <h4>Destination</h4>
+                  <h4>Status</h4>
+                  <h4>Delivery Date</h4>
+                  <h4>Actions</h4>
+              </div>
+              <div class="parcel-detail" *ngFor="let p of filteredParcels">
+                  <h5>{{ p.trackingId }}</h5>
+                  <p>{{ p.description }}</p>
+                  <p>{{ p.pickupLocation }}</p>
+                  <p>{{ p.destination }}</p>
+                  <span [ngClass]="getStatusClass(p.status)">{{ getStatusDisplayName(p.status) }}</span>
+                  <p>{{ p.deliveryDate || 'Not set' }}</p>
+                  <div class="ion">
+                  <div class="search" (click)="viewParcelDetails(p)" title="View Details"><i class="fa-solid fa-magnifying-glass"></i></div>
+                  <div class="edit" (click)="editParcel(p)" title="Edit Parcel"><i class="fa-regular fa-pen-to-square"></i></div>
+                  <div class="delete" (click)="deleteParcel(p)" title="Delete Parcel"><i class="fa-solid fa-trash-can"></i></div>
+                  </div>
               </div>
           </div>
-          <!-- <div class="parcel-detail">
-              <h5>SND-OO1-A1B2</h5>
-              <p>Letsy Lizz</p>
-              <p>Cele Murts</p>
-              <h6>Delivered</h6>
-              <p>2024-03-15</p>
-              <div class="ion">
-                <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
-                <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
-                <div class="delete"><i class="fa-solid fa-trash-can"></i></div>
-                </div>
-          </div>
-          <div class="parcel-detail">
-              <h5>SND-OO1-A1B2</h5>
-              <p>Letsy Lizz</p>
-              <p>Cele Murts</p>
-              <h6>Pending</h6>
-              <p>2024-03-15</p>
-              <div class="ion">
-                <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
-                <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
-                <div class="delete"><i class="fa-solid fa-trash-can"></i></div>
-                </div>
-          </div>
-          <div class="parcel-detail">
-              <h5>SND-OO1-A1B2</h5>
-              <p>Letsy Lizz</p>
-              <p>Cele Murts</p>
-              <h6>Issue</h6>
-              <p>2024-03-15</p>
-              <div class="ion">
-                <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
-                <div class="edit"><i class="fa-regular fa-pen-to-square"></i></div>
-                <div class="delete"><i class="fa-solid fa-trash-can"></i></div>
-                </div>
-          </div> -->
       </div>
+    </div>
   </div>
-
-  <!--
-  <div class="graph">
-    <h3>Delivery Trends</h3>
-    <p>Completed vs Pending Deliveries over the last 6 months.</p>
-    <canvas baseChart
-      [datasets]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [legend]="true"
-      chartType="line">
-    </canvas>
-  </div>
-  -->
 </div>

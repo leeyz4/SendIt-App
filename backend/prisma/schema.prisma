@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  DRIVER
+}
+
+model User {
+  id               String   @id @default(uuid())
+  name             String
+  email            String   @unique
+  password         String
+  role             UserRole @default(USER)
+  phone            String?
+  isVerified       Boolean  @default(false)
+  verificationCode String?  // 6-digit OTP-style code
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  deletedAt        DateTime? // soft delete
+  resetToken       String?   // for password reset
+  resetTokenExpiry DateTime? // for password reset expiry
+
+  parcelsSent      Parcel[] @relation("Sender")
+  parcelsReceived  Parcel[] @relation("Recipient")
+
+  Notification Notification[]
+}
+
+model Driver {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String   // Only if drivers log in
+  phone     String?
+  status    String   // 'active' or 'inactive'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  parcels   Parcel[] @relation("DriverParcels")
+}
+
+enum ParcelStatus {
+  PENDING
+  PICKED_UP
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+
+enum ApprovalStatus {
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+}
+
+model Parcel {
+  id               String          @id @default(uuid())
+  trackingId       String          @unique
+  description      String
+  weight           Float           // in kg
+  price            Float
+  pickupLocation   String
+  destination      String
+  status           ParcelStatus    @default(PENDING)
+  approvalStatus   ApprovalStatus  @default(PENDING_APPROVAL)
+  rejectionReason  String?         // Store rejection reason
+  deliveryDate     DateTime?       // nullable, since not all are delivered
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  deletedAt        DateTime?       // soft delete
+
+  senderId         String
+  recipientId       String
+  assignedDriverId String?         // nullable
+
+  sender           User            @relation("Sender", fields: [senderId], references: [id])
+  recipient         User            @relation("Recipient", fields: [recipientId], references: [id])
+  assignedDriver   Driver?         @relation("DriverParcels", fields: [assignedDriverId], references: [id])
+  locationUpdates  ParcelLocationUpdate[]
+
+  Notification Notification[]
+}
+
+model Notification {
+  id         String   @id @default(uuid())
+  message    String
+  toEmail    String
+  sentAt     DateTime @default(now())
+  parcelId   String?
+  userId     String?
+  deletedAt  DateTime?
+  read       Boolean  @default(false)
+
+   parcel     Parcel?  @relation(fields: [parcelId], references: [id])
+   user       User?    @relation(fields: [userId], references: [id])
+}
+
+model ParcelLocationUpdate {
+  id           String   @id @default(uuid())
+  parcelId     String
+  parcel       Parcel   @relation(fields: [parcelId], references: [id])
+  latitude     Float
+  longitude    Float
+  locationName String?
+  timestamp    DateTime @default(now())
+  updatedBy    String   // driver id or user id
+}
+

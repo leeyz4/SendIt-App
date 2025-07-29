@@ -1,10 +1,10 @@
 header{
     padding: 0 20px;
     margin: 0;
-    background-color: white;
-    border-radius: 5px;
+    background: linear-gradient(to right, #2067a1, #2a9d8f);
+    color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     font-family: Arial, Helvetica, sans-serif;
     /* position: sticky;
     top: 0;
@@ -16,10 +16,13 @@ header{
     display: flex;
     align-items: center;
 }
-.title img{
+.title h3:hover{
+    color: #2a9d8f;
+}
+/* .title img{
     width: 30px;
     height: 30px;
-}
+} */
 .left{
     display: flex;
     align-items: center;
@@ -27,12 +30,16 @@ header{
 .list ul{
     list-style: none;
     display: flex;
+    margin-left: 100px;
     gap: 15px;
+    font-size: 17px;
+    color: #f7fafd;
+}
+.list ul li{
     font-size: 15px;
-    color: #4c4b4b;
 }
 .list ul li:hover{
-    color: #2067a1;
+    color: #2a9d8f;
     text-decoration: underline;
     cursor: pointer;
 }

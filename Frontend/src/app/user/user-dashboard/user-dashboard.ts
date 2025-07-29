@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-// import { UserNavbar } from '../../shared/user-navbar/user-navbar';
-// import { LandingFooter } from '../../shared/landing-footer/landing-footer';
+import { UserSidebar } from '../../shared/user-sidebar/user-sidebar';
 
 @Component({
   selector: 'app-user-dashboard',
-  imports: [RouterModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule, UserSidebar],
   templateUrl: './user-dashboard.html',
   styleUrl: './user-dashboard.css'
 })
 export class UserDashboard {
-
+  // Component logic here
 }

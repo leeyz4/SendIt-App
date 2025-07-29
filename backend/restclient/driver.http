@@ -1,0 +1,42 @@
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+# ### Get all drivers
+# GET http://localhost:3000/drivers
+# Authorization: Bearer {{token}}
+
+### Register a Driver
+POST http://localhost:3000/drivers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Driver me",
+  "email": "mee56@example.com",
+  "password": "password123",
+  "status": "active"
+}
+
+### Get all drivers
+GET http://localhost:3000/drivers
+Authorization: Bearer {{token}}
+
+### Get a driver by id
+GET http://localhost:3000/drivers/c370c9a5-bc16-4532-980e-06cfa0585d9c
+Authorization: Bearer {{token}}
+
+### Update a driver
+PATCH http://localhost:3000/drivers/e97eba84-e1d0-40e2-a07a-da208c45afcb
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Driver Jedo"
+}
+
+### Soft delete driver
+PATCH http://localhost:3000/drivers/e3f9754f-0996-4666-8eac-9f6aa8d51217/soft-delete
+Authorization: Bearer {{token}}
+
+### Hard delete driver
+DELETE http://localhost:3000/drivers/e3f9754f-0996-4666-8eac-9f6aa8d51217/hard-delete
+Authorization: Bearer {{token}}

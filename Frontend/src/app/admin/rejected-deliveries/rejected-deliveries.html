@@ -1,0 +1,196 @@
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-admin-sidebar></app-admin-sidebar>
+  
+  <div class="rejected-deliveries-container" style="margin-left: 250px;">
+    <div class="header">
+      <h2>Rejected Deliveries</h2>
+      <p>Review rejected deliveries and update details for resubmission</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading rejected deliveries...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading && !error" class="content">
+      <div *ngIf="rejectedDeliveries.length === 0" class="no-deliveries">
+        <p>No rejected deliveries to review.</p>
+      </div>
+
+      <div *ngIf="rejectedDeliveries.length > 0" class="deliveries-list">
+        <div *ngFor="let delivery of rejectedDeliveries" class="delivery-card">
+          <div class="delivery-header">
+            <h3>Delivery #{{ delivery.trackingId }}</h3>
+            <div class="status-badges">
+              <span class="status-badge" [ngClass]="getApprovalStatusBadgeClass(delivery.approvalStatus)">
+                {{ delivery.approvalStatus.replace('_', ' ') }}
+              </span>
+              <span class="status-badge" [ngClass]="getStatusBadgeClass(delivery.status)">
+                {{ delivery.status.replace('_', ' ') }}
+              </span>
+            </div>
+          </div>
+
+          <div class="delivery-details">
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Description:</label>
+                <span>{{ delivery.description }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Weight:</label>
+                <span>{{ delivery.weight }} kg</span>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Pickup Location:</label>
+                <span>{{ delivery.pickupLocation }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Destination:</label>
+                <span>{{ delivery.destination }}</span>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Price:</label>
+                <span>KES {{ delivery.price }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Created:</label>
+                <span>{{ delivery.createdAt | date:'medium' }}</span>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="delivery.sender">
+              <div class="detail-group">
+                <label>Sender:</label>
+                <span>{{ delivery.sender.name }} ({{ delivery.sender.email }})</span>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="delivery.recipient">
+              <div class="detail-group">
+                <label>Recipient:</label>
+                <span>{{ delivery.recipient.name }} ({{ delivery.recipient.email }})</span>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="delivery.rejectionReason">
+              <div class="detail-group rejection-reason">
+                <label>Rejection Reason:</label>
+                <span class="reason-text">{{ delivery.rejectionReason }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="delivery-actions">
+            <button 
+              (click)="editDelivery(delivery)" 
+              class="btn-edit"
+            >
+              <i class="fas fa-edit"></i> Edit & Resubmit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div *ngIf="showEditModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Edit & Resubmit Delivery</h3>
+        <button (click)="cancelEdit()" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Update the delivery details and resubmit for user approval:</p>
+        
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <input 
+            type="text" 
+            id="description" 
+            [(ngModel)]="editedDelivery.description" 
+            class="form-control"
+            placeholder="Delivery description"
+          >
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="weight">Weight (kg):</label>
+            <input 
+              type="number" 
+              id="weight" 
+              [(ngModel)]="editedDelivery.weight" 
+              class="form-control"
+              step="0.1"
+            >
+          </div>
+          <div class="form-group">
+            <label for="price">Price (KES):</label>
+            <input 
+              type="number" 
+              id="price" 
+              [(ngModel)]="editedDelivery.price" 
+              class="form-control"
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pickupLocation">Pickup Location:</label>
+          <input 
+            type="text" 
+            id="pickupLocation" 
+            [(ngModel)]="editedDelivery.pickupLocation" 
+            class="form-control"
+            placeholder="Pickup address"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="destination">Destination:</label>
+          <input 
+            type="text" 
+            id="destination" 
+            [(ngModel)]="editedDelivery.destination" 
+            class="form-control"
+            placeholder="Destination address"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="deliveryDate">Delivery Date:</label>
+          <input 
+            type="date" 
+            id="deliveryDate" 
+            [(ngModel)]="editedDelivery.deliveryDate" 
+            class="form-control"
+          >
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cancelEdit()" class="btn-cancel">Cancel</button>
+        <button 
+          (click)="resubmitDelivery()" 
+          class="btn-confirm" 
+          [disabled]="loading"
+        >
+          {{ loading ? 'Resubmitting...' : 'Resubmit for Approval' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,145 @@
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-user-sidebar></app-user-sidebar>
+  
+  <div class="delivery-approval-container" style="margin-left: 250px;">
+    <div class="header">
+      <h2>Delivery Approvals</h2>
+      <p>Review and approve pending deliveries created by admin</p>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions" *ngIf="!loading && !error">
+      <div class="info-box">
+        <h4>📋 How to Approve Your Deliveries:</h4>
+        <ol>
+          <li><strong>Login Required:</strong> You must be logged in with the email address used when creating the delivery (default password: user123)</li>
+          <li><strong>Review Details:</strong> Check all delivery information is correct</li>
+          <li><strong>Approve or Reject:</strong> Click "Approve" to proceed or "Reject" with a reason</li>
+          <li><strong>Driver Assignment:</strong> Once approved, admin can assign a driver to your delivery</li>
+        </ol>
+        <p><strong>Note:</strong> You can only see and approve deliveries where you are listed as the sender.</p>
+      </div>
+      
+      <!-- Help Section -->
+      <div class="help-section">
+        <h5>🔑 Need Help?</h5>
+        <p>If you can't remember your password, you can reset it:</p>
+        <button (click)="resetPassword()" class="btn-help">
+          <i class="fas fa-key"></i> Reset Password
+        </button>
+        <p class="help-note">Use the email address that was used when creating your delivery. Default password is 'user123'.</p>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading pending deliveries...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading && !error" class="content">
+      <div *ngIf="pendingDeliveries.length === 0" class="no-deliveries">
+        <p>No pending deliveries to approve.</p>
+      </div>
+
+      <div *ngIf="pendingDeliveries.length > 0" class="deliveries-list">
+        <div *ngFor="let delivery of pendingDeliveries" class="delivery-card">
+          <div class="delivery-header">
+            <h3>Delivery #{{ delivery.trackingId }}</h3>
+            <span class="status-badge" [ngClass]="getStatusBadgeClass(delivery.approvalStatus)">
+              {{ delivery.approvalStatus.replace('_', ' ') }}
+            </span>
+          </div>
+
+          <div class="delivery-details">
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Description:</label>
+                <span>{{ delivery.description }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Weight:</label>
+                <span>{{ delivery.weight }} kg</span>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Pickup Location:</label>
+                <span>{{ delivery.pickupLocation }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Destination:</label>
+                <span>{{ delivery.destination }}</span>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Price:</label>
+                <span>KES {{ delivery.price }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Created:</label>
+                <span>{{ delivery.createdAt | date:'medium' }}</span>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="delivery.sender">
+              <div class="detail-group">
+                <label>Sender:</label>
+                <span>{{ delivery.sender.name }} ({{ delivery.sender.email }})</span>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="delivery.recipient">
+              <div class="detail-group">
+                <label>Recipient:</label>
+                <span>{{ delivery.recipient.name }} ({{ delivery.recipient.email }})</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="delivery-actions">
+            <button (click)="approveDelivery(delivery)" class="btn-approve" [disabled]="loading">
+              <i class="fas fa-check"></i> Approve
+            </button>
+            <button (click)="rejectDelivery(delivery)" class="btn-reject" [disabled]="loading">
+              <i class="fas fa-times"></i> Reject
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rejection Modal -->
+  <div *ngIf="showRejectionModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Reject Delivery</h3>
+        <button (click)="cancelRejection()" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Please provide a reason for rejecting this delivery:</p>
+        <textarea 
+          [(ngModel)]="rejectionReason" 
+          placeholder="Enter rejection reason..."
+          rows="4"
+          class="rejection-reason"
+        ></textarea>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cancelRejection()" class="btn-cancel">Cancel</button>
+        <button (click)="confirmRejection()" class="btn-confirm" [disabled]="loading">
+          {{ loading ? 'Rejecting...' : 'Confirm Rejection' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -14,17 +14,19 @@
   gap: 40px;
   align-items: center;
   justify-content: center;
+  margin-bottom: 60px;
 }
 .text-content {
   flex: 1 1 350px;
 }
 .image-content {
-  flex: 1 1 300px;
+  /* flex: 1 1 300px; */
   text-align: center;
 }
 .image-content img {
-  max-width: 100%;
   border-radius: 12px;
+  width: 100%;
+  height: 70vh;
   box-shadow: 0 2px 12px rgba(32,103,161,0.08);
 }
 .mission-section h2 {
@@ -34,4 +36,233 @@
 .mission-section p {
   color: #4c4b4b;
   font-size: 15px;
+}
+
+/* Why Cards Section */
+.whhy{
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #efeded;
+    margin-bottom: 60px;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-left: calc(50vw - 50%);
+    padding-right: calc(50vw - 50%);
+}
+.why{
+    text-align: center;
+    margin-top: 50px;
+}
+.why-cards{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 20px;
+}
+.whyy{
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(32,103,161,0.08);
+    transition: all 0.3s ease;
+    background-color: white;
+    position: relative;
+    z-index: 1;
+}
+
+/* Default styling - all cards look the same */
+.whyy i {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    color: #2067a1;
+    display: inline-block;
+    padding: 8px;
+}
+
+.whyy h4,
+.whyy h5 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+    color: #333;
+}
+
+/* Hover effects for each card */
+.whyy:nth-child(1):hover i,
+.whyy:nth-child(1):hover h4,
+.whyy:nth-child(1):hover h5 {
+    color: #2067a1;
+}
+.whyy:nth-child(1):hover i {
+    background-color: rgba(32, 103, 161, 0.1);
+    border: 2px solid #2067a1;
+    border-radius: 8px;
+}
+
+.whyy:nth-child(2):hover i,
+.whyy:nth-child(2):hover h4,
+.whyy:nth-child(2):hover h5 {
+    color: #2a9d8f;
+}
+.whyy:nth-child(2):hover i {
+    background-color: rgba(42, 157, 143, 0.1);
+    border: 2px solid #2a9d8f;
+    border-radius: 8px;
+}
+
+.whyy:nth-child(3):hover i,
+.whyy:nth-child(3):hover h4,
+.whyy:nth-child(3):hover h5 {
+    color: #e76f51;
+}
+.whyy:nth-child(3):hover i {
+    background-color: rgba(231, 111, 81, 0.1);
+    border: 2px solid #e76f51;
+    border-radius: 8px;
+}
+
+.whyy:nth-child(4):hover i,
+.whyy:nth-child(4):hover h4,
+.whyy:nth-child(4):hover h5 {
+    color: #f4a261;
+}
+.whyy:nth-child(4):hover i {
+    background-color: rgba(244, 162, 97, 0.1);
+    border: 2px solid #f4a261;
+    border-radius: 8px;
+}
+
+.whyy:nth-child(5):hover i,
+.whyy:nth-child(5):hover h4,
+.whyy:nth-child(5):hover h5 {
+    color: #264653;
+}
+.whyy:nth-child(5):hover i {
+    background-color: rgba(38, 70, 83, 0.1);
+    border: 2px solid #264653;
+    border-radius: 8px;
+}
+
+.whyy:nth-child(6):hover i,
+.whyy:nth-child(6):hover h4,
+.whyy:nth-child(6):hover h5 {
+    color: #e9c46a;
+}
+.whyy:nth-child(6):hover i {
+    background-color: rgba(233, 196, 106, 0.1);
+    border: 2px solid #e9c46a;
+    border-radius: 8px;
+}
+
+.whyy:hover{
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    transform: scale(1.02);
+    z-index: 2;
+}
+
+/* Our Cards Section */
+.oury{
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    /* background-color: #e3e0e0; */
+}
+.our{
+    text-align: center;
+}
+.our-cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
+    /* justify-content: center; */
+    align-items: center; 
+}
+.ourr{
+    background-color: white;
+    border: 1px solid #2196f3;
+    border-radius: 10px;
+    width: 40%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 12px rgba(32,103,161,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.ourr p{
+    margin-top: -10px;
+}
+
+.our-details{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Default styling for our cards */
+.ourr i {
+    font-size: 1.8em;
+    transition: all 0.3s ease;
+    color: #2067a1;
+    display: inline-block;
+    padding: 8px;
+}
+
+.ourr h5 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+    color: #333;
+}
+
+/* Hover effects for each our card */
+.ourr:nth-child(1):hover i,
+.ourr:nth-child(1):hover h5 {
+    color: #2067a1;
+}
+.ourr:nth-child(1):hover i {
+    background-color: rgba(32, 103, 161, 0.1);
+    border: 2px solid #2067a1;
+    border-radius: 8px;
+}
+
+.ourr:nth-child(2):hover i,
+.ourr:nth-child(2):hover h5 {
+    color: #2a9d8f;
+}
+.ourr:nth-child(2):hover i {
+    background-color: rgba(42, 157, 143, 0.1);
+    border: 2px solid #2a9d8f;
+    border-radius: 8px;
+}
+
+.ourr:nth-child(3):hover i,
+.ourr:nth-child(3):hover h5 {
+    color: #e76f51;
+}
+.ourr:nth-child(3):hover i {
+    background-color: rgba(231, 111, 81, 0.1);
+    border: 2px solid #e76f51;
+    border-radius: 8px;
+}
+
+.ourr:nth-child(4):hover i,
+.ourr:nth-child(4):hover h5 {
+    color: #f4a261;
+}
+.ourr:nth-child(4):hover i {
+    background-color: rgba(244, 162, 97, 0.1);
+    border: 2px solid #f4a261;
+    border-radius: 8px;
+}
+
+.ourr:hover{
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    transform: scale(1.02);
+    z-index: 2;
 }

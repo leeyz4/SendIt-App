@@ -2,7 +2,6 @@
     padding: 10px;
     display: flex;
     align-items: center;
-    margin-left: 10px;
 }
 .parcel h3{
     color: #2067a1;
@@ -17,7 +16,7 @@
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 20px;
-    width: 70vw;
+    width: 50vw;
 }
 .top{
     display: flex;

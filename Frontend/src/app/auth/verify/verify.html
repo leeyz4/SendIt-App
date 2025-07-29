@@ -1,0 +1,66 @@
+<div class="verify-container">
+  <div class="verify-card">
+    <div class="verify-header">
+      <h2>Email Verification</h2>
+      <p>Please enter the verification code sent to your email</p>
+    </div>
+
+    <div class="email-display">
+      <i class="fas fa-envelope"></i>
+      <span>{{ email }}</span>
+    </div>
+
+    <form (ngSubmit)="verifyCode()" class="verify-form">
+      <div class="form-group">
+        <label for="verificationCode">Verification Code</label>
+        <input 
+          type="text" 
+          id="verificationCode"
+          [(ngModel)]="verificationCode"
+          name="verificationCode"
+          placeholder="Enter 6-digit code"
+          maxlength="6"
+          class="verification-input"
+          [disabled]="loading">
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ error }}
+      </div>
+
+      <div *ngIf="success" class="success-message">
+        <i class="fas fa-check-circle"></i>
+        {{ success }}
+      </div>
+
+      <button type="submit" class="verify-btn" [disabled]="loading || !verificationCode.trim()">
+        <span *ngIf="!loading">Verify Email</span>
+        <span *ngIf="loading">Verifying...</span>
+      </button>
+    </form>
+
+    <div class="resend-section">
+      <p>Didn't receive the code?</p>
+      <button 
+        type="button" 
+        class="resend-btn" 
+        (click)="resendCode()"
+        [disabled]="resendDisabled || loading">
+        <span *ngIf="!resendDisabled">Resend Code</span>
+        <span *ngIf="resendDisabled">Resend in {{ resendCountdown }}s</span>
+      </button>
+    </div>
+
+    <div class="action-links">
+      <a (click)="goToLogin()" class="link-btn">
+        <i class="fas fa-sign-in-alt"></i>
+        Back to Login
+      </a>
+      <a (click)="goToRegister()" class="link-btn">
+        <i class="fas fa-user-plus"></i>
+        Register Again
+      </a>
+    </div>
+  </div>
+</div> 

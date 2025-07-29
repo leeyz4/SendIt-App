@@ -1,72 +1,92 @@
-<div class="admin-cont">
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-admin-sidebar></app-admin-sidebar>
+  
+  <div class="admin-cont" style="margin-left: 250px;">
+
 <header>
     <div class="left-header">
-        <h2>Welcome,Elizabeth</h2>
+        <h2>Welcome, Elizabeth</h2>
     </div>
-    <div class="right-header">
+    <!-- <div class="right-header">
         <button [routerLink]="'/create-delivery'"><i class="fa-solid fa-circle-plus"></i>Create Delivery</button>
         <button><i class="fa-regular fa-user"></i>Add New User</button>
-    </div>
+    </div> -->
 </header>
-<div class="stat">
-    <div class="stat-cards">
-        <div class="top-stat">
-            <p>Total Parcels</p>
-            <i class="fa-solid fa-box"></i>
-        </div>
-        <span>8,765</span>
-        <p class="pi">+12% vs Last Month</p>
-    </div>
-    <div class="stat-cards">
-        <div class="top-stat">
-            <p>Active Users</p>
-            <i class="fa-regular fa-user"></i>
-        </div>
-        <span>8,765</span>
-        <p class="pi">+12% vs Last Month</p>
-    </div>
-    <div class="stat-cards">
-        <div class="top-stat">
-            <p>Deliveries Completed</p>
-            <i class="fa-solid fa-square-check"></i>
-        </div>
-        <span>8,765</span>
-        <p class="pi">+12% vs Last Month</p>
-    </div>
-    <div class="stat-cards">
-        <div class="top-stat">
-            <p>Pending Deliveries</p>
-           <i class="fa-solid fa-circle-exclamation"></i>
-        </div>
-        <span>8,765</span>
-        <p class="pi">+12% vs Last Month</p>
-    </div>
+
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-state">
+  <p>Loading dashboard data...</p>
 </div>
-<div class="activities">
+
+<!-- Error State -->
+<div *ngIf="error" class="error-state">
+  <p>{{ error }}</p>
+</div>
+
+<!-- Dashboard Content -->
+<div *ngIf="!loading && !error" class="dashboard-content">
+  <div class="stat">
+    <div class="stat-cards">
+      <div class="top-stat">
+        <p>Total Parcels</p>
+        <i class="fa-solid fa-box"></i>
+      </div>
+      <span>{{ totalParcels }}</span>
+      <p class="pi">+{{ getPercentageChange(totalParcels, 0) }}% vs Last Month</p>
+    </div>
+    <div class="stat-cards">
+      <div class="top-stat">
+        <p>Active Users</p>
+        <i class="fa-regular fa-user"></i>
+      </div>
+      <span>{{ activeUsers }}</span>
+      <p class="pi">+{{ getPercentageChange(activeUsers, 0) }}% vs Last Month</p>
+    </div>
+    <div class="stat-cards">
+      <div class="top-stat">
+        <p>Deliveries Completed</p>
+        <i class="fa-solid fa-square-check"></i>
+      </div>
+      <span>{{ completedDeliveries }}</span>
+      <p class="pi">+{{ getPercentageChange(completedDeliveries, 0) }}% vs Last Month</p>
+    </div>
+    <div class="stat-cards">
+      <div class="top-stat">
+        <p>Pending Deliveries</p>
+        <i class="fa-solid fa-circle-exclamation"></i>
+      </div>
+      <span>{{ pendingDeliveries }}</span>
+      <p class="pi">+{{ getPercentageChange(pendingDeliveries, 0) }}% vs Last Month</p>
+    </div>
+  </div>
+  
+  <div class="activities">
     <div class="rec">
-     <h3>Recent System Activities</h3>
-     <p>Important events and updates across the platform.</p>
+      <h3>Recent System Activities</h3>
+      <p>Important events and updates across the platform.</p>
     </div>
-    <div class="activity-details">
-         <i class="fas fa-truck"></i>
-         <div class="icon">
-           <div class="par">Parcel<h5>SND-OO1-A1B2</h5>updated to<h6>In Transit.</h6></div>
-           <p>10 mins ago</p>
-         </div>
+    
+    <!-- Recent Activities -->
+    <div class="activity-details" *ngFor="let parcel of parcels.slice(0, 3)">
+      <i class="fas fa-truck"></i>
+      <div class="icon">
+        <div class="par">
+          Parcel <h5>{{ parcel.trackingId }}</h5> 
+          updated to <h6 [ngClass]="getStatusClass(parcel.status)">{{ getStatusDisplayName(parcel.status) }}</h6>
+        </div>
+        <p>{{ getTimeAgo(parcel.updatedAt) }}</p>
+      </div>
     </div>
-    <div class="activity-details">
-         <i class="fa-regular fa-user"></i>
-         <div class="icon">
-           <div class="par">New user<h5>Joy Lynne</h5>registered.</div>
-           <p>1 hour ago</p>
-         </div>
+    
+    <!-- Default activities if no parcels -->
+    <div *ngIf="parcels.length === 0" class="activity-details">
+      <i class="fas fa-truck"></i>
+      <div class="icon">
+        <div class="par">No recent activities</div>
+        <p>No parcels in system</p>
+      </div>
     </div>
-    <div class="activity-details">
-         <i class="fa-solid fa-square-check"></i>
-         <div class="icon">
-           <div class="par">Parcel<h5>SND-OO1-A1B2</h5>marked as<h6>Delivered.</h6></div>
-           <p>Yesterday</p>
-         </div>
-    </div>
+  </div>
+</div>
 </div>
 </div>

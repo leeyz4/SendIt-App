@@ -1,0 +1,36 @@
+### Get all users
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+### Get user by ID
+GET http://localhost:3000/users/7784efdb-5639-4375-a1ad-ad9415e6755a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+### Update current user
+PATCH http://localhost:3000/users/1f253162-a655-4c24-9c06-e5a3c220f9e1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+{
+  "name": "Gianna Murts",
+  "email": "giana@gmail.com"
+}
+
+# ### Update user by ID (admin)
+# PATCH http://localhost:3000/users/<userId>
+# Content-Type: application/json
+# Authorization: Bearer <your_token>
+
+# {
+#   "name": "Admin Updated Name"
+# }
+
+### Soft delete user
+PATCH http://localhost:3000/users/2f1513f5-bbcc-4a86-a032-e977c650c551/soft-delete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+### Hard delete user
+DELETE http://localhost:3000/users/f03390fb-d119-4074-8109-e4ccda2ff276/hard-delete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+

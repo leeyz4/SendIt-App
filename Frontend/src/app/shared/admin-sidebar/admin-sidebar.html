@@ -1,0 +1,68 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header">
+    <div class="logo">
+      <h3>Sendly</h3>
+    </div>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a routerLink="/admin-dashboard" routerLinkActive="active">
+          <i class="fas fa-tachometer-alt"></i>
+          <span *ngIf="!isCollapsed">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin-parcels" routerLinkActive="active">
+          <i class="fas fa-box"></i>
+          <span *ngIf="!isCollapsed">Parcels</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin-users" routerLinkActive="active">
+          <i class="fas fa-users"></i>
+          <span *ngIf="!isCollapsed">Users</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin-drivers" routerLinkActive="active">
+          <i class="fas fa-truck"></i>
+          <span *ngIf="!isCollapsed">Drivers</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/create-delivery" routerLinkActive="active">
+          <i class="fas fa-plus-circle"></i>
+          <span *ngIf="!isCollapsed">Create Delivery</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/approved-deliveries" routerLinkActive="active">
+          <i class="fas fa-check-double"></i>
+          <span *ngIf="!isCollapsed">Approved Deliveries</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/rejected-deliveries" routerLinkActive="active">
+          <i class="fas fa-times-circle"></i>
+          <span *ngIf="!isCollapsed">Rejected Deliveries</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <div class="sidebar-footer">
+    <a routerLink="/home">
+      <i class="fas fa-home"></i>
+      <span *ngIf="!isCollapsed">Back to Home</span>
+    </a>
+    <button (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+      <span *ngIf="!isCollapsed">Logout</span>
+    </button>
+  </div>
+</div> 

@@ -1,78 +1,119 @@
-<div class="user">
-    <h2>User Management</h2>
-    <!-- <button>Add User</button> -->
-</div>
-<div class="stat">
-    <div class="stat-cards">
-        <div class="top-stat">
-            <p>Total Users</p>
-            <i class="fa-regular fa-user"></i>
-        </div>
-        <span>200</span>
-        <p class="pi">All registered users</p>
-    </div>
-    <div class="stat-cards">
-        <div class="top-stat">
-            <p>Active Users</p>
-            <i class="fa-solid fa-list-check"></i>
-        </div>
-        <span>150</span>
-        <p class="pi">Currently active in the system</p>
-    </div>
-    <div class="stat-cards">
-        <div class="top-stat">
-            <p>New Registrations</p>
-            <i class="fa-solid fa-plus"></i>
-        </div>
-        <span>2</span>
-        <p class="pi">Users Registered Today</p>
-    </div>
-    <div class="stat-cards">
-        <div class="top-stat">
-            <p>Deactivated Users</p>
-            <i class="fa-regular fa-user"></i>
-        </div>
-        <span>50</span>
-        <p class="pi">Users no longer active</p>
-    </div>
-</div>
-<div class="user-container">
-<div class="users">
-    <input type="text" placeholder="Search users by name or email..." [(ngModel)]="searchTerm">
-    <div class="nav">
-        <ul>
-            <button (click)="selectedStatus = 'All'">All</button>
-            <button (click)="selectedStatus = 'Active'">Active</button>
-            <button (click)="selectedStatus = 'Deactivated'">Deactivated</button>
-            <button (click)="selectedStatus = 'New'">New</button>
-        </ul>
-    </div>
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-admin-sidebar></app-admin-sidebar>
+  
+  <div class="admin-users-container" style="margin-left: 250px;">
+  <div class="user">
+      <h2>User Management</h2>
+      <!-- <button>Add User</button> -->
+  </div>
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading users...</p>
+  </div>
 
-    <div class="user-cont">
-        <div class="head">
-            <h4>User ID</h4>
-            <h4>Name</h4>
-            <h4>Email</h4>
-            <h4>Registered</h4>
-            <h4>Last Active</h4>
-            <h4>Status</h4>
-            <h4>Deliveries</h4>
-            <h4>Actions</h4>
-        </div>
-        <div class="user-detail" *ngFor="let u of filteredUsers; let i = index">
-            <h5>{{ 'usr' + (i+1).toString().padStart(3, '0') }}</h5>
-            <p>{{ u.firstName }} {{ u.lastName }}</p>
-            <p>{{ u.email }}</p>
-            <p>-</p>
-            <p>-</p>
-            <h6>{{ u.status || 'Active' }}</h6>
-            <p>-</p>
-            <div class="action">
-                <button>View Activity</button>
-                <button>Deactivate</button>
+  <!-- Error State -->
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!loading && !error">
+    <div class="stat">
+        <div class="stat-cards">
+            <div class="top-stat">
+                <p>Total Users</p>
+                <i class="fa-regular fa-user"></i>
             </div>
+            <span>{{ totalUsers }}</span>
+            <p class="pi">All registered users</p>
         </div>
-    </div>
+        <div class="stat-cards">
+            <div class="top-stat">
+                <p>Active Users</p>
+                <i class="fa-solid fa-list-check"></i>
+            </div>
+            <span>{{ activeUsers }}</span>
+            <p class="pi">Currently active in the system</p>
+        </div>
+        <div class="stat-cards">
+            <div class="top-stat">
+                <p>New Registrations</p>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <span>{{ newRegistrations }}</span>
+            <p class="pi">Users Registered Today</p>
+        </div>
+        <div class="stat-cards">
+            <div class="top-stat">
+                <p>Deactivated Users</p>
+                <i class="fa-regular fa-user"></i>
+            </div>
+            <span>{{ deactivatedUsers }}</span>
+            <p class="pi">Users no longer active</p>
+            </div>
+  </div>
+</div>
+  <div class="user-container">
+  <div class="users">
+      <input type="text" placeholder="Search users by name or email..." [(ngModel)]="searchTerm">
+      <div class="nav">
+          <ul>
+              <button (click)="selectedStatus = 'All'">All</button>
+              <button (click)="selectedStatus = 'Active'">Active</button>
+              <button (click)="selectedStatus = 'Deactivated'">Deactivated</button>
+              <button (click)="selectedStatus = 'New'">New</button>
+          </ul>
+          <div class="deleted-toggle">
+              <button (click)="toggleShowDeletedUsers()" class="toggle-btn" [ngClass]="{'active': showDeletedUsers}">
+                {{ showDeletedUsers ? 'Hide' : 'Show' }} Deleted Users
+              </button>
+          </div>
+      </div>
+
+      <div class="user-cont">
+          <div class="head">
+              <h4>User ID</h4>
+              <h4>Name</h4>
+              <h4>Email</h4>
+              <h4>Role</h4>
+              <h4>Registered</h4>
+              <h4>Status</h4>
+              <h4>Actions</h4>
+          </div>
+          <div class="user-detail" *ngFor="let user of filteredUsers; let i = index">
+              <h5 data-label="User ID">{{ user.id.substring(0, 8) }}</h5>
+              <p data-label="Name">{{ user.name }}</p>
+              <p data-label="Email">{{ user.email }}</p>
+              <p data-label="Role">{{ user.role }}</p>
+              <p data-label="Registered">{{ user.created_at | date:'shortDate' }}</p>
+              <h6 data-label="Status" [ngClass]="{'active': user.isVerified && !user.deletedAt, 'inactive': !user.isVerified || user.deletedAt}">
+                {{ user.isVerified && !user.deletedAt ? 'Active' : 'Inactive' }}
+              </h6>
+              <div class="action" data-label="Actions">
+                  <!-- For active users -->
+                  <button *ngIf="user.isVerified && !user.deletedAt" (click)="toggleUserStatus(user)" class="status-btn">
+                    Deactivate
+                  </button>
+                  
+                  <!-- For inactive but not deleted users -->
+                  <button *ngIf="!user.isVerified && !user.deletedAt" (click)="toggleUserStatus(user)" class="status-btn">
+                    Activate
+                  </button>
+                  
+                  <!-- For soft-deleted users -->
+                  <button *ngIf="user.deletedAt" (click)="restoreUser(user)" class="restore-btn" title="Restore User">
+                    🔄 Restore
+                  </button>
+                  
+                  <!-- Delete button for all users -->
+                  <button (click)="deleteUser(user)" class="delete-btn" title="Delete User">
+                    <i class="fas fa-trash"></i>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
 </div>
 
 <!--
@@ -81,4 +122,3 @@
   <p>New vs Active users over the last 6 months.</p>
 </div>
 -->
-</div>

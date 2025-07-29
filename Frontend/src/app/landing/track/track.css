@@ -1,0 +1,32 @@
+/* ts this.errorMessage = 'Invalid credentials';
+html <div *ngIf="errorMessage" class="custom-alert error">{{ errorMessage }}</div>
+
+ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-custom-alert',
+  templateUrl: './custom-alert.component.html',
+  styleUrls: ['./custom-alert.component.css']
+})
+export class CustomAlertComponent {
+  @Input() message: string = '';
+  @Input() type: 'success' | 'error' | 'info' = 'info';
+}
+html
+<div *ngIf="message" [ngClass]="type" class="custom-alert">
+  {{ message }}
+</div>
+css
+.custom-alert {
+    padding: 12px 20px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-weight: bold;
+  }
+  .custom-alert.error { background: #ffe5e5; color: #b30000; border: 1px solid #b30000; }
+  .custom-alert.success { background: #e5ffe5; color: #006600; border: 1px solid #006600; }
+  .custom-alert.info { background: #e5f0ff; color: #003366; border: 1px solid #003366; }
+  use them
+  <app-custom-alert [message]="errorMessage" type="error"></app-custom-alert>
+<app-custom-alert [message]="successMessage" type="success"></app-custom-alert> */

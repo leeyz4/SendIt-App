@@ -1,5 +1,22 @@
-<div class="parcel"><h2>Parcel Detail: </h2><h3>SNDT-TRK-7890</h3></div>
-<div class="parcel-cont">
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-user-sidebar></app-user-sidebar>
+  
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading" style="margin-left: 250px; padding: 20px;">
+    <p>Loading parcel details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error" style="margin-left: 250px; padding: 20px;">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Parcel Details -->
+  <div *ngIf="!loading && !error && parcel" class="parcel" style="margin-left: 250px;">
+    <h2>Parcel Detail: </h2><h3>{{ parcel.trackingId }}</h3>
+  </div>
+  
+  <div *ngIf="!loading && !error && parcel" class="parcel-cont" style="margin-left: 250px;">
     <div class="left">
         <div class="one">
             <div class="top">
@@ -8,18 +25,18 @@
                     <h4>Parcel Details</h4>
                 </div>
                 <div class="top-right">
-                 <h6>Delivered</h6>
+                 <span [ngClass]="getStatusClass(parcel.status)">{{ getStatusDisplayName(parcel.status) }}</span>
                 </div>
             </div>
             <div class="number">
                 <i class="fa-solid fa-suitcase"></i>
                 <h5>Tracking Number:</h5>
-                <p>SNDT-TRK-7890</p>
+                <p>{{ parcel.trackingId }}</p>
             </div>
             <div class="number">
                 <i class="fa-solid fa-box"></i>
                 <h5>Item Type:</h5>
-                <p>Premium Wireless Headphones</p>
+                <p>{{ parcel.description }}</p>
             </div>
         </div>
 
@@ -32,48 +49,32 @@
                 <i class="fa-solid fa-suitcase"></i>
                 <div class="pars">
                   <h5>Parcel Registered</h5>
-                  <p>2024-07-20 10:00AM</p>
-                  <p>Nairobi, Kenya</p>
+                  <p>{{ parcel.createdAt | date:'medium' }}</p>
+                  <p>{{ parcel.pickupLocation }}</p>
                 </div>
             </div>
-            <div class="Timeline">
+            <div class="Timeline" *ngIf="parcel.status !== 'PENDING'">
                 <i class="fa-solid fa-truck"></i>
                 <div class="pars">
                 <h5>Picked Up by Courier</h5>
-                <p>2024-07-20 10:00AM</p>
-                <p>Nairobi, Kenya</p>
+                <p>{{ parcel.updatedAt | date:'medium' }}</p>
+                <p>{{ parcel.pickupLocation }}</p>
                 </div>
             </div>
-            <div class="Timeline">
+            <div class="Timeline" *ngIf="parcel.status === 'IN_TRANSIT' || parcel.status === 'DELIVERED'">
                 <i class="fa-solid fa-truck"></i>
                 <div class="pars">
-                <h5>In Transit: Departed Hub</h5>
-                <p>2024-07-20 10:00AM</p>
-                <p>Nairobi, Kenya</p>
+                <h5>In Transit</h5>
+                <p>{{ parcel.updatedAt | date:'medium' }}</p>
+                <p>En route to destination</p>
                 </div>
             </div>
-            <div class="Timeline">
-                <i class="fa-solid fa-truck"></i>
-                <div class="pars">
-                <h5>In Transit: Arrived at Destination Hub</h5>
-                <p>2024-07-20 10:00AM</p>
-                <p>Nairobi, Kenya</p>
-                </div>
-            </div>
-            <div class="Timeline">
-                <i class="fa-solid fa-truck"></i>
-                <div class="pars">
-                <h5>Out for Delivery</h5>
-                <p>2024-07-20 10:00AM</p>
-                <p>Nairobi, Kenya</p>
-                </div>
-            </div>
-            <div class="Timeline">
+            <div class="Timeline" *ngIf="parcel.status === 'DELIVERED'">
                 <i class="fa-solid fa-square-check"></i>
                 <div class="pars">
                 <h5>Delivered</h5>
-                <p>2024-07-20 10:00AM</p>
-                <p>Nairobi, Kenya</p>
+                <p>{{ parcel.deliveryDate | date:'medium' }}</p>
+                <p>{{ parcel.destination }}</p>
                 </div>
             </div>
         </div>
@@ -86,11 +87,11 @@
             <div class="item-cont">
                 <img src="assets/images/image6.jpg" alt="">
                 <div class="item-det">
-                    <h5>Premium Wireless Headphones</h5>
-                    <p>High-fidelity wireless headphones with noise cancellation and long-lasting battery. Perfect for travel and daily commute.</p>
+                    <h5>{{ parcel.description }}</h5>
+                    <p>{{ parcel.description }}</p>
                     <div class="item-kg">
-                     <div class="dim"><h6>Weight:</h6><p>0.5kg</p></div>
-                     <div class="dim1"><h6>Dimensions:</h6><p>20cm * 15cm * 8cm</p></div>
+                     <div class="dim"><h6>Weight:</h6><p>{{ parcel.weight }}kg</p></div>
+                     <div class="dim1"><h6>Dimensions:</h6><p>{{ getDimensions() }}</p></div>
                     </div>
                 </div>
             </div>
@@ -105,30 +106,26 @@
             </div>
             <div class="send">
                 <h5>Sender</h5>
-                <div><i class="fa-regular fa-user"></i> <p>Letsy Lizz</p></div>
-                <div><i class="fa-solid fa-phone"></i> <p>+254778954378</p></div>
-                <div><i class="fa-solid fa-envelope"></i> <p>letsy&#64;gmail.com</p></div>
+                <div><i class="fa-regular fa-user"></i> <p>{{ parcel.sender?.name || 'N/A' }}</p></div>
+                <div><i class="fa-solid fa-phone"></i> <p>{{ parcel.sender?.phone || 'N/A' }}</p></div>
+                <div><i class="fa-solid fa-envelope"></i> <p>{{ parcel.sender?.email || 'N/A' }}</p></div>
             </div>
             <div class="send1">
                 <h5>Recipient</h5>
-                <div><i class="fa-regular fa-user"></i> <p>Cele Murts</p></div>
-                <div><i class="fa-solid fa-phone"></i> <p>+254778954378</p></div>
-                <div><i class="fa-solid fa-envelope"></i> <p>cele&#64;gmail.com</p></div>
+                <div><i class="fa-regular fa-user"></i> <p>{{ parcel.recipient?.name || 'N/A' }}</p></div>
+                <div><i class="fa-solid fa-phone"></i> <p>{{ parcel.recipient?.phone || 'N/A' }}</p></div>
+                <div><i class="fa-solid fa-envelope"></i> <p>{{ parcel.recipient?.email || 'N/A' }}</p></div>
             </div>
         </div>
         <div class="two">
             <div class="contact"><i class="fas fa-location-dot"></i> <h4>Addresses</h4></div>
             <div class="address">
                 <div><i class="fas fa-location-dot"></i> <h5>Pickup Location</h5></div>
-                <p>3rd Street</p>
-                <p>3rd Avenue</p>
-                <p>Nairobi</p>
+                <p>{{ parcel.pickupLocation }}</p>
             </div>
             <div class="address">
                 <div><i class="fas fa-location-dot"></i> <h5>Destination Location</h5></div>
-                <p>3rd Street</p>
-                <p>3rd Avenue</p>
-                <p>Nairobi</p>
+                <p>{{ parcel.destination }}</p>
             </div>
         </div>
         <div class="two">
@@ -136,7 +133,7 @@
             <div class="btn">
              <button><i class="fa-solid fa-comment"></i>Report an Issue</button>
              <button><i class="fa-solid fa-phone"></i>Contact Support</button>
-             <button><i class="fa-solid fa-eye"></i>View All Shipments</button>
+             <button [routerLink]="['/parcel-tracking', parcel.trackingId]"><i class="fa-solid fa-eye"></i>Track Parcel</button>
             </div>
         </div>
     </div>

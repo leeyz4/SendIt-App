@@ -1,8 +1,11 @@
-<div *ngIf="message" [ngClass]="{'alert-success': messageType === 'success', 'alert-error': messageType === 'error'}" class="custom-alert">
-  {{ message }}
-</div>
-<h2>Create New Delivery</h2>
-<div class="create-cont">
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-admin-sidebar></app-admin-sidebar>
+  
+  <div *ngIf="message" [ngClass]="{'alert-success': messageType === 'success', 'alert-error': messageType === 'error'}" class="custom-alert" style="margin-left: 250px;">
+    {{ message }}
+  </div>
+  <h2 style="margin-left: 250px;">Create New Delivery</h2>
+  <div class="create-cont" style="margin-left: 250px;">
 <div class="create">
     <div class="sender">
         <h3>Sender Information</h3>
@@ -27,21 +30,23 @@
                 <label for="name">City</label>
                 <input type="text" placeholder="Nairobi" [(ngModel)]="senderCity" name="senderCity">
             </div>
-            <div class="middle">
+            <!-- <div class="middle">
                 <label for="name">State/Province</label>
                 <input type="text" placeholder="Nairobi" [(ngModel)]="senderState" name="senderState">
-            </div>
+            </div> -->
             <div class="right">
                 <label for="name">Zip/Postal Code</label>
                 <input type="text" placeholder="00200" [(ngModel)]="senderZip" name="senderZip">
             </div>
         </div>
         <label for="">Phone</label>
-        <input type="number" placeholder="+254765345891" [(ngModel)]="senderPhone" name="senderPhone">
+        <input type="tel" placeholder="+254765345891" [(ngModel)]="senderPhone" name="senderPhone">
     </div>
 
     <div class="sender">
         <h3>Recipient Information</h3>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="example@gmail.com" required [(ngModel)]="recipientEmail" name="recipientEmail">
         <label for="Country">Country/Region</label>
         <input type="text" id="country" placeholder="Kenya" required [(ngModel)]="recipientCountry" name="recipientCountry">
         <div class="name">
@@ -61,27 +66,28 @@
                 <label for="name">City</label>
                 <input type="text" placeholder="Nairobi" [(ngModel)]="recipientCity" name="recipientCity">
             </div>
-            <div class="middle">
+            <!-- <div class="middle">
                 <label for="name">State/Province</label>
                 <input type="text" placeholder="Nairobi" [(ngModel)]="recipientState" name="recipientState">
-            </div>
+            </div> -->
             <div class="right">
                 <label for="name">Zip/Postal Code</label>
                 <input type="text" placeholder="00200" [(ngModel)]="recipientZip" name="recipientZip">
             </div>
         </div>
         <label for="">Phone</label>
-        <input type="number" placeholder="+254765345891" [(ngModel)]="recipientPhone" name="recipientPhone">
+        <input type="tel" placeholder="+254765345891" [(ngModel)]="recipientPhone" name="recipientPhone">
     </div>
 
     <div class="pckg">
         <h3>Package Details</h3>
         <label for="">Package Type</label>
-        <select name="pckg-type" id="" [(ngModel)]="packageType">
+        <select name="packageType" id="" [(ngModel)]="packageType">
             <option value="">Choose Type</option>
-            <option>Small Parcel</option>
-            <option>Medium Parcel</option>
-            <option>Large(more than 10kg)</option>
+            <option>Light Package(upto 1kg)</option>
+            <option>Medium Package(1-5kg)</option>
+            <option>Heavy Package(5-10kg)</option>
+            <option>Bulky Package(more than 10kg)</option>
         </select>
         <div class="weight">
             <div class="kg">
@@ -97,6 +103,14 @@
                 </div>
             </div>
         </div>
+        <label for="origin">Origin</label>
+        <input type="text" id="origin" placeholder="Origin address" [(ngModel)]="packageOrigin" name="packageOrigin">
+        <label for="description">Description</label>
+        <input type="text" id="description" placeholder="Parcel description" [(ngModel)]="packageDescription" name="packageDescription">
+        <label for="pickup">Pickup Location</label>
+        <input type="text" id="pickup" placeholder="Pickup address" [(ngModel)]="packagePickup" name="packagePickup">
+        <label for="destination">Destination</label>
+        <input type="text" id="destination" placeholder="Destination address" [(ngModel)]="packageDestination" name="packageDestination">
         <label for="">Special Instructions (optional)</label>
         <textarea name="specialInstructions" id="" [(ngModel)]="specialInstructions"></textarea>
     </div>
@@ -151,6 +165,48 @@
             </div>
         </div>
     </div>
-    <button type="button" (click)="createParcel()">Create</button>
+    <button type="button" (click)="createParcel()" [disabled]="loading">
+      <span *ngIf="!loading">Create Delivery</span>
+      <span *ngIf="loading">Creating...</span>
+    </button>
+</div>
+
+<!-- Driver Assignment Section -->
+<div *ngIf="showDriverAssignment" class="driver-assignment">
+  <h3>Assign Driver</h3>
+  <p>Select an available driver to assign to this delivery:</p>
+  
+  <div class="drivers-list">
+    <div *ngFor="let driver of availableDrivers" class="driver-card">
+      <div class="driver-info">
+        <h4>{{ driver.name }}</h4>
+        <p><strong>Email:</strong> {{ driver.email }}</p>
+        <p *ngIf="driver.phone"><strong>Phone:</strong> {{ driver.phone }}</p>
+        <p><strong>Status:</strong> <span class="status-available">{{ driver.status }}</span></p>
+      </div>
+      <div class="driver-select">
+        <input type="radio" 
+               [id]="driver.id" 
+               name="selectedDriver" 
+               [value]="driver.id" 
+               [(ngModel)]="selectedDriverId">
+        <label [for]="driver.id">Select</label>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="availableDrivers.length === 0" class="no-drivers">
+    <p>No available drivers at the moment.</p>
+  </div>
+  
+  <div class="assignment-actions">
+    <button type="button" (click)="assignDriver()" [disabled]="!selectedDriverId || loading" class="assign-btn">
+      <span *ngIf="!loading">Assign Driver</span>
+      <span *ngIf="loading">Assigning...</span>
+    </button>
+    <button type="button" (click)="skipDriverAssignment()" class="skip-btn">
+      Skip for Now
+    </button>
+  </div>
 </div>
 </div>

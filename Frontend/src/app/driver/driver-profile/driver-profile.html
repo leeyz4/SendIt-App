@@ -1,0 +1,103 @@
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-driver-sidebar></app-driver-sidebar>
+  
+  <div class="driver-profile-container" style="margin-left: 250px;">
+    <div class="profile-header">
+      <h2>Driver Profile</h2>
+      <p>Manage your personal information and account settings.</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading profile...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading && !error" class="profile-content">
+      <div class="profile-card">
+        <div class="profile-header-section">
+          <div class="profile-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="profile-info">
+            <h3>{{ driver.name || 'Driver Name' }}</h3>
+            <p class="driver-email">{{ driver.email }}</p>
+            <p class="driver-status">
+              <span class="status-badge active">Active Driver</span>
+            </p>
+          </div>
+          <div class="profile-actions">
+            <button *ngIf="!isEditing" (click)="toggleEdit()" class="edit-btn">
+              <i class="fas fa-edit"></i> Edit Profile
+            </button>
+            <div *ngIf="isEditing" class="edit-actions">
+              <button (click)="saveProfile()" class="save-btn">
+                <i class="fas fa-save"></i> Save
+              </button>
+              <button (click)="cancelEdit()" class="cancel-btn">
+                <i class="fas fa-times"></i> Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-details">
+          <div class="detail-section">
+            <h4>Personal Information</h4>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Full Name</label>
+                <div *ngIf="!isEditing" class="detail-value">{{ driver.name || 'Not set' }}</div>
+                <input *ngIf="isEditing" type="text" [(ngModel)]="editForm.name" class="edit-input">
+              </div>
+              
+              <div class="detail-item">
+                <label>Email Address</label>
+                <div *ngIf="!isEditing" class="detail-value">{{ driver.email || 'Not set' }}</div>
+                <input *ngIf="isEditing" type="email" [(ngModel)]="editForm.email" class="edit-input">
+              </div>
+              
+              <div class="detail-item">
+                <label>Phone Number</label>
+                <div *ngIf="!isEditing" class="detail-value">{{ driver.phone || 'Not set' }}</div>
+                <input *ngIf="isEditing" type="tel" [(ngModel)]="editForm.phone" class="edit-input">
+              </div>
+              
+              <div class="detail-item">
+                <label>Driver ID</label>
+                <div class="detail-value">{{ driver.id || 'Not set' }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <h4>Account Information</h4>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Account Type</label>
+                <div class="detail-value">Driver</div>
+              </div>
+              
+              <div class="detail-item">
+                <label>Status</label>
+                <div class="detail-value">
+                  <span class="status-badge active">Active</span>
+                </div>
+              </div>
+              
+              <div class="detail-item">
+                <label>Member Since</label>
+                <div class="detail-value">{{ driver.createdAt ? (driver.createdAt | date:'mediumDate') : 'Not available' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

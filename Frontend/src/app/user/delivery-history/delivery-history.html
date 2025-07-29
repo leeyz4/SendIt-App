@@ -1,32 +1,73 @@
-<div class=del-container>
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-user-sidebar></app-user-sidebar>
+  
+  <div class="del-container" style="margin-left: 250px;">
     <h2>Delivery History</h2>
-    <div class="del-nav">
-      <input type="text" id="search" placeholder="Search by track no or Recipient..." [(ngModel)]="searchTerm">
-      <input type="date" id="date" placeholder="pick a date range" [(ngModel)]="selectedDate">
-      <select name="" id="status" [(ngModel)]="selectedStatus">
-         <option value="">All Statuses</option>
-         <option>Delivered</option>
-         <option>Pending</option>
-         <option>In Transit</option>
-         <option>Cancelled</option>
-      </select>
+    
+    <!-- Statistics -->
+    <div class="stats-container" *ngIf="!loading && !error">
+      <div class="stat-card">
+        <h3>{{ totalDeliveriesCount }}</h3>
+        <p>Total Deliveries</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ sentDeliveriesCount }}</h3>
+        <p>Sent Deliveries</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ receivedDeliveriesCount }}</h3>
+        <p>Received Deliveries</p>
+      </div>
     </div>
-    <div class="del-cont">
-    <div class="head">
-        <h4>Tracking No</h4>
-        <h4>Sender</h4>
-        <h4>Recipient</h4>
-        <h4>Date</h4>
-        <h4>Status</h4>
-        <h4>Actions</h4>
+    
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading deliveries...</p>
     </div>
-    <div class="del-cards" *ngFor="let d of filteredDeliveries">
-        <h5>{{ d.trackingNo }}</h5>
-        <p>{{ d.sender }}</p>
-        <p>{{ d.recipient }}</p>
-        <p>{{ d.date }}</p>
-        <h6>{{ d.status }}</h6>
-        <a routerLink="/parcel-details">View Details</a>
+    
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
     </div>
-</div>
+    
+    <!-- Content -->
+    <div *ngIf="!loading && !error">
+      <div class="del-nav">
+        <input type="text" id="search" placeholder="Search by track no, sender or recipient..." [(ngModel)]="searchTerm">
+        <input type="date" id="date" placeholder="pick a date range" [(ngModel)]="selectedDate">
+        <select name="status" id="status" [(ngModel)]="selectedStatus">
+           <option value="">All Statuses</option>
+           <option value="DELIVERED">Delivered</option>
+           <option value="PENDING">Pending</option>
+           <option value="IN_TRANSIT">In Transit</option>
+           <option value="CANCELLED">Cancelled</option>
+           <option value="PICKED_UP">Picked Up</option>
+        </select>
+        <select name="type" id="type" [(ngModel)]="selectedType">
+           <option value="">All Types</option>
+           <option value="sent">Sent</option>
+           <option value="received">Received</option>
+        </select>
+      </div>
+      <div class="del-cont">
+      <div class="head">
+          <h4>Type</h4>
+          <h4>Tracking No</h4>
+          <h4>Sender</h4>
+          <h4>Recipient</h4>
+          <h4>Date</h4>
+          <h4>Status</h4>
+          <h4>Actions</h4>
+      </div>
+      <div class="del-cards" *ngFor="let d of filteredDeliveries">
+          <span class="type-badge" [ngClass]="d.type">{{ d.type === 'sent' ? 'Sent' : 'Received' }}</span>
+          <h5>{{ d.trackingNo }}</h5>
+          <p>{{ d.sender }}</p>
+          <p>{{ d.recipient }}</p>
+          <p>{{ d.date }}</p>
+          <span [ngClass]="getStatusClass(d.status)">{{ getStatusDisplayName(d.status) }}</span>
+          <a [routerLink]="['/parcel-details', d.trackingNo]">View Details</a>
+      </div>
+  </div>
+  </div>
 </div>

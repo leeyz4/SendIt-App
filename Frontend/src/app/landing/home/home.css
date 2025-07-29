@@ -4,7 +4,7 @@
     box-sizing: border-box;
 } */
 .top{
-    background-image: url(../../../assets/images/back.jpg);
+    background-image: url(../../../assets/images/back1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -13,7 +13,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 70vh;
     position: relative;
     z-index: 1;
 }
@@ -77,33 +77,18 @@ button:hover{
 i{
     color: #2067a1;
 }
+/* i:hover{
+    border: 1px solid #b2b0b0;
+    border-radius: 3px;
+    padding: 5px 8px;
+} */
+
 /* 2nd */
-.whhy{
-    padding: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.why{
-    text-align: center;
-    margin-top: 50px;
-}
 p{
     color: #4c4b4b;
     font-size: 15px;
 }
-.why-cards{
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    padding: 20px;
-}
-.whyy{
-    border: 1px solid #2196f3;
-    border-radius: 10px;
-    text-align: center;
-    width: 20%;
-    padding: 10px;
-}
+
 .howy{
     background-color: #e3e0e0;
     padding: 20px;
@@ -125,8 +110,74 @@ p{
     border-radius: 10px;
     text-align: center;
     width: 20%;
-    padding: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(32,103,161,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
+
+.step-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #2067a1;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.howw h4 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+    color: #333;
+}
+
+/* Hover effects for each how card */
+.howw:nth-child(1):hover h4 {
+    color: #2067a1;
+}
+.howw:nth-child(1):hover .step-number {
+    background-color: #2067a1;
+    transform: scale(1.1);
+}
+
+.howw:nth-child(2):hover h4 {
+    color: #2a9d8f;
+}
+.howw:nth-child(2):hover .step-number {
+    background-color: #2a9d8f;
+    transform: scale(1.1);
+}
+
+.howw:nth-child(3):hover h4 {
+    color: #e76f51;
+}
+.howw:nth-child(3):hover .step-number {
+    background-color: #e76f51;
+    transform: scale(1.1);
+}
+
+.howw:nth-child(4):hover h4 {
+    color: #f4a261;
+}
+.howw:nth-child(4):hover .step-number {
+    background-color: #f4a261;
+    transform: scale(1.1);
+}
+
+.howw:hover{
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    transform: scale(1.02);
+    z-index: 2;
+}
+
 .whaty{
     padding: 20px;
     font-family: Arial, Helvetica, sans-serif;
@@ -153,39 +204,7 @@ p{
     width: 50px;
     height: 50px;
 }
-.oury{
-    padding: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #e3e0e0;
-}
-.our{
-    text-align: center;
-}
-.our-cards{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;
-}
-.ourr{
-    background-color: white;
-    border: 1px solid #2196f3;
-    border-radius: 10px;
-    width: 40%;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-}
-.ourr p{
-    margin-top: -10px;
-}
-.our-details{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+
 .ready{
     background-color: #2067a1;
     text-align: center;
@@ -211,3 +230,5 @@ p{
     border-color: #2067a1;
     box-shadow: 0 0 4px #20a124;
 }
+
+

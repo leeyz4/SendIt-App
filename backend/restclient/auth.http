@@ -1,0 +1,84 @@
+### Register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "name": "liz Beth",
+  "email": "letsy799@gmail.com",
+  "password": "pass123",
+  "confirmPassword": "pass123"
+}
+
+### Register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "name": "Elizabeth Nyariki",
+  "email": "elizabethnyanchama04@gmail.com",
+  "password": "pass123",
+  "confirmPassword": "pass123",
+  "role": "ADMIN"
+}
+
+### Verify Email
+POST http://localhost:3000/auth/verify-code
+Content-Type: application/json
+
+{
+  "email": "elizabethnyanchama04@gmail.com",
+  "code": "139635"
+}
+
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "letsy799@gmail.com",
+  "password": "pass123"
+}
+
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "elizabethnyanchama04@gmail.com",
+  "password": "pass123"
+}
+
+### Forgot Password
+POST http://localhost:3000/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "elizabethnyanchama04@gmail.com"
+}
+
+### Reset Password
+POST http://localhost:3000/auth/reset-password
+Content-Type: application/json
+
+{
+  "token": "<reset_token_from_email>",
+  "newPassword": "newpass123"
+}
+
+### get me
+GET http://localhost:3000/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+
+
+### Protected Route (requires Bearer token)
+POST http://localhost:3000/auth/protected
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzQ0Mjg5MCwiZXhwIjoxNzUzNTI5MjkwfQ.KHaj6O5Bdx4CFpDFPmxtP51nliAwZAS41RJKKwi7Qnw
+
+{
+  "message": "You are authorized"
+}
+
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3Nzg0ZWZkYi01NjM5LTQzNzUtYTFhZC1hZDk0MTVlNjc1NWEiLCJlbWFpbCI6ImxldHN5Nzk5QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzNDM5ODM3LCJleHAiOjE3NTM1MjYyMzd9.rSUcI1MygM1kUQDfwqHOqFpO_BuGrzOSPNlRMUqp4hQ
+

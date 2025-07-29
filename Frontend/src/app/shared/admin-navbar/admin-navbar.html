@@ -11,14 +11,28 @@
               <li routerLink="/admin-parcels">Parcels</li>
               <li routerLink="/admin-users">Users</li>
               <li routerLink="/admin-drivers">Drivers</li>
-              <li>Settings</li>
+              <!-- <li>Settings</li> -->
           </ul>
       </div>
    </div>
 
    <div class="right">
       <input type="text" id="search" placeholder="Search parcels and users">
-      <!-- <img src="assets/images/prof.jpg" alt="profile">  -->
+      <div class="profile-dropdown">
+        <div class="profile-pic" (click)="toggleDropdown()">
+          <img src="assets/images/prof.jpg" alt="Profile">
+        </div>
+        <div class="dropdown-menu" *ngIf="isDropdownOpen">
+          <div class="dropdown-item" (click)="goToProfile()">
+            <i class="fa-solid fa-user"></i>
+            Profile
+          </div>
+          <div class="dropdown-item" (click)="logout()">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Logout
+          </div>
+        </div>
+      </div>
    </div>
 </header>
 

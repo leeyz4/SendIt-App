@@ -1,0 +1,107 @@
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-driver-sidebar></app-driver-sidebar>
+  
+  <div class="driver-completed-container" style="margin-left: 250px;">
+    <div class="completed-header">
+      <h2>Completed Deliveries</h2>
+      <p>View your completed delivery history and earnings.</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading completed deliveries...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading && !error">
+      <!-- Statistics Cards -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-icon completed">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ getTotalCompleted() }}</h3>
+            <p>Total Completed</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon earnings">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ formatCurrency(getTotalEarnings()) }}</h3>
+            <p>Total Earnings</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon time">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ getAverageDeliveryTime() }}</h3>
+            <p>Avg. Delivery Time</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <input 
+          type="text" 
+          placeholder="Search completed deliveries..." 
+          [(ngModel)]="searchTerm"
+          class="search-input">
+        <input 
+          type="date" 
+          [(ngModel)]="selectedDate"
+          class="date-filter"
+          placeholder="Filter by date">
+      </div>
+
+      <!-- Completed Deliveries Table -->
+      <div class="completed-table-container">
+        <table *ngIf="filteredCompletedParcels.length > 0" class="completed-table">
+          <thead>
+            <tr>
+              <th>Tracking ID</th>
+              <th>Description</th>
+              <th>Pickup Location</th>
+              <th>Destination</th>
+              <th>Delivery Date</th>
+              <th>Earnings</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let parcel of filteredCompletedParcels">
+              <td>{{ parcel.trackingId }}</td>
+              <td>{{ parcel.description }}</td>
+              <td>{{ parcel.pickupLocation }}</td>
+              <td>{{ parcel.destination }}</td>
+              <td>{{ formatDeliveryDate(parcel) }}</td>
+              <td class="earnings">{{ formatCurrency(parcel.price || 0) }}</td>
+              <td>
+                <span [ngClass]="getStatusClass(parcel.status)" class="status-badge">
+                  {{ getStatusDisplayName(parcel.status) }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div *ngIf="filteredCompletedParcels.length === 0" class="no-completed">
+          <i class="fas fa-trophy"></i>
+          <h3>No Completed Deliveries</h3>
+          <p *ngIf="searchTerm || selectedDate">Try adjusting your search criteria.</p>
+          <p *ngIf="!searchTerm && !selectedDate">You haven't completed any deliveries yet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

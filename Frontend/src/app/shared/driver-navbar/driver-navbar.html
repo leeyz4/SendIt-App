@@ -1,17 +1,31 @@
 <header>
   <div class="left">
-    <div class="title" routerLink="/driver-dashboard" style="cursor: pointer;">
+    <div class="title" routerLink="/home" style="cursor: pointer;">
       <!-- <img src="assets/images/image1.jpg" alt=""> -->
       <h3>Sendly</h3>
     </div>
     <div class="list">
       <ul>
-        <li routerLink="/driver-dashboard">Dashboard</li>
-        <!-- <li routerLink="/driver-dashboard">Deliveries</li> -->
+        <li><a routerLink="/driver-dashboard">Dashboard</a></li>
+        <!-- <li><a routerLink="/profile">Profile</a></li> -->
       </ul>
     </div>
   </div>
-  <!-- <div class="right">
-    <span>Driver</span>
-  </div> -->
+  <div class="right">
+    <div class="profile-dropdown">
+      <div class="profile-pic" (click)="toggleDropdown()">
+        <img src="assets/images/prof.jpg" alt="Profile">
+      </div>
+      <div class="dropdown-menu" *ngIf="isDropdownOpen">
+        <div class="dropdown-item" (click)="goToProfile()">
+          <i class="fa-solid fa-user"></i>
+          Profile
+        </div>
+        <div class="dropdown-item" (click)="logout()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          Logout
+        </div>
+      </div>
+    </div>
+  </div>
 </header>

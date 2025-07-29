@@ -1,44 +1,129 @@
-<div class="admin-drivers-container">
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-admin-sidebar></app-admin-sidebar>
+  
+  <div class="admin-drivers-container" style="margin-left: 250px;">
+  <div class="lefty">
   <h2>All Drivers</h2>
+  
+  <!-- Create Driver Button -->
+  <div class="create-driver-section">
+    <button (click)="showCreateDriverForm = !showCreateDriverForm" class="create-driver-btn">
+      {{ showCreateDriverForm ? 'Cancel' : 'Create New Driver' }}
+    </button>
+  </div>
+
+  <!-- Create Driver Form -->
+  <div *ngIf="showCreateDriverForm" class="create-driver-form">
+    <h3>Create New Driver</h3>
+    <form (ngSubmit)="createDriver()" #createDriverForm="ngForm">
+      <div class="form-group">
+        <label for="driverName">Full Name *</label>
+        <input type="text" id="driverName" name="driverName" [(ngModel)]="newDriver.name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="driverEmail">Email *</label>
+        <input type="email" id="driverEmail" name="driverEmail" [(ngModel)]="newDriver.email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="driverPhone">Phone</label>
+        <input type="tel" id="driverPhone" name="driverPhone" [(ngModel)]="newDriver.phone" placeholder="+254700000000">
+      </div>
+      
+      <div class="form-group">
+        <label for="driverPassword">Password *</label>
+        <input type="password" id="driverPassword" name="driverPassword" [(ngModel)]="newDriver.password" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="driverConfirmPassword">Confirm Password *</label>
+        <input type="password" id="driverConfirmPassword" name="driverConfirmPassword" [(ngModel)]="newDriver.confirmPassword" required>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" [disabled]="creatingDriver" class="submit-btn">
+          {{ creatingDriver ? 'Creating...' : 'Create Driver' }}
+        </button>
+      </div>
+    </form>
+    
+    <div *ngIf="createDriverMessage" [ngClass]="{'success': createDriverMessageType === 'success', 'error': createDriverMessageType === 'error'}" class="message">
+      {{ createDriverMessage }}
+    </div>
+  </div>
+  
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading drivers and parcels...</p>
+  </div>
+  
+  <!-- Error State -->
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+  
+  <!-- Content -->
+  <div *ngIf="!loading && !error" class="left">
   <div *ngIf="drivers.length === 0">
     <p>No drivers found.</p>
   </div>
   <div *ngFor="let driver of drivers" class="driver-section">
-    <h3>{{ driver.firstName || '' }} {{ driver.lastName || '' }} ({{ driver.email }})
-      <span class="driver-status" [ngClass]="{'active': driver.status !== 'Deactivated', 'deactivated': driver.status === 'Deactivated'}">
-        {{ driver.status || 'Active' }}
+    <h3>{{ driver.name }} ({{ driver.email }})
+      <span class="driver-status" [ngClass]="{'active': driver.status === 'active', 'deactivated': driver.status !== 'active'}">
+        {{ driver.status === 'active' ? 'Active' : 'Inactive' }}
       </span>
-      <button (click)="toggleDriverStatus(driver)">
-        {{ driver.status === 'Deactivated' ? 'Activate' : 'Deactivate' }}
-      </button>
+      <div class="driver-actions">
+        <button (click)="toggleDriverStatus(driver)" class="status-btn">
+          {{ driver.status !== 'active' ? 'Activate' : 'Deactivate' }}
+        </button>
+        <button (click)="deleteDriver(driver)" class="delete-btn" title="Delete Driver">
+          🗑️
+        </button>
+      </div>
     </h3>
-    <table *ngIf="getDriverParcels(driver.email).length > 0" class="deliveries-table">
+    <table *ngIf="getDriverParcels(driver.id).length > 0" class="deliveries-table">
       <thead>
         <tr>
           <th>Tracking ID</th>
-          <th>Sender</th>
-          <th>Recipient</th>
+          <th>Description</th>
+          <th>Pickup</th>
+          <th>Destination</th>
           <th>Status</th>
           <th>Delivery Date</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let p of getDriverParcels(driver.email)">
+        <tr *ngFor="let p of getDriverParcels(driver.id)">
           <td>{{ p.trackingId }}</td>
-          <td>{{ p.sender }}</td>
-          <td>{{ p.recipient }}</td>
-          <td>{{ p.status }}</td>
-          <td>{{ p.deliveryDate }}</td>
+          <td>{{ p.description }}</td>
+          <td>{{ p.pickupLocation }}</td>
+          <td>{{ p.destination }}</td>
+          <td>
+            <span [ngClass]="getStatusClass(p.status)">{{ getStatusDisplayName(p.status) }}</span>
+          </td>
+          <td>{{ p.deliveryDate || 'Not set' }}</td>
+          <td>
+            <button (click)="unassignParcel(p)" class="unassign-btn" title="Unassign Delivery">
+              <i class="fas fa-unlink"></i> Unassign
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
-    <div *ngIf="getDriverParcels(driver.email).length === 0" class="no-deliveries">
+    <div *ngIf="getDriverParcels(driver.id).length === 0" class="no-deliveries">
       <p>No deliveries assigned to this driver.</p>
     </div>
     <hr />
   </div>
+ </div>
+ </div>
 
+<!-- Assign Deliveries section commented out - using approved-deliveries for driver assignment instead
+ <div class="lefty">
   <h2>Assign Deliveries</h2>
+  <div class="right">
   <div *ngIf="unassignedParcels.length === 0">
     <p>All parcels are assigned.</p>
   </div>
@@ -46,8 +131,10 @@
     <thead>
       <tr>
         <th>Tracking ID</th>
-        <th>Sender</th>
-        <th>Recipient</th>
+        <th>Description</th>
+        <th>Pickup</th>
+        <th>Destination</th>
+        <th>Status</th>
         <th>Assign to Driver</th>
         <th>Action</th>
       </tr>
@@ -55,18 +142,25 @@
     <tbody>
       <tr *ngFor="let p of unassignedParcels">
         <td>{{ p.trackingId }}</td>
-        <td>{{ p.sender }}</td>
-        <td>{{ p.recipient }}</td>
+        <td>{{ p.description }}</td>
+        <td>{{ p.pickupLocation }}</td>
+        <td>{{ p.destination }}</td>
         <td>
-          <select [(ngModel)]="selectedDriverEmail[p.trackingId]">
+          <span [ngClass]="getStatusClass(p.status)">{{ getStatusDisplayName(p.status) }}</span>
+        </td>
+        <td>
+          <select [(ngModel)]="selectedDriverId[p.trackingId]">
             <option value="">Select Driver</option>
-            <option *ngFor="let d of drivers" [value]="d.email">{{ d.firstName || '' }} {{ d.lastName || '' }} ({{ d.email }})</option>
+            <option *ngFor="let d of drivers" [value]="d.id">{{ d.name }} ({{ d.email }})</option>
           </select>
         </td>
         <td>
-          <button (click)="assignParcel(p, selectedDriverEmail[p.trackingId])" [disabled]="!selectedDriverEmail[p.trackingId]">Assign</button>
+          <button (click)="assignParcel(p, selectedDriverId[p.trackingId])" [disabled]="!selectedDriverId[p.trackingId]">Assign</button>
         </td>
       </tr>
     </tbody>
   </table>
+  </div>
+  </div>
 </div>
+-->

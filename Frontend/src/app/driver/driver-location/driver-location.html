@@ -1,0 +1,229 @@
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-driver-sidebar></app-driver-sidebar>
+  
+  <div class="driver-location-container" style="margin-left: 250px;">
+    <div class="location-header">
+      <h2>Live Location Tracking</h2>
+      <p>Track your location and update it in real-time for parcel delivery.</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading assigned parcels...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+      <p>Debug: loading = {{ loading }}, error = {{ error }}, parcels count = {{ assignedParcels.length }}</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading && !error" class="location-content">
+      <div class="location-section">
+        <div class="map-section">
+          <div class="map-container">
+            <div class="map-header">
+              <h3>Live Location Map</h3>
+              <button *ngIf="currentLocation" (click)="openGoogleMaps()" class="open-maps-btn">
+                <i class="fas fa-external-link-alt"></i> Open in Google Maps
+              </button>
+            </div>
+            <div class="map-wrapper">
+              <div *ngIf="!showMap" class="map-placeholder">
+                <i class="fas fa-map-marked-alt"></i>
+                <p>Click "Start Tracking" to see your location on the map</p>
+              </div>
+              <iframe 
+                *ngIf="showMap"
+                [src]="mapUrl | safe" 
+                width="100%" 
+                height="400" 
+                style="border:0; border-radius: 8px;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+          </div>
+          
+          <!-- Location Status -->
+          <div class="location-status">
+            <p><strong>Status:</strong> {{ getLocationStatus() }}</p>
+            <p *ngIf="currentLocation">
+              <strong>Current Location:</strong> 
+              {{ currentLocation.latitude | number:'1.6-6' }}, {{ currentLocation.longitude | number:'1.6-6' }}
+            </p>
+          </div>
+
+            <div class="control-buttons">
+              <button 
+                class="btn btn-primary" 
+                (click)="startTracking()" 
+                [disabled]="isTracking">
+                <i class="fas fa-play"></i> Start Tracking
+              </button>
+              
+              <button 
+                class="btn btn-secondary" 
+                (click)="updateLocation()" 
+                [disabled]="!isTracking">
+                <i class="fas fa-sync"></i> Update Now
+              </button>
+              
+              <button 
+                class="btn btn-info" 
+                (click)="updateMapLocation()" 
+                [disabled]="!currentLocation">
+                <i class="fas fa-map-marker-alt"></i> Update Map
+              </button>
+              
+              <button 
+                class="btn btn-danger" 
+                (click)="stopTracking()" 
+                [disabled]="!isTracking">
+                <i class="fas fa-stop"></i> Stop Tracking
+              </button>
+            </div>
+
+            <!-- Quick Location Updates -->
+            <div class="quick-location-updates" *ngIf="isTracking && assignedParcels.length > 0">
+              <h4>Quick Location Updates</h4>
+              
+              <!-- Manual Location Input -->
+              <div class="manual-location-input">
+                <input 
+                  type="text" 
+                  [(ngModel)]="manualLocationName" 
+                  placeholder="Enter city name (e.g., Embu, Kisumu, Nakuru)"
+                  class="location-input"
+                  (keyup.enter)="updateLocationWithPlaceName(manualLocationName)">
+                <button 
+                  class="btn btn-primary"
+                  (click)="updateLocationWithPlaceName(manualLocationName)"
+                  [disabled]="!manualLocationName.trim()">
+                  📍 Update Location
+                </button>
+              </div>
+              
+              <div class="location-buttons">
+                <button 
+                  class="btn btn-success" 
+                  (click)="updateLocationWithPlaceName('Nairobi')"
+                  [disabled]="!currentLocation">
+                  📍 Nairobi
+                </button>
+                <button 
+                  class="btn btn-success" 
+                  (click)="updateLocationWithPlaceName('Embu')"
+                  [disabled]="!currentLocation">
+                  📍 Embu
+                </button>
+                <button 
+                  class="btn btn-success" 
+                  (click)="updateLocationWithPlaceName('Chuka')"
+                  [disabled]="!currentLocation">
+                  📍 Chuka
+                </button>
+                <button 
+                  class="btn btn-success" 
+                  (click)="updateLocationWithPlaceName('Kisumu')"
+                  [disabled]="!currentLocation">
+                  📍 Kisumu
+                </button>
+                <button 
+                  class="btn btn-success" 
+                  (click)="updateLocationWithPlaceName('Nakuru')"
+                  [disabled]="!currentLocation">
+                  📍 Nakuru
+                </button>
+                <button 
+                  class="btn btn-success" 
+                  (click)="updateLocationWithPlaceName('Mombasa')"
+                  [disabled]="!currentLocation">
+                  📍 Mombasa
+                </button>
+              </div>
+            </div>
+            
+            <div class="button-explanations">
+              <div class="explanation-item">
+                <strong>Start Tracking:</strong> Begins real-time location tracking and updates every 30 seconds
+              </div>
+              <div class="explanation-item">
+                <strong>Update Now:</strong> Immediately gets your current location (only works when tracking is active)
+              </div>
+              <div class="explanation-item">
+                <strong>Update Map:</strong> Refreshes the map to show your current position (requires location data)
+              </div>
+              <div class="explanation-item">
+                <strong>Stop Tracking:</strong> Stops the automatic location updates
+              </div>
+            </div>
+          </div>
+
+        <div class="parcels-section">
+          <h3>Assigned Parcels</h3>
+          <div class="parcels-list" *ngIf="assignedParcels.length > 0">
+            <div class="parcel-item" *ngFor="let parcel of assignedParcels">
+              <div class="parcel-info">
+                <h4>{{ parcel.trackingId }}</h4>
+                <p><strong>Description:</strong> {{ parcel.description }}</p>
+                <p><strong>Pickup:</strong> {{ parcel.pickupLocation }}</p>
+                <p><strong>Destination:</strong> {{ parcel.destination }}</p>
+                <p><strong>Status:</strong> 
+                  <span [ngClass]="getStatusClass(parcel.status)">
+                    {{ getStatusDisplayName(parcel.status) }}
+                  </span>
+                </p>
+                <!-- Parcel Location Update Buttons -->
+                <div class="parcel-location-buttons" *ngIf="isTracking">
+                  <button 
+                    class="btn btn-sm btn-outline-primary" 
+                    (click)="updateLocationForParcel(parcel, 'Nairobi')"
+                    [disabled]="!currentLocation">
+                    📍 Nairobi
+                  </button>
+                  <button 
+                    class="btn btn-sm btn-outline-primary" 
+                    (click)="updateLocationForParcel(parcel, 'Embu')"
+                    [disabled]="!currentLocation">
+                    📍 Embu
+                  </button>
+                  <button 
+                    class="btn btn-sm btn-outline-primary" 
+                    (click)="updateLocationForParcel(parcel, 'Chuka')"
+                    [disabled]="!currentLocation">
+                    📍 Chuka
+                  </button>
+                  <button 
+                    class="btn btn-sm btn-outline-primary" 
+                    (click)="updateLocationForParcel(parcel, 'Kisumu')"
+                    [disabled]="!currentLocation">
+                    📍 Kisumu
+                  </button>
+                </div>
+              </div>
+              <div class="parcel-map">
+                <iframe 
+                  [src]="getParcelMapUrl(parcel) | safe" 
+                  width="100%" 
+                  height="150" 
+                  style="border:0; border-radius: 4px;" 
+                  allowfullscreen="" 
+                  loading="lazy" 
+                  referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
+            </div>
+          </div>
+          <div class="no-parcels" *ngIf="assignedParcels.length === 0">
+            <i class="fas fa-box-open"></i>
+            <h3>No Parcels Assigned</h3>
+            <p>You don't have any parcels assigned to you yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

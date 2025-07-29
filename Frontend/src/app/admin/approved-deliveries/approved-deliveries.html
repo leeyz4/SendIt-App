@@ -1,0 +1,154 @@
+<div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
+  <app-admin-sidebar></app-admin-sidebar>
+  
+  <div class="approved-deliveries-container" style="margin-left: 250px;">
+    <div class="header">
+      <h2>Approved Deliveries</h2>
+      <p>Manage approved deliveries and assign drivers</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading approved deliveries...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading && !error" class="content">
+      <div *ngIf="approvedDeliveries.length === 0" class="no-deliveries">
+        <p>No approved deliveries available for driver assignment.</p>
+      </div>
+
+      <div *ngIf="approvedDeliveries.length > 0" class="deliveries-list">
+        <div *ngFor="let delivery of approvedDeliveries" class="delivery-card">
+          <div class="delivery-header">
+            <h3>Delivery #{{ delivery.trackingId }}</h3>
+            <div class="status-badges">
+              <span class="status-badge" [ngClass]="getApprovalStatusBadgeClass(delivery.approvalStatus)">
+                {{ delivery.approvalStatus.replace('_', ' ') }}
+              </span>
+              <span class="status-badge" [ngClass]="getStatusBadgeClass(delivery.status)">
+                {{ delivery.status.replace('_', ' ') }}
+              </span>
+            </div>
+          </div>
+
+          <div class="delivery-details">
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Description:</label>
+                <span>{{ delivery.description }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Weight:</label>
+                <span>{{ delivery.weight }} kg</span>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Pickup Location:</label>
+                <span>{{ delivery.pickupLocation }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Destination:</label>
+                <span>{{ delivery.destination }}</span>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-group">
+                <label>Price:</label>
+                <span>KES {{ delivery.price }}</span>
+              </div>
+              <div class="detail-group">
+                <label>Created:</label>
+                <span>{{ delivery.createdAt | date:'medium' }}</span>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="delivery.sender">
+              <div class="detail-group">
+                <label>Sender:</label>
+                <span>{{ delivery.sender.name }} ({{ delivery.sender.email }})</span>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="delivery.recipient">
+              <div class="detail-group">
+                <label>Recipient:</label>
+                <span>{{ delivery.recipient.name }} ({{ delivery.recipient.email }})</span>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="delivery.assignedDriver">
+              <div class="detail-group">
+                <label>Assigned Driver:</label>
+                <span>{{ delivery.assignedDriver.name }} ({{ delivery.assignedDriver.email }})</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="delivery-actions">
+            <button 
+              (click)="assignDriver(delivery)" 
+              class="btn-assign" 
+              [disabled]="loading || delivery.assignedDriverId"
+            >
+              <i class="fas fa-user-plus"></i> 
+              {{ delivery.assignedDriverId ? 'Driver Assigned' : 'Assign Driver' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Driver Assignment Modal -->
+  <div *ngIf="showAssignmentModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Assign Driver to Delivery</h3>
+        <button (click)="cancelAssignment()" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Select a driver to assign to delivery #{{ selectedDelivery?.trackingId }}:</p>
+        
+        <div class="driver-selection">
+          <label for="driverSelect">Available Drivers:</label>
+          <select 
+            id="driverSelect" 
+            [(ngModel)]="selectedDriverId" 
+            class="driver-select"
+          >
+            <option value="">Select a driver...</option>
+            <option 
+              *ngFor="let driver of availableDrivers" 
+              [value]="driver.id"
+            >
+              {{ driver.name }} ({{ driver.email }}) - {{ driver.status }}
+            </option>
+          </select>
+        </div>
+
+        <div *ngIf="availableDrivers.length === 0" class="no-drivers">
+          <p>No active drivers available for assignment.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cancelAssignment()" class="btn-cancel">Cancel</button>
+        <button 
+          (click)="confirmAssignment()" 
+          class="btn-confirm" 
+          [disabled]="loading || !selectedDriverId"
+        >
+          {{ loading ? 'Assigning...' : 'Assign Driver' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,43 @@
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYzgwOTRkYy05Nzg5LTQzMzUtOTg3NS02NGZiZDY0ZGE0ZmIiLCJlbWFpbCI6ImVsaXphYmV0aG55YW5jaGFtYTA0QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MzU0NTMwNywiZXhwIjoxNzUzNjMxNzA3fQ.i87r9Dxwv0oqhWf7F1BOsLhgFmB4DYEPSpurjfWnsJ0
+
+### Create a parcel
+POST http://localhost:3000/parcels
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "trackingId": "SND123456",
+  "description": "Electronics",
+  "weight": 2.5,
+  "price": 1000,
+  "pickupLocation": "Nairobi",
+  "destination": "Kisumu",
+  "status": "PENDING",
+  "senderId": "1f253162-a655-4c24-9c06-e5a3c220f9e1",
+  "recipientId": "7784efdb-5639-4375-a1ad-ad9415e6755a"
+}
+
+### Get all parcels
+GET http://localhost:3000/parcels
+Authorization: Bearer {{token}}
+
+### Get a parcel by id
+GET http://localhost:3000/parcels/780ff91d-a65d-43d7-8db2-657ef5011304
+Authorization: Bearer {{token}}
+
+### Update parcel status
+PATCH http://localhost:3000/parcels/780ff91d-a65d-43d7-8db2-657ef5011304/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "DELIVERED"
+}
+
+### Soft delete parcel
+PATCH http://localhost:3000/parcels/780ff91d-a65d-43d7-8db2-657ef5011304/soft-delete
+Authorization: Bearer {{token}}
+
+### Hard delete parcel
+DELETE http://localhost:3000/parcels/780ff91d-a65d-43d7-8db2-657ef5011304/hard-delete
+Authorization: Bearer {{token}}
