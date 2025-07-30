@@ -8,6 +8,12 @@
   margin-bottom: 30px;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .deliveries-header h2 {
   color: #333;
   margin-bottom: 10px;
@@ -16,6 +22,33 @@
 .deliveries-header p {
   color: #666;
   font-size: 16px;
+}
+
+.refresh-btn {
+  background: #2067a1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-btn:hover {
+  background: #19507c;
+}
+
+.refresh-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.refresh-btn i {
+  font-size: 14px;
 }
 
 /* Statistics Cards */

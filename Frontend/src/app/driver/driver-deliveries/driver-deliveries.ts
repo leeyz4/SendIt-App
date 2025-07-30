@@ -5,6 +5,7 @@ import { DriverSidebar } from '../../shared/driver-sidebar/driver-sidebar';
 import { ParcelService } from '../../services/parcel.service';
 import { AuthService } from '../../services/auth';
 import { DeliveryStatusService } from '../../services/delivery-status.service';
+import { ToastService } from '../../services/toast.service';
 import { Parcel } from '../../models/parcels';
 
 @Component({
@@ -25,7 +26,8 @@ export class DriverDeliveries implements OnInit {
   constructor(
     private parcelService: ParcelService,
     private authService: AuthService,
-    private deliveryStatusService: DeliveryStatusService
+    private deliveryStatusService: DeliveryStatusService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -39,24 +41,44 @@ export class DriverDeliveries implements OnInit {
     }
     
     this.loadDeliveries();
+    
+    // Refresh data every 30 seconds to catch new assignments
+    setInterval(() => {
+      this.loadDeliveries();
+    }, 30000);
   }
 
   loadDeliveries() {
     this.loading = true;
     this.error = '';
     
-    this.parcelService.getParcels().subscribe({
+    // Try the dedicated API first
+    this.parcelService.getParcelsByDriver(this.driverId).subscribe({
       next: (parcels) => {
-        // Filter parcels assigned to this driver
+        
+        // Debug: Check what assignedDriverId values exist
+        
+        // Filter to ensure only assigned parcels are shown
         this.parcels = parcels.filter(p => p.assignedDriverId === this.driverId);
-        console.log('📦 Loaded deliveries for driver:', this.driverId, 'Count:', this.parcels.length);
+        
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error loading deliveries:', err);
-        this.error = 'Failed to load deliveries. Please try again.';
-        this.loading = false;
-        this.parcels = [];
+        console.error('Error with getParcelsByDriver API:', err);
+        
+        // Fallback: get all parcels and filter locally
+        this.parcelService.getParcels().subscribe({
+          next: (allParcels) => {
+            this.parcels = allParcels.filter(p => p.assignedDriverId === this.driverId);
+            this.loading = false;
+          },
+          error: (fallbackErr) => {
+            console.error('Error with fallback API:', fallbackErr);
+            this.error = 'Failed to load deliveries. Please try again.';
+            this.loading = false;
+            this.parcels = [];
+          }
+        });
       }
     });
   }
@@ -83,34 +105,34 @@ export class DriverDeliveries implements OnInit {
         if (index !== -1) {
           this.parcels[index] = updatedParcel;
         }
-        console.log('Status updated for parcel:', parcel.trackingId, 'to:', parcel.status);
         
-        // Show success message
-        alert(`Parcel ${parcel.trackingId} status updated to ${this.getStatusDisplayName(parcel.status)}`);
+        // Show success message with email notification info
+        const statusName = this.getStatusDisplayName(parcel.status);
+        this.toastService.success(`✅ Parcel ${parcel.trackingId} status updated to ${statusName}\n\n📧 Email notification sent to recipient`);
       },
       error: (err) => {
         console.error('Error updating parcel status:', err);
-        alert('Failed to update parcel status. Please try again.');
+        this.toastService.error('Failed to update parcel status. Please try again.');
       }
     });
   }
 
   pickUpParcel(parcel: Parcel) {
-    if (confirm(`Are you sure you want to pick up parcel ${parcel.trackingId}?`)) {
+    if (confirm(`Are you sure you want to pick up parcel ${parcel.trackingId}?\n\n📧 This will send an email notification to the recipient.`)) {
       parcel.status = 'PICKED_UP';
       this.updateStatus(parcel);
     }
   }
 
   startDelivery(parcel: Parcel) {
-    if (confirm(`Are you sure you want to start delivery for parcel ${parcel.trackingId}?`)) {
+    if (confirm(`Are you sure you want to start delivery for parcel ${parcel.trackingId}?\n\n📧 This will send an email notification to the recipient.`)) {
       parcel.status = 'IN_TRANSIT';
       this.updateStatus(parcel);
     }
   }
 
   completeDelivery(parcel: Parcel) {
-    if (confirm(`Are you sure you want to mark parcel ${parcel.trackingId} as delivered?`)) {
+    if (confirm(`Are you sure you want to mark parcel ${parcel.trackingId} as delivered?\n\n📧 This will send an email notification to the recipient.`)) {
       parcel.status = 'DELIVERED';
       this.updateStatus(parcel);
       
@@ -149,5 +171,9 @@ export class DriverDeliveries implements OnInit {
 
   getCompletedDeliveries(): number {
     return this.parcels.filter(p => p.status === 'DELIVERED').length;
+  }
+
+  refreshDeliveries() {
+    this.loadDeliveries();
   }
 } 

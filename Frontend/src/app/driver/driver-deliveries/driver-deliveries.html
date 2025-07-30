@@ -3,8 +3,15 @@
   
   <div class="driver-deliveries-container" style="margin-left: 250px;">
     <div class="deliveries-header">
-      <h2>My Deliveries</h2>
-      <p>Manage and update the status of your assigned deliveries.</p>
+      <div class="header-content">
+        <div>
+          <h2>My Deliveries</h2>
+          <p>Manage and update the status of your assigned deliveries.</p>
+        </div>
+        <button (click)="refreshDeliveries()" class="refresh-btn" [disabled]="loading">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+      </div>
     </div>
 
     <!-- Loading State -->

@@ -65,7 +65,7 @@ export class Login {
             break;
           case 'USER':
           default:
-            this.router.navigate(['/user-dashboard']); // User goes to home page with user navbar
+            this.router.navigate(['/homey']); // User goes to homey page with user navbar
             break;
         }
       },

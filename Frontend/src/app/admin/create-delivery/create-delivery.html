@@ -1,9 +1,6 @@
 <div class="dashboard-wrapper" style="position: relative; min-height: 100vh;">
   <app-admin-sidebar></app-admin-sidebar>
   
-  <div *ngIf="message" [ngClass]="{'alert-success': messageType === 'success', 'alert-error': messageType === 'error'}" class="custom-alert" style="margin-left: 250px;">
-    {{ message }}
-  </div>
   <h2 style="margin-left: 250px;">Create New Delivery</h2>
   <div class="create-cont" style="margin-left: 250px;">
 <div class="create">
@@ -94,14 +91,14 @@
                 <label for="kg">Weight (kg)</label>
                 <input type="number" placeholder="2.5" required [(ngModel)]="weight" name="weight">
             </div>
-            <div class="cm">
+            <!-- <div class="cm">
                 <label for="cm">Dimensions (cm) L * W * H</label>
                 <div class="lwh">
                 <input type="text" placeholder="30" [(ngModel)]="length" name="length">
                 <input type="text" placeholder="20" [(ngModel)]="width" name="width">
                 <input type="text" placeholder="10" [(ngModel)]="height" name="height">
                 </div>
-            </div>
+            </div> -->
         </div>
         <label for="origin">Origin</label>
         <input type="text" id="origin" placeholder="Origin address" [(ngModel)]="packageOrigin" name="packageOrigin">
@@ -115,7 +112,7 @@
         <textarea name="specialInstructions" id="" [(ngModel)]="specialInstructions"></textarea>
     </div>
 
-    <div class="opt">
+    <!-- <div class="opt">
         <h3>Delivery Options</h3>
         <div class="opt-card">
             <div class="left">
@@ -152,7 +149,7 @@
             <div class="right">
                 <p>Kes 2000</p>
             </div>
-        </div>
+        </div> -->
         <label for="">Preferred Delivery Date</label>
         <input type="date" placeholder="date" [(ngModel)]="deliveryDate" name="deliveryDate">
         <div class="add">
@@ -169,6 +166,9 @@
       <span *ngIf="!loading">Create Delivery</span>
       <span *ngIf="loading">Creating...</span>
     </button>
+    <div *ngIf="message" [ngClass]="{'alert-success': messageType === 'success', 'alert-error': messageType === 'error'}" class="custom-alert" style="margin-left: 250px;">
+    {{ message }}
+  </div>
 </div>
 
 <!-- Driver Assignment Section -->

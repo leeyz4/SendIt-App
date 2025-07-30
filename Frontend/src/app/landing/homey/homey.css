@@ -1,0 +1,232 @@
+/* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+.top{
+    background-image: url(../../../assets/images/back1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    position: relative;
+    z-index: 1;
+}
+.top::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+.top h1{
+    color: white;
+    position: relative;
+    z-index: 3;
+}
+.top p{
+    position: relative;
+    z-index: 3;
+    color: #bdbbbb;
+}
+.track{
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+}
+input{
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    width: 300px;
+    border: 2px solid #2067a1;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+/* input:hover{
+    border-color: #28f321;
+} */
+input:focus{
+    border-color: #2067a1;
+    box-shadow: 0 0 4px #2067a1;
+}
+button{
+    padding: 17px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2067a1;
+    color: white;
+    cursor: pointer;
+    margin-left: -108px;
+}
+button:hover{
+    background-color: #2a70a5;
+}
+i{
+    color: #2067a1;
+}
+/* i:hover{
+    border: 1px solid #b2b0b0;
+    border-radius: 3px;
+    padding: 5px 8px;
+} */
+
+/* 2nd */
+p{
+    color: #4c4b4b;
+    font-size: 15px;
+}
+
+.howy{
+    background-color: #e3e0e0;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.how{
+    text-align: center;
+}
+.how-cards{
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.howw{
+    background-color: white;
+    border: 1px solid #2196f3;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(32,103,161,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.step-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #2067a1;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.howw h4 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+    color: #333;
+}
+
+/* Hover effects for each how card */
+.howw:nth-child(1):hover h4 {
+    color: #2067a1;
+}
+.howw:nth-child(1):hover .step-number {
+    background-color: #2067a1;
+    transform: scale(1.1);
+}
+
+.howw:nth-child(2):hover h4 {
+    color: #2a9d8f;
+}
+.howw:nth-child(2):hover .step-number {
+    background-color: #2a9d8f;
+    transform: scale(1.1);
+}
+
+.howw:nth-child(3):hover h4 {
+    color: #e76f51;
+}
+.howw:nth-child(3):hover .step-number {
+    background-color: #e76f51;
+    transform: scale(1.1);
+}
+
+.howw:nth-child(4):hover h4 {
+    color: #f4a261;
+}
+.howw:nth-child(4):hover .step-number {
+    background-color: #f4a261;
+    transform: scale(1.1);
+}
+
+.howw:hover{
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    transform: scale(1.02);
+    z-index: 2;
+}
+
+.whaty{
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.what{
+    text-align: center;
+}
+.what-cards{
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.whatt{
+    background-color: white;
+    border: 1px solid #2196f3;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    padding: 10px;
+}
+.whatt img{
+    width: 50px;
+    height: 50px;
+}
+
+.ready{
+    background-color: #2067a1;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    margin-top: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.ready p{
+    color: rgb(224, 222, 222);
+}
+.ready button{
+    border-radius: 10px;
+    background-color: white;
+    color: #2196f3;
+    padding: 10px 15px;
+    margin-right: -100px;
+    border: 3px solid #065ba0;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+.ready button:hover{
+    border-color: #2067a1;
+    box-shadow: 0 0 4px #20a124;
+} 

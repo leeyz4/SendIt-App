@@ -30,6 +30,8 @@ export class DriverLocationComponent implements OnInit, OnDestroy {
   manualLatitude = '';
   manualLongitude = '';
   manualLocationName = '';
+
+  mapRefreshCounter = 0; // Force iframe refresh
   
   private locationSubscription: Subscription | undefined;
   private trackingInterval: Subscription | undefined;
@@ -123,7 +125,10 @@ export class DriverLocationComponent implements OnInit, OnDestroy {
       };
 
       this.currentLocation = initialLocation;
-      // Don't update map URL here - let the user manually update it
+      
+      // Update the map URL with initial coordinates
+      this.updateMapUrl(initialLocation.latitude, initialLocation.longitude);
+      
       console.log('📍 Initial location set:', initialLocation);
       
       // Update location to backend
@@ -166,7 +171,10 @@ export class DriverLocationComponent implements OnInit, OnDestroy {
       };
 
       this.currentLocation = location;
-      // Don't update map URL automatically to avoid change detection issues
+      
+      // Update the map URL with new coordinates
+      this.updateMapUrl(location.latitude, location.longitude);
+      
       console.log('📍 Location updated:', location);
       
       // Update location to backend
@@ -186,16 +194,9 @@ export class DriverLocationComponent implements OnInit, OnDestroy {
 
   updateMapLocation() {
     if (this.currentLocation) {
-      // Use NgZone to defer the map URL update
-      this.ngZone.runOutsideAngular(() => {
-        setTimeout(() => {
-          this.ngZone.run(() => {
-            this._mapUrl = `https://maps.google.com/maps?q=${this.currentLocation!.latitude},${this.currentLocation!.longitude}&z=15&output=embed`;
-            this.cdr.markForCheck();
-            console.log('🗺️ Map location updated to current position');
-          });
-        }, 0);
-      });
+      // Update the map URL with current location coordinates
+      this.updateMapUrl(this.currentLocation.latitude, this.currentLocation.longitude);
+      console.log('🗺️ Map location updated to current position');
     } else {
       console.log('⚠️ No current location available to update map');
     }
@@ -287,6 +288,9 @@ export class DriverLocationComponent implements OnInit, OnDestroy {
 
       this.currentLocation = location;
       
+      // Update the map URL with new coordinates
+      this.updateMapUrl(coordinates.lat, coordinates.lng);
+      
       // Update location for all assigned parcels
       this.assignedParcels.forEach(parcel => {
         this.updateLocationForParcel(parcel, placeName);
@@ -299,6 +303,15 @@ export class DriverLocationComponent implements OnInit, OnDestroy {
       this.error = `Location "${placeName}" not found. Please try a different city name.`;
       console.log(`❌ Location not found: ${placeName}`);
     }
+  }
+
+  // Update map URL with new coordinates
+  updateMapUrl(lat: number, lng: number) {
+    const timestamp = new Date().getTime(); // Add timestamp to force refresh
+    this._mapUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=13&output=embed&t=${timestamp}`;
+    this.showMap = true; // Ensure map is visible
+    this.mapRefreshCounter++; // Force iframe recreation
+    console.log(`🗺️ Map URL updated to: ${lat}, ${lng}`);
   }
 
   getLocationStatus(): string {

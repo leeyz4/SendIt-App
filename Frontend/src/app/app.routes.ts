@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './landing/home/home'
+import { Homey } from './landing/homey/homey'
 import { Services } from './landing/services/services';
 import { Track } from './landing/track/track';
 import { AboutUs } from './landing/about-us/about-us';
@@ -33,6 +34,7 @@ import { DriverProfile } from './driver/driver-profile/driver-profile';
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: Home },
+    { path: 'homey', component: Homey },
     { path: 'services', component: Services },
     { path: 'track', component: Track }, 
     { path: 'about-us', component: AboutUs },

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminSidebar } from '../../shared/admin-sidebar/admin-sidebar';
 import { ParcelService } from '../../services/parcel.service';
 import { DriverService } from '../../services/driver.service';
-import { AlertService } from '../../services/alert.service';
+import { ToastService } from '../../services/toast.service';
 import { Parcel } from '../../models/parcels';
 import { Driver } from '../../models/drivers';
 
@@ -27,7 +27,7 @@ export class ApprovedDeliveries implements OnInit {
   constructor(
     private parcelService: ParcelService,
     private driverService: DriverService,
-    private alertService: AlertService
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -107,6 +107,7 @@ export class ApprovedDeliveries implements OnInit {
 
   confirmAssignment() {
     if (!this.selectedDelivery || !this.selectedDriverId) {
+      this.toastService.error('Please select a driver to assign');
       return;
     }
 
@@ -129,13 +130,13 @@ export class ApprovedDeliveries implements OnInit {
         this.selectedDriverId = '';
         this.loading = false;
         
-        console.log('Driver assigned successfully');
-        this.alertService.success('Driver assigned successfully');
+        // Use custom alert instead of console.log
+        this.toastService.success('Driver assigned successfully! Email notification sent to recipient.');
       },
       error: (err) => {
         console.error('Error assigning driver:', err);
         this.loading = false;
-        this.alertService.error('Failed to assign driver. Please try again.');
+        this.toastService.error('Failed to assign driver. Please try again.');
       }
     });
   }

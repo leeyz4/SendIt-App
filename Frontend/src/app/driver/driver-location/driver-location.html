@@ -25,9 +25,9 @@
           <div class="map-container">
             <div class="map-header">
               <h3>Live Location Map</h3>
-              <button *ngIf="currentLocation" (click)="openGoogleMaps()" class="open-maps-btn">
+              <!-- <button *ngIf="currentLocation" (click)="openGoogleMaps()" class="open-maps-btn">
                 <i class="fas fa-external-link-alt"></i> Open in Google Maps
-              </button>
+              </button> -->
             </div>
             <div class="map-wrapper">
               <div *ngIf="!showMap" class="map-placeholder">
@@ -37,6 +37,7 @@
               <iframe 
                 *ngIf="showMap"
                 [src]="mapUrl | safe" 
+                [attr.key]="mapRefreshCounter"
                 width="100%" 
                 height="400" 
                 style="border:0; border-radius: 8px;" 
@@ -86,16 +87,15 @@
               </button>
             </div>
 
-            <!-- Quick Location Updates -->
-            <div class="quick-location-updates" *ngIf="isTracking && assignedParcels.length > 0">
-              <h4>Quick Location Updates</h4>
-              
-              <!-- Manual Location Input -->
-              <div class="manual-location-input">
+            <!-- Manual Location Input -->
+            <div class="manual-location-input" *ngIf="isTracking && assignedParcels.length > 0">
+              <h4>Update Location</h4>
+              <!-- <p>Enter the city name to update your location manually.</p> -->
+              <div class="input-group">
                 <input 
                   type="text" 
                   [(ngModel)]="manualLocationName" 
-                  placeholder="Enter city name (e.g., Embu, Kisumu, Nakuru)"
+                  placeholder="Enter city name (e.g., Embu, Kisumu, Nakuru, Nairobi)"
                   class="location-input"
                   (keyup.enter)="updateLocationWithPlaceName(manualLocationName)">
                 <button 
@@ -105,48 +105,9 @@
                   📍 Update Location
                 </button>
               </div>
-              
-              <div class="location-buttons">
-                <button 
-                  class="btn btn-success" 
-                  (click)="updateLocationWithPlaceName('Nairobi')"
-                  [disabled]="!currentLocation">
-                  📍 Nairobi
-                </button>
-                <button 
-                  class="btn btn-success" 
-                  (click)="updateLocationWithPlaceName('Embu')"
-                  [disabled]="!currentLocation">
-                  📍 Embu
-                </button>
-                <button 
-                  class="btn btn-success" 
-                  (click)="updateLocationWithPlaceName('Chuka')"
-                  [disabled]="!currentLocation">
-                  📍 Chuka
-                </button>
-                <button 
-                  class="btn btn-success" 
-                  (click)="updateLocationWithPlaceName('Kisumu')"
-                  [disabled]="!currentLocation">
-                  📍 Kisumu
-                </button>
-                <button 
-                  class="btn btn-success" 
-                  (click)="updateLocationWithPlaceName('Nakuru')"
-                  [disabled]="!currentLocation">
-                  📍 Nakuru
-                </button>
-                <button 
-                  class="btn btn-success" 
-                  (click)="updateLocationWithPlaceName('Mombasa')"
-                  [disabled]="!currentLocation">
-                  📍 Mombasa
-                </button>
-              </div>
             </div>
             
-            <div class="button-explanations">
+            <!-- <div class="button-explanations">
               <div class="explanation-item">
                 <strong>Start Tracking:</strong> Begins real-time location tracking and updates every 30 seconds
               </div>
@@ -159,7 +120,7 @@
               <div class="explanation-item">
                 <strong>Stop Tracking:</strong> Stops the automatic location updates
               </div>
-            </div>
+            </div> -->
           </div>
 
         <div class="parcels-section">
@@ -176,32 +137,22 @@
                     {{ getStatusDisplayName(parcel.status) }}
                   </span>
                 </p>
-                <!-- Parcel Location Update Buttons -->
-                <div class="parcel-location-buttons" *ngIf="isTracking">
-                  <button 
-                    class="btn btn-sm btn-outline-primary" 
-                    (click)="updateLocationForParcel(parcel, 'Nairobi')"
-                    [disabled]="!currentLocation">
-                    📍 Nairobi
-                  </button>
-                  <button 
-                    class="btn btn-sm btn-outline-primary" 
-                    (click)="updateLocationForParcel(parcel, 'Embu')"
-                    [disabled]="!currentLocation">
-                    📍 Embu
-                  </button>
-                  <button 
-                    class="btn btn-sm btn-outline-primary" 
-                    (click)="updateLocationForParcel(parcel, 'Chuka')"
-                    [disabled]="!currentLocation">
-                    📍 Chuka
-                  </button>
-                  <button 
-                    class="btn btn-sm btn-outline-primary" 
-                    (click)="updateLocationForParcel(parcel, 'Kisumu')"
-                    [disabled]="!currentLocation">
-                    📍 Kisumu
-                  </button>
+                <!-- Manual Parcel Location Update -->
+                <div class="parcel-location-update" *ngIf="isTracking">
+                  <p><strong>Update location for this parcel:</strong></p>
+                  <div class="input-group">
+                    <input 
+                      type="text" 
+                      placeholder="Enter location name"
+                      class="location-input-sm"
+                      #parcelLocationInput>
+                    <button 
+                      class="btn btn-sm btn-outline-primary"
+                      (click)="updateLocationForParcel(parcel, parcelLocationInput.value)"
+                      [disabled]="!currentLocation || !parcelLocationInput.value.trim()">
+                      📍 Update
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="parcel-map">

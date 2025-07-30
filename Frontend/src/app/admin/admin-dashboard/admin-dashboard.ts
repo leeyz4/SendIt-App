@@ -91,9 +91,9 @@ export class AdminDashboard implements OnInit {
     return Math.round(((current - previous) / previous) * 100);
   }
 
-  getTimeAgo(dateString: string): string {
+  getTimeAgo(dateInput: string | Date): string {
     const now = new Date();
-    const date = new Date(dateString);
+    const date = new Date(dateInput);
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
     
     if (diffInSeconds < 60) {

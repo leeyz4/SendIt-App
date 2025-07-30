@@ -297,3 +297,23 @@ h2{
     gap: 5px;
   }
 }
+
+/* Hide Leaflet attribution */
+.leaflet-control-attribution {
+  display: none !important;
+}
+
+/* Route line and marker styles */
+.pickup-marker {
+  background-color: #28a745 !important;
+}
+
+.destination-marker {
+  background-color: #dc3545 !important;
+}
+
+.route-line {
+  stroke: #ff6b35 !important;
+  stroke-width: 4 !important;
+  stroke-dasharray: 10, 5 !important;
+}

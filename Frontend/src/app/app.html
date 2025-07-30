@@ -1,5 +1,5 @@
 <app-landing-navbar *ngIf="isLandingPage"></app-landing-navbar>
-<app-user-navbar *ngIf="!isLandingPage && role === 'user' && !isDashboardPage"></app-user-navbar>
+<app-user-navbar *ngIf="(!isLandingPage && role === 'user' && !isDashboardPage) || currentUrl === '/homey'"></app-user-navbar>
 <!-- <app-admin-navbar *ngIf="!isLandingPage && role?.toLowerCase() === 'admin' && !isDashboardPage"></app-admin-navbar> -->
 <!-- <app-driver-navbar *ngIf="!isLandingPage && role?.toLowerCase() === 'driver' && !isDashboardPage"></app-driver-navbar> -->
 <router-outlet></router-outlet>

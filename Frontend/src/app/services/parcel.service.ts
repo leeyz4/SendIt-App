@@ -90,7 +90,11 @@ export class ParcelService {
   }
 
   deleteParcel(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}/soft-delete`, { headers: this.getHeaders() });
+    return this.http.delete(`${this.apiUrl}/${id}/hard-delete`, { headers: this.getHeaders() });
+  }
+
+  softDeleteParcel(id: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}/soft-delete`, {}, { headers: this.getHeaders() });
   }
 
   getParcelByTrackingId(trackingId: string): Observable<any> {

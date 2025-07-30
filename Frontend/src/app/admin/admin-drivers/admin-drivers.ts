@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DriverService } from '../../services/driver.service';
 import { ParcelService } from '../../services/parcel.service';
+import { ToastService } from '../../services/toast.service';
 import { Driver } from '../../models/drivers';
 import { Parcel } from '../../models/parcels';
 import { AdminSidebar } from '../../shared/admin-sidebar/admin-sidebar';
@@ -34,7 +35,11 @@ export class AdminDrivers implements OnInit {
     confirmPassword: ''
   };
 
-  constructor(private driverService: DriverService, private parcelService: ParcelService) {}
+  constructor(
+    private driverService: DriverService, 
+    private parcelService: ParcelService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
     this.loadData();
@@ -63,6 +68,7 @@ export class AdminDrivers implements OnInit {
     this.parcelService.getParcels().subscribe({
       next: (parcels) => {
         this.parcels = parcels;
+        
         this.loading = false;
       },
       error: (err) => {
@@ -75,7 +81,8 @@ export class AdminDrivers implements OnInit {
   }
 
   getDriverParcels(driverId: string) {
-    return this.parcels.filter((p: Parcel) => p.assignedDriverId === driverId);
+    const driverParcels = this.parcels.filter((p: Parcel) => p.assignedDriverId === driverId);
+    return driverParcels;
   }
 
   // Commented out - using approved-deliveries for driver assignment instead
@@ -91,11 +98,11 @@ export class AdminDrivers implements OnInit {
         if (index !== -1) {
           this.drivers[index] = updatedDriver;
         }
-        console.log('Driver status updated successfully');
+        this.toastService.success('Driver status updated successfully');
       },
       error: (err) => {
         console.error('Error updating driver status:', err);
-        alert('Failed to update driver status. Please try again.');
+        this.toastService.error('Failed to update driver status. Please try again.');
       }
     });
   }
@@ -137,7 +144,7 @@ export class AdminDrivers implements OnInit {
 
   unassignParcel(parcel: Parcel) {
     if (!parcel.assignedDriverId) {
-      alert('This parcel is not assigned to any driver.');
+      this.toastService.error('This parcel is not assigned to any driver.');
       return;
     }
 
@@ -151,14 +158,13 @@ export class AdminDrivers implements OnInit {
           if (index !== -1) {
             this.parcels[index] = updatedParcel;
           }
-          console.log('Parcel unassigned successfully');
-          alert('Parcel unassigned successfully!');
+          this.toastService.success('Parcel unassigned successfully!');
         },
         error: (err) => {
           console.error('Error unassigning parcel:', err);
           console.error('Error details:', err.error);
           console.error('Error status:', err.status);
-          alert('Failed to unassign parcel. Please try again.');
+          this.toastService.error('Failed to unassign parcel. Please try again.');
         }
       });
     }
@@ -192,12 +198,12 @@ export class AdminDrivers implements OnInit {
           console.log('✅ Driver deleted successfully:', response);
           // Remove the driver from the local array
           this.drivers = this.drivers.filter(d => d.id !== driver.id);
-          alert(`Driver ${driver.name} has been deleted successfully.`);
+          this.toastService.success(`Driver ${driver.name} has been deleted successfully.`);
         },
         error: (err) => {
           console.error('❌ Error deleting driver:', err);
           const errorMessage = err.error?.message || err.message || 'Failed to delete driver. Please try again.';
-          alert(`Failed to delete driver: ${errorMessage}`);
+          this.toastService.error(`Failed to delete driver: ${errorMessage}`);
         }
       });
     }

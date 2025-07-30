@@ -20,15 +20,18 @@ export class App {
   showFooter = true;
   showNavbar = true;
   showLandingFooter = true;
+  currentUrl = '';
   
   constructor(private router: Router, private authService: AuthService) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = event.url;
+        this.currentUrl = url;
         
         // Check if user is logged in and get role
         const isLoggedIn = this.authService.isLoggedIn();
-        this.role = this.authService.getRole()?.toLowerCase() as 'user' | 'admin' | 'driver' | null;
+        const rawRole = this.authService.getRole();
+        this.role = rawRole?.toLowerCase() as 'user' | 'admin' | 'driver' | null;
         
         // Check if it's a dashboard page (sidebar should show instead of navbar)
         this.isDashboardPage = url.includes('/user-dashboard') || 
@@ -61,16 +64,21 @@ export class App {
           url === '/register' 
         );
         
+        // Special handling for homey page - it should show user navbar and footer
+        const isHomeyPage = url === '/homey';
+        
         // Show footer only for landing pages and non-dashboard pages, but not for driver pages
-        this.showLandingFooter = this.isLandingPage || (!this.isDashboardPage && isLoggedIn && this.role !== 'driver');
+        this.showLandingFooter = this.isLandingPage || isHomeyPage || (!this.isDashboardPage && isLoggedIn && this.role !== 'driver');
         
         // Debug logging
         console.log('Navigation Debug:', {
           url,
           isLoggedIn,
+          rawRole: rawRole,
           role: this.role,
           isLandingPage: this.isLandingPage,
           isDashboardPage: this.isDashboardPage,
+          showLandingFooter: this.showLandingFooter,
           shouldShowLandingNavbar: this.isLandingPage,
           shouldShowUserNavbar: !this.isLandingPage && this.role?.toLowerCase() === 'user' && !this.isDashboardPage,
           shouldShowAdminNavbar: !this.isLandingPage && this.role?.toLowerCase() === 'admin' && !this.isDashboardPage,
