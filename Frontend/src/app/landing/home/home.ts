@@ -1,35 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth';
+import { Router } from '@angular/router';
+import { ParcelService } from '../../services/parcel.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home implements OnInit {
+export class Home {
   trackingNumber = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private parcelService: ParcelService, private toastService: ToastService, private router: Router) {}
 
   ngOnInit() {
-    console.log('Home component initialized');
-    // Allow logged-in users to stay on home page with user navbar
+    // Component initialization logic
   }
 
   trackParcel() {
     if (!this.trackingNumber.trim()) {
-      alert('Please enter a tracking number');
+      this.toastService.error('Please enter a tracking number');
       return;
     }
 
-    // Store the tracking number in localStorage so the tracking page can access it
+    // Store tracking number and navigate to tracking page
     localStorage.setItem('pendingTrackingNumber', this.trackingNumber);
-    
-    // Navigate to the parcel tracking page
     this.router.navigate(['/parcel-tracking']);
   }
 }

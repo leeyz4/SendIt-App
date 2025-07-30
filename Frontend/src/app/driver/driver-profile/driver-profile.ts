@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DriverSidebar } from '../../shared/driver-sidebar/driver-sidebar';
+import { DriverService } from '../../services/driver.service';
 import { AuthService } from '../../services/auth';
+import { ToastService } from '../../services/toast.service';
+import { Driver } from '../../models/drivers';
 
 @Component({
   selector: 'app-driver-profile',
@@ -22,7 +25,11 @@ export class DriverProfile implements OnInit {
     phone: ''
   };
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private driverService: DriverService,
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
     this.loadDriverProfile();
@@ -70,7 +77,7 @@ export class DriverProfile implements OnInit {
     localStorage.setItem('currentUser', JSON.stringify(this.driver));
     
     this.isEditing = false;
-    alert('Profile updated successfully!');
+    this.toastService.success('Profile updated successfully!');
   }
 
   cancelEdit() {

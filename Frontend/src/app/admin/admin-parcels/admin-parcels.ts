@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminSidebar } from '../../shared/admin-sidebar/admin-sidebar';
 import { ParcelService } from '../../services/parcel.service';
+import { ToastService } from '../../services/toast.service';
 import { Parcel } from '../../models/parcels';
 
 @Component({
@@ -19,7 +20,10 @@ export class AdminParcels implements OnInit {
   loading = false;
   error = '';
 
-  constructor(private parcelService: ParcelService) {}
+  constructor(
+    private parcelService: ParcelService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
     this.loadParcels();
@@ -86,11 +90,11 @@ export class AdminParcels implements OnInit {
         if (index !== -1) {
           this.parcels[index] = updatedParcel;
         }
-        console.log('Parcel status updated successfully');
+        this.toastService.success('Parcel status updated successfully');
       },
       error: (err) => {
         console.error('Error updating parcel status:', err);
-        alert('Failed to update parcel status. Please try again.');
+        this.toastService.error('Failed to update parcel status. Please try again.');
       }
     });
   }
@@ -101,12 +105,11 @@ export class AdminParcels implements OnInit {
         next: () => {
           // Remove the parcel from the local array
           this.parcels = this.parcels.filter(p => p.id !== parcel.id);
-          console.log('Parcel deleted successfully');
-          alert(`Parcel ${parcel.trackingId} has been deleted successfully.`);
+          this.toastService.success(`Parcel ${parcel.trackingId} has been deleted successfully.`);
         },
         error: (err) => {
           console.error('Error deleting parcel:', err);
-          alert('Failed to delete parcel. Please try again.');
+          this.toastService.error('Failed to delete parcel. Please try again.');
         }
       });
     }
@@ -127,7 +130,7 @@ Parcel Details:
 - Created: ${parcel.createdAt}
 - Updated: ${parcel.updatedAt}
     `;
-    alert(details);
+    this.toastService.info(details);
   }
 
   editParcel(parcel: Parcel) {

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DriverSidebar } from '../../shared/driver-sidebar/driver-sidebar';
 import { ParcelService } from '../../services/parcel.service';
+import { AuthService } from '../../services/auth';
+import { ToastService } from '../../services/toast.service';
 import { Parcel } from '../../models/parcels';
 
 @Component({
@@ -18,7 +20,11 @@ export class DriverDashboard implements OnInit {
   loading = false;
   error = '';
 
-  constructor(private parcelService: ParcelService) {}
+  constructor(
+    private parcelService: ParcelService,
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
     this.loadDriverParcels();
@@ -56,7 +62,7 @@ export class DriverDashboard implements OnInit {
       },
       error: (err) => {
         console.error('Error updating parcel status:', err);
-        alert('Failed to update parcel status. Please try again.');
+        this.toastService.error('Failed to update parcel status. Please try again.');
       }
     });
   }

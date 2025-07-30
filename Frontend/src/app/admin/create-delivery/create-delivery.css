@@ -115,6 +115,18 @@ label{
   color: #c0392b;
   border: 1px solid #c0392b;
 }
+button{
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  border: 1px solid #b2b0b0;
+}
+button:hover{
+  background: #2067a1;
+  color: white;
+}
 
 /* Driver Assignment Styles */
 .driver-assignment {

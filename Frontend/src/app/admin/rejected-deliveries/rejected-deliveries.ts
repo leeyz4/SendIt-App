@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminSidebar } from '../../shared/admin-sidebar/admin-sidebar';
 import { ParcelService } from '../../services/parcel.service';
+import { ToastService } from '../../services/toast.service';
 import { Parcel } from '../../models/parcels';
 
 @Component({
@@ -20,7 +21,7 @@ export class RejectedDeliveries implements OnInit {
   showEditModal = false;
   editedDelivery: any = {};
 
-  constructor(private parcelService: ParcelService) {}
+  constructor(private parcelService: ParcelService, private toastService: ToastService) {}
 
   ngOnInit() {
     this.loadRejectedDeliveries();
@@ -59,34 +60,29 @@ export class RejectedDeliveries implements OnInit {
 
   resubmitDelivery() {
     if (!this.selectedDelivery) {
-      alert('No delivery selected.');
+      this.toastService.error('No delivery selected.');
       return;
     }
 
-    // Format the data properly for the backend
-    const resubmitData = {
-      description: this.editedDelivery.description,
-      weight: parseFloat(this.editedDelivery.weight),
-      price: parseFloat(this.editedDelivery.price),
-      pickupLocation: this.editedDelivery.pickupLocation,
-      destination: this.editedDelivery.destination,
-      deliveryDate: this.editedDelivery.deliveryDate ? new Date(this.editedDelivery.deliveryDate) : null
+    // Prepare the updated delivery data
+    const updatedData = {
+      ...this.selectedDelivery,
+      ...this.editedDelivery,
+      status: 'PENDING_APPROVAL' // Reset to pending for re-approval
     };
 
-    this.loading = true;
-    this.parcelService.resubmitParcel(this.selectedDelivery.id, resubmitData).subscribe({
-      next: (response) => {
-        this.loading = false;
-        this.showEditModal = false;
+    this.parcelService.resubmitParcel(this.selectedDelivery.id, updatedData).subscribe({
+      next: (updatedDelivery: any) => {
+        // Remove from rejected list and add to pending
+        this.rejectedDeliveries = this.rejectedDeliveries.filter(d => d.id !== this.selectedDelivery!.id);
         this.selectedDelivery = null;
         this.editedDelivery = {};
         this.loadRejectedDeliveries(); // Reload the list
-        alert('Delivery resubmitted successfully! User will review the updated details.');
+        this.toastService.success('Delivery resubmitted successfully! User will review the updated details.');
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error resubmitting delivery:', err);
-        this.error = 'Failed to resubmit delivery. Please try again.';
-        this.loading = false;
+        this.toastService.error('Failed to resubmit delivery. Please try again.');
       }
     });
   }

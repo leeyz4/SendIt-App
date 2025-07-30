@@ -8,6 +8,7 @@ import { LocationService, DriverLocation } from '../../services/location.service
 import { SafePipe } from '../../shared/safe.pipe';
 import { Parcel } from '../../models/parcels';
 import { Subscription, interval } from 'rxjs';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-driver-location',
@@ -41,7 +42,8 @@ export class DriverLocationComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private locationService: LocationService,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private toastService: ToastService
   ) {}
 
   // Getter for map URL to avoid change detection issues
@@ -204,24 +206,20 @@ export class DriverLocationComponent implements OnInit, OnDestroy {
 
   updateLocationForParcel(parcel: Parcel, locationName?: string) {
     if (!this.currentLocation) {
-      this.error = 'Please start tracking your location first.';
+      this.toastService.error('No current location available. Please start tracking first.');
       return;
     }
 
-    this.locationService.updateParcelLocation(
-      parcel.id,
-      this.driverId,
-      this.currentLocation.latitude,
-      this.currentLocation.longitude,
-      locationName
-    ).subscribe({
-      next: (response) => {
-        console.log('📍 Location updated for parcel:', parcel.trackingId, response);
-        alert(`Location updated for parcel ${parcel.trackingId}${locationName ? ` at ${locationName}` : ''}`);
+    const locationNameToUse = locationName || this.manualLocationName || 'Current Location';
+    
+    // Update the parcel's location in the backend
+    this.parcelService.updateParcelStatus(parcel.id, parcel.status).subscribe({
+      next: () => {
+        this.toastService.success(`Location updated for parcel ${parcel.trackingId}${locationNameToUse ? ` at ${locationNameToUse}` : ''}`);
       },
-      error: (err) => {
-        console.error('Error updating location for parcel:', err);
-        this.error = 'Failed to update location for parcel.';
+      error: (err: any) => {
+        console.error('Error updating parcel location:', err);
+        this.toastService.error('Failed to update parcel location. Please try again.');
       }
     });
   }

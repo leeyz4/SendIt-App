@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserSidebar } from '../../shared/user-sidebar/user-sidebar';
 import { ParcelService } from '../../services/parcel.service';
+import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth';
 import { Parcel } from '../../models/parcels';
 
@@ -24,7 +25,8 @@ export class DeliveryApproval implements OnInit {
 
   constructor(
     private parcelService: ParcelService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -69,12 +71,12 @@ export class DeliveryApproval implements OnInit {
       next: (updatedDelivery) => {
         this.loading = false;
         this.loadPendingDeliveries(); // Reload the list
-        alert('Delivery approved successfully!');
+        this.toastService.success('Delivery approved successfully!');
       },
       error: (err) => {
         console.error('Error approving delivery:', err);
-        this.error = 'Failed to approve delivery. Please try again.';
         this.loading = false;
+        this.toastService.error('Failed to approve delivery. Please try again.');
       }
     });
   }
@@ -86,24 +88,24 @@ export class DeliveryApproval implements OnInit {
 
   confirmRejection() {
     if (!this.selectedDelivery || !this.rejectionReason.trim()) {
-      alert('Please provide a reason for rejection.');
+      this.toastService.error('Please provide a reason for rejection.');
       return;
     }
 
     this.loading = true;
     this.parcelService.approveParcel(this.selectedDelivery.id, 'REJECTED', this.rejectionReason).subscribe({
-      next: (updatedDelivery) => {
+      next: () => {
         this.loading = false;
         this.showRejectionModal = false;
         this.selectedDelivery = null;
         this.rejectionReason = '';
         this.loadPendingDeliveries(); // Reload the list
-        alert('Delivery rejected successfully!');
+        this.toastService.success('Delivery rejected successfully!');
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error rejecting delivery:', err);
-        this.error = 'Failed to reject delivery. Please try again.';
         this.loading = false;
+        this.toastService.error('Failed to reject delivery. Please try again.');
       }
     });
   }
@@ -140,7 +142,7 @@ export class DeliveryApproval implements OnInit {
       // Navigate to forgot password page with email pre-filled
       window.open(`/forgot-password?email=${email}`, '_blank');
     } else {
-      alert('Please login first to reset your password.');
+      this.toastService.error('Please login first to reset your password.');
     }
   }
 } 
